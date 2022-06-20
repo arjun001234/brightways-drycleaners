@@ -1,0 +1,12 @@
+node_modules
+/.cache
+/server/build
+/public/build
+.env
+.env.dev
+.env.test
+.env.prod
+dockerfile
+docker-compose.yml
+codegen.yaml
+/app/prisma/migrations
