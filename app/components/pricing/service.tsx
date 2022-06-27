@@ -17,7 +17,7 @@ const Service : React.FC<ServiceProps> = ({service}) => {
   }
 
   return (
-    <div className='flex flex-col flex-1 w-auto h-auto gap-2'>
+    <div className='flex flex-col flex-1 w-auto h-auto gap-2 col-start-1 col-span-full lg:col-start-5 lg:col-span-7'>
         <h2 className='font-heading text-[32px] dark:text-white text-black font-semibold'>{service.name}</h2>
         <p className='font-text text-[16px] dark:text-white text-black'>{service.detailedDesc}</p>
         <section className='flex flex-col gap-8 mt-5'>

@@ -1,13 +1,22 @@
-import { Link } from '@remix-run/react'
+import { Link, useMatches } from '@remix-run/react'
+import React from 'react';
+import {IoMdArrowDropdown, IoMdArrowDropup} from 'react-icons/io'
 
 const ProfileSidebar = () => {
+
+  const matches = useMatches()
+  const [open,setOpen] = React.useState(false);
+
   return (
-    <div className='md:col-start-1 md:col-end-2 md:row-start-1 md:row-end-2 border-r-2 border-gray-400 '>
-      <ul className='w-full h-full flex flex-col'>
-        <li className='h-[60px] flex justify-center items-center bg-inherit dark:text-white text-black font-text font-medium text-[18px]'><Link to="/profile">Profile</Link></li>
-        <li className='h-[60px] flex justify-center items-center bg-inherit dark:text-white text-black font-text font-medium text-[18px]' ><Link to="/profile/bookings">Bookings</Link></li>
-        <li className='h-[60px] flex justify-center items-center bg-inherit dark:text-white text-black font-text font-medium text-[18px]'><Link to="/profile/reviews">Reviews</Link></li>
-        <li className='h-[60px] flex justify-center items-center bg-inherit dark:text-white text-black font-text font-medium text-[18px]'><Link to="/profile/feedbacks">Feedback</Link></li>
+    <div className={`w-full md:w-[200px] px-[20px] md:px-[50px] absolute md:static dark:bg-gray-900 bg-white`}>
+      <section className='md:hidden flex justify-between items-center w-full h-[50px]' onClick={() => setOpen(prev => !prev)}>
+        <p className=' font-text font-medium text-[18px] dark:text-white text-black'>Menu</p>
+        {!open ? <IoMdArrowDropdown className='w-10 h-10 dark:fill-white fill-black' /> : <IoMdArrowDropup className='w-7 h-7 dark:fill-white fill-black'/>}
+      </section>
+      <ul className={`w-full md:h-full flex flex-col items-start bg-inherit ${open ? "h-full" : "h-0"}`}>
+        <li onClick={() => setOpen(false)} className={`h-[60px] flex justify-center items-center bg-inherit  font-text font-medium text-[18px] ${matches[matches.length-1].id.includes("/profile") ? "text-blue" : "dark:text-white text-black"}`}><Link to="/dashboard/profile">Profile</Link></li>
+        <li onClick={() => setOpen(false)} className={`h-[60px] flex justify-center items-center bg-inherit  font-text font-medium text-[18px] ${matches[matches.length-1].id.includes("/bookings") ? "text-blue" : "dark:text-white text-black"}`} ><Link to="/dashboard/bookings">Bookings</Link></li>
+        <li onClick={() => setOpen(false)} className={`h-[60px] flex justify-center items-center bg-inherit  font-text font-medium text-[18px] ${matches[matches.length-1].id.includes("/review") ? "text-blue" : "dark:text-white text-black"}`}><Link to="/dashboard/review">Review</Link></li>
       </ul>
     </div>
   )

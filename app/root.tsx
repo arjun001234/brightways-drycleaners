@@ -26,13 +26,12 @@ import { lessRoundedBasicLargeButton } from "./utils/styles";
 import { getHeader } from "./sanity/query/header.server";
 import { getFooter } from "./sanity/query/footer.server";
 import { getSession } from "./supabase/session";
-import { isAuthenticated } from "./supabase/supabase.server";
+import { isAuthenticated, supabaseAdmin } from "./supabase/supabase.server";
+import { definitions } from "./supabase";
 
 export const loader: LoaderFunction = async ({request}) => {
 
   const header = await getHeader()
-
-  console.log("fetching header")
 
   if (!header) {
     throw new Response("Something went wrong",{status: 500});
@@ -48,17 +47,28 @@ export const loader: LoaderFunction = async ({request}) => {
     isAuthenticated: false,
     env: {
       SUPABASE_URL: process.env.SUPABASE_URL,
-      SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY
+      SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+      SERVER_URL: process.env.SERVER_URL
     }
   } as LayoutPageData
 
   const session = await getSession(request.headers.get('Cookie'))
 
   if(session.has("access_token")){
-    const user = await isAuthenticated(request,true);
+    const [user,error] = await isAuthenticated(request,true);
     if(user){
        response.isAuthenticated = true
        response.user = user
+    }
+    if(error){
+      console.log(error)
+    }
+    const profileResponse= await supabaseAdmin.from<definitions['profiles']>("profiles").select("*").eq("id",user?.id).single()
+    if(profileResponse.data){
+      response.profile = profileResponse.data
+    }
+    if(profileResponse.error){
+      console.log(profileResponse.error)
     }
   }
 
@@ -76,8 +86,17 @@ export const links: LinksFunction = () => {
       href: "https://fonts.gstatic.com",
     },
     {
+      rel: "preload",
+      as: "style",
+      href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Outfit&family=Poppins&family=Inter&display=swap"
+    },
+    {
       rel: "stylesheet",
       href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Outfit&family=Poppins&family=Inter&display=swap",
+    },
+    {
+      rel: "stylesheet",
+      href: globalStylesUrl,
     },
     {
       rel: "stylesheet",
@@ -86,10 +105,6 @@ export const links: LinksFunction = () => {
     {
       rel: "stylesheet",
       href: tailWindStyles,
-    },
-    {
-      rel: "stylesheet",
-      href: globalStylesUrl,
     },
     {
       rel: "stylesheet",
@@ -161,7 +176,7 @@ export const CatchBoundary : CatchBoundaryComponent = () => {
 
   return (
     <Document>
-      <InfoWrapper>
+      <InfoWrapper id="error">
           <div className="md:border-2 md:border-gray-400 p-10 flex flex-col gap-5">
             <h1 className=" font-heading font-bold text-[100px] dark:text-white text-black ">{error.status}</h1>
             <p className=" font-text font-medium text-center text-[18px] dark:text-white text-black">{error.data}</p>

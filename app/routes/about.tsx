@@ -19,8 +19,8 @@ const AbouPage = () => {
    const {business} = useLoaderData<AboutPageData>();
 
   return (
-    <InfoWrapper>
-    <div className="w-full">
+    <InfoWrapper id="about">
+    <div className="col-start-1 col-span-full">
         <section className='flex flex-col-reverse md:flex-row '>
             <div className='md:flex-1'>
               <p className='text-[18px] font-text text-gray-400'>{business.detailedDesc}</p>
