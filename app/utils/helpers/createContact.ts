@@ -1,11 +1,10 @@
-import { Contact } from '@prisma/client'
-import {ContactError} from '../../types/types'
+import {Contact, ContactValidationError} from '../../types/types'
 
-export const createContact = (formData: FormData) : [ContactError | null,Contact | null] => {
+export const createContact = (formData: FormData) : [ContactValidationError | null,Contact | null] => {
    const name = formData.get("name") as string | null
    const contactNumber = formData.get("contactNumber") as string | null
    const message = formData.get("message") as string | null
-   const errors : ContactError = {}
+   const errors : ContactValidationError = {}
    if (!name) {
      errors.name = "name is not provided"
      return [errors,null]   
@@ -22,7 +21,7 @@ export const createContact = (formData: FormData) : [ContactError | null,Contact
     if (contactNumber.length < 4) {
         errors.contactNumber = "contactNumber too small"
         return [errors,null]   
-    }else if (!/\S+@\S+\.\S+/.test(contactNumber)) {
+    }else if (false) {
         errors.contactNumber = "contactNumber too small"
         return [errors,null] 
     }

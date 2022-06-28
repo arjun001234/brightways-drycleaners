@@ -102,7 +102,7 @@ const Login = () => {
     supabaseClient.auth.signIn({
       provider: "google"
     },{
-      redirectTo: `http://localhost:3000/auth/callback`
+      redirectTo: `${window.env.SERVER_URL}/auth/callback`
     })
   };
 
@@ -110,9 +110,11 @@ const Login = () => {
     supabaseClient.auth.signIn({
       provider: "facebook"
     },{
-      redirectTo: `http://localhost:3000/auth/callback`
+      redirectTo: `${window.env.SERVER_URL}/auth/callback`
     })
   };
+
+  
 
 
   return (
@@ -120,7 +122,7 @@ const Login = () => {
       variants={fade}
       initial="hidden"
       animate="visible"
-      className="flex flex-col gap-10 bg-inherit overflow-visible"
+      className="flex flex-col gap-10 bg-inherit overflow-visible "
     >
       {notification?.error || notification?.success ? (
          <section className={`flex justify-center items-center h-[50px] w-full border-2 ${notification.error ? "border-[#B00020]" : notification.success ? "border-blue" : ""}`}>

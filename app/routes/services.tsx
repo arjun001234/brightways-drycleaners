@@ -19,7 +19,7 @@ export const loader : LoaderFunction = async () : Promise<ServicesPageData> => {
 
 const ServicesPage : React.FC = () => {
   return (
-    <InfoWrapper>
+    <InfoWrapper id="services">
       <DetailedServices />
     </InfoWrapper>
   )

@@ -12,8 +12,13 @@ export const getProcessQuery = () => {
           _updatedAt,
           desc,
           title,
-          steps,
-          "image": ${getImageQuery("image")}
+          "steps": steps[]{
+            _key,
+            desc,
+            heading,
+            number,
+            "image": ${getImageQuery("image")}
+          },
       }[0]`
 }
 

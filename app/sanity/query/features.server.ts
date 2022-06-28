@@ -5,17 +5,20 @@ import { getImageQuery } from "./image.server"
 
 export const getFeaturesQuery = () => {
     return `*[_type == "feature"]{
-        _createdAt,
         _id,
-        _rev,
-        _type,
-        _updatedAt,
+        number,
         desc,
         heading,
         title,
         to,
+        "highlights": highlights[],
+        "callToActions": callToActions[]{
+            _key,
+            name,
+            to
+        },
         "image": ${getImageQuery("image")}
-      }`
+      } | order(number asc)`
 }
 
 export const getFeatures = async () : Promise<Feature[]> => {

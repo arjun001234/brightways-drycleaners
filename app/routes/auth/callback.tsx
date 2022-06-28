@@ -1,5 +1,6 @@
-import { ActionFunction, LoaderFunction, redirect } from "@remix-run/node";
-import { useSubmit, useTransition } from "@remix-run/react";
+import { ActionFunction, json, LoaderFunction, redirect } from "@remix-run/node";
+import { useCatch, useLoaderData, useLocation, useSubmit, useTransition } from "@remix-run/react";
+import { CatchBoundaryComponent } from "@remix-run/react/routeModules";
 import { ApiError, AuthChangeEvent, Session } from "@supabase/supabase-js";
 import React from "react";
 import { commitSession, getSession } from "~/supabase/session";
@@ -50,6 +51,24 @@ export const action: ActionFunction = async ({ request }) => {
   return null;
 };
 
+export const loader : LoaderFunction = async ({request}) => {
+  const urlSearchParams = new URLSearchParams(request.url.split("?")[1]);
+  const params = Object.fromEntries(urlSearchParams.entries());
+  const session = await getSession(request.headers.get("Cookie"));
+
+  if(params['error']){
+    session.flash("error", {
+      message: params['error'],
+    });
+    return redirect("/auth", {
+      headers: {
+        "Set-Cookie": await commitSession(session),
+      },
+    });
+  }
+  return null
+}
+
 const Callback = () => {
   
   const submit = useSubmit();
@@ -64,7 +83,6 @@ const Callback = () => {
         method: "post",
       });
     });
-
     if(error){
       const formData = new FormData()
       formData.set("error",JSON.stringify(error))
@@ -72,13 +90,12 @@ const Callback = () => {
         method: "post",
       });
     }
-
     return () => {
       data?.unsubscribe();
     };
-  }, []);
+  },[]);
 
-  return <div className="w-full flex justify-center items-center">
+  return <div className="w-full flex justify-center items-center overflow-visible">
      {transition.state === "loading" && <div className=" inline-block w-[50px] h-[50px] after:contents-[''] after:block after:h-[40px] after:w-[40px] after:m-[5px] after:rounded-[50%] after:border-2 after:border-t-blue after:animate-spin overflow-visible" ></div>}
   </div>;
 };

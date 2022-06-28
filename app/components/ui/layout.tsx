@@ -11,7 +11,7 @@ const Layout : React.FC = ({children}) => {
   const location = useLocation();
 
   return (
-    <div className={`flex flex-col min-h-[calc(100vh - 64px)] h-auto min-w-screen`}>
+    <div className={`flex flex-col min-h-[calc(100vh - 64px)] h-auto min-w-screen scroll-smooth`}>
         <Header pathname={location.pathname} />
         <AnimatePresence exitBeforeEnter>
         <motion.main>

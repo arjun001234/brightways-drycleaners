@@ -50,7 +50,7 @@ const Header: React.FC<headerPropType> = () => {
 return (
   <header className={`${visible ? "-translate-y-full" : "translate-y-0"} fixed top-0 left-0 right-0 h-[100px] flex flex-row items-center justify-between z-40 overflow-visible transition-transform duration-300 md:overflow-hidden px-[20px] md:px-[50px] dark:bg-gray-900 bg-white`}>
      <section className="flex-1 md:flex-none">
-       <img className="h-5 w-auto bg-cover" src={logo.imageUrl} alt={logo.alt}  />
+       <img className="h-10 w-auto bg-cover" src={logo.imageUrl} alt={logo.alt}  />
      </section>
      <ul className={`${open ? "scale-100 opacity-100 " : " scale-0 opacity-0 md:scale-100 md:opacity-100"} fixed top-0 left-0 right-0 h-[100vh] flex flex-col items-center justify-center transition-all duration-500 md:static md:flex-row md:bg-[transparent] md:w-auto md:h-auto md:overflow-hidden md:gap-3 md:px-5 dark:bg-gray-900 bg-white z-30`}>
        <AiOutlineClose
@@ -65,7 +65,7 @@ return (
           <BsLightbulb className={`dark:fill-white fill-black scale-110 left-[11px] ${theme === themeType.DARK ? "opacity-100 absolute" : "opacity-0 hidden"}`} onClick={() => setAppTheme(themeType.LIGHT)} />
           <BsLightbulbFill className={`dark:fill-white fill-black scale-110 left-[11px] ${theme === themeType.LIGHT ? "opacity-100 absolute" : "opacity-0 hidden"}`} onClick={() => setAppTheme(themeType.DARK)} />
         </div>
-        {isAuthenticated && user ? <div className={`${basicButton} hidden md:flex`}><Link to="/profile" >Profile</Link></div> :
+        {isAuthenticated && user ? <div className={`${basicButton} hidden md:flex`}><Link to="/dashboard/profile" >Profile</Link></div> :
         <div className={`${basicButton} hidden md:flex`}><Link to={"/auth"}>Login</Link></div>}
      </section>
      <section className="flex justify-center items-center md:hidden ml-3 z-20">

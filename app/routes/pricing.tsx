@@ -23,21 +23,19 @@ const PricingPage = () => {
 
   const {services} = useLoaderData<PricingPageData>();
 
-  const [open, setOpen] = React.useState(false);
+  // const [open, setOpen] = React.useState(false);
 
-  const handleOpen = () => {
-    setOpen((prev) => !prev)   
-  }
+  // const handleOpen = () => {
+  //   setOpen((prev) => !prev)   
+  // }
 
   return (
     <CartProvider>
-      <InfoWrapper>
-        <div className="flex w-full flex-col md:flex-row gap-10 overflow-visible">
+      <InfoWrapper id="pricing">
           <Container services={services} />
           <Outlet context={{services}} />
           {/* <Cart open={open} handleOpen={handleOpen} />
           <CostEstimator open={open} /> */}
-        </div>
       </InfoWrapper>
     </CartProvider>
   );

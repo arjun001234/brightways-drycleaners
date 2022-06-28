@@ -10,13 +10,15 @@ const TestimonialsList = () => {
   const {testimonials} = useLoaderData<IndexPageData>()
 
   return (
-      <InfoWrapper subHeading={testimonials.sub_heading} heading={testimonials.heading}>
-      <section className='flex flex-col md:flex-row w-full items-center justify-center md:py-[50px] h-auto gap-10'>
+      <InfoWrapper subHeading={testimonials.sub_heading} heading={testimonials.heading} id="reviews">
+      <section className='flex flex-col md:flex-row w-full items-center justify-center md:py-[50px] h-auto gap-10 col-start-1 col-span-full'>
        {testimonials.data.map((testimonial) => {
          return  <Testimonial key={Math.random()*100} testimonial={testimonial} />
        })}
        </section>
+       <section className='col-start-1 col-span-full overflow-visible h-auto flex justify-center items-center py-[50px] lg:py-0'>
        <button className={`${largeBasicButton} mb-[50px]`}>More Reviews</button>
+       </section>
       </InfoWrapper>
   )
 }

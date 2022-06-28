@@ -12,13 +12,15 @@ const Process : React.FC = () => {
     const {process} = useLoaderData<IndexPageData>()
 
   return (
-      <InfoWrapper heading="How it's works" subHeading='hdhhdshbsdjbasj'>
-      <motion.div variants={fade} initial="hidden" whileInView="visible" viewport={{once: true}}  transition={{staggerChildren: 0.5}} className={`flex flex-col sm:flex-row gap-10 w-full relative md:py-[50px]`}>
+      <InfoWrapper heading="How it's works" subHeading='hdhhdshbsdjbasj' id="process">
+      <motion.div variants={fade} initial="hidden" whileInView="visible" viewport={{once: true}}  transition={{staggerChildren: 0.5}} className={`flex flex-col sm:flex-row h-auto gap-10 w-full relative md:py-[50px] col-start-1 col-span-full`}>
             {process.steps.map((step) => {
                return <Step step={step} key={step._key} />
             })}
       </motion.div>
-      <button className={`${largeBasicButton}`}>Learn More</button>
+      <section className='col-start-1 col-span-full overflow-visible h-auto flex justify-center items-center py-[50px] lg:py-0'>
+    <button className={`${largeBasicButton}`}>Learn More</button>
+    </section>
       </InfoWrapper> 
   )
 }

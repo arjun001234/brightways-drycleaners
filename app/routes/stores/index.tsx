@@ -22,7 +22,7 @@ export const loader : LoaderFunction = async () : Promise<StorePageData> => {
 
 const Index : React.FC = () => {
   return (
-    <InfoWrapper >
+    <InfoWrapper id="stores" >
       <Container />
     </InfoWrapper>
   )

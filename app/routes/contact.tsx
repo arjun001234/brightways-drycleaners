@@ -1,13 +1,13 @@
 import Contact from '~/components/contact/contact'
-import {ContactFormResponse} from '../types/types'
 import { createContact } from '~/utils/helpers/createContact'
 import InfoWrapper from '~/components/wrappers/infoWrapper'
 import { ActionFunction, json, MetaFunction } from '@remix-run/node'
-import { client } from '~/prisma/client'
+import { supabaseAdmin } from '~/supabase/supabase.server'
 
 export const action: ActionFunction = async ({request}) => {
 
   const formData = await request.formData()
+  console.log(formData)
   let [errors,contact] = createContact(formData)
   if (errors) {
     return json({
@@ -16,15 +16,25 @@ export const action: ActionFunction = async ({request}) => {
   }
   if (contact){
     try {
-      contact = await client.contact.create({data: contact})
+      const {error} = await supabaseAdmin.from("contacts").insert([{name: contact.name,contactNumber: contact.contactNumber,message: contact.message}])
+      if(error){
+        console.log(error)
+        return json({
+          error: "Failed to send message"
+        })
+      }
     } catch (error) {
       return json({
         error: "Failed to send message"
       })
     }
+
+    return json({
+      success: "Message Sent"
+    })
   }
   return json({
-    contact: Contact
+    error: "Something went wrong"
   })
 }
 
@@ -39,7 +49,7 @@ export const meta : MetaFunction = () => {
 const ContactPage = () => {
 
   return (
-    <InfoWrapper>
+    <InfoWrapper id="contact">
     <Contact />
     </InfoWrapper>
   )

@@ -1,5 +1,5 @@
-import { Contact } from '@prisma/client';
 import { User } from '@supabase/supabase-js';
+import { definitions } from '~/supabase';
 
 export enum itemOperation {
     ADD = 'ADD',
@@ -41,7 +41,7 @@ export type LayoutPageData = {
     footer: Footer,
     env: typeof window.env,
     user?: User,
-    profile?: any
+    profile?: definitions['profiles']
     isAuthenticated: boolean
 }
 
@@ -52,7 +52,8 @@ export type Feature = {
     heading: string,
     title: string,
     image: Image,
-    callToActions: Link[]
+    callToActions: Link[],
+    highlights: string[]
 }
 
 export type Step = {
@@ -70,14 +71,37 @@ export type Process = {
     steps: Step[]
 }
 
-export type  ContactError =  {
-    [Property in keyof Contact]+?: string
+export type Contact = {
+    name: string,
+    contactNumber: string,
+    message: string
 }
 
-export type ContactFormResponse = {
-    validationErrors?: ContactError
-    contact?: Contact
-    serverError?: string
+export type Review = {
+    review: string
+    rating: number
+}
+
+export type ProfileValidationError = {
+    name?: string
+    contactNumber?: string
+}
+
+export type ReviewValidationError = {
+    review?: string,
+    rating?: string
+}
+
+export type  ContactValidationError =  {
+    name?: string,
+    contactNumber?: string,
+    message?: string
+}
+
+export type FormResponse<T,U> = {
+    validationErrors?: U
+    success?: T
+    error?: string
 }
 
 export type Store = {
