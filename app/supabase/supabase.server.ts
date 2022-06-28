@@ -1,16 +1,6 @@
 import { ApiError, createClient, User } from '@supabase/supabase-js'
 import { getSession } from './session';
 
-declare global {
-    namespace NodeJS {
-      interface ProcessEnv {
-        SUPABASE_URL: string;
-        SUPABASE_SERVICE_ROLE: string;
-        SERVER_URL: string;
-      }
-    }
-  }
-
 if (!process.env.SUPABASE_URL) throw new Error('SUPABASE_URL is required');
 
 if (!process.env.SUPABASE_SERVICE_ROLE) throw new Error('PUBLIC_SUPABASE_SERVICE_ROLE is required');

@@ -13,3 +13,4 @@ codegen.yaml
 
 # Local Netlify folder
 .netlify
+.vercel
