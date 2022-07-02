@@ -61,14 +61,14 @@ const Contact: React.FC = () => {
   },[data])
 
   return (
-    <div className="w-full flex flex-col md:flex-row justify-center align-middle overflow-visible col-start-1 col-span-full">
-      <section className="hidden md:flex justify-center items-center md:flex-1 animate-bounce-in-left">
+    <div className="w-full flex flex-col lg:flex-row justify-center align-middle overflow-visible col-start-1 col-span-full">
+      <section className="hidden lg:flex justify-center items-center lg:flex-1 animate-bounce-in-left">
         <h1>Image Here</h1>
       </section>
       <Form
         method="post"
         action="/contact"
-        className="md:flex-1 flex flex-col gap-5 overflow-visible animate-bounce-in-right"
+        className="lg:flex-1 flex flex-col gap-5 overflow-visible animate-bounce-in-right"
       >
         <div className="flex flex-col ">
           <h1 className="font-heading font-semibold text-[42px] dark:text-white text-black">Contact Us</h1>

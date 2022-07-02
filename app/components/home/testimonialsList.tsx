@@ -11,7 +11,7 @@ const TestimonialsList = () => {
 
   return (
       <InfoWrapper subHeading={testimonials.sub_heading} heading={testimonials.heading} id="reviews">
-      <section className='flex flex-col md:flex-row w-full items-center justify-center md:py-[50px] h-auto gap-10 col-start-1 col-span-full'>
+      <section className='flex overflow-x-scroll justify-start flex-row w-full items-center lg:justify-center lg:py-[50px] h-auto gap-10 col-start-1 col-span-full'>
        {testimonials.data.map((testimonial) => {
          return  <Testimonial key={Math.random()*100} testimonial={testimonial} />
        })}

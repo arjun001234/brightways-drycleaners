@@ -15,7 +15,7 @@ const ServicesList : React.FC<serviceProps> = () => {
 
   return (
     <InfoWrapper heading='Our Services' subHeading='hdhhdshbsdjbasj' id="services">
-    <motion.section transition={{staggerChildren: 0.5}} className='flex flex-row gap-10 md:pb-[50px] flex-wrap justify-center items-center overflow-visible col-start-1 col-span-full'>
+    <motion.section transition={{staggerChildren: 0.5}} className='flex flex-row gap-10 lg:pb-[50px] flex-wrap justify-center items-center overflow-visible col-start-1 col-span-full'>
         {services.map((service,index)  => {
             return <Service key={service._id} service={service} delay={(index+1)*100} />
         })}

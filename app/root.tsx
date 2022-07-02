@@ -1,4 +1,5 @@
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
@@ -176,13 +177,11 @@ export const CatchBoundary : CatchBoundaryComponent = () => {
 
   return (
     <Document>
-      <InfoWrapper id="error">
-          <div className="md:border-2 md:border-gray-400 p-10 flex flex-col gap-5">
-            <h1 className=" font-heading font-bold text-[100px] dark:text-white text-black ">{error.status}</h1>
+          <div className=" absolute right-0 lg:right-[calc(50%-200px)] top-[calc(50%-200px)] md:border-2 md:border-gray-400 p-10 flex flex-col gap-5 col-start-1 col-span-full lg:col-start-4 lg:col-end-10 h-[400px] w-full lg:w-[400px]">
+            <h1 className=" font-heading font-bold text-[50px] lg:text-[100px] dark:text-white text-black text-center overflow-visible">{error.status}</h1>
             <p className=" font-text font-medium text-center text-[18px] dark:text-white text-black">{error.data}</p>
-            <button style={{width: "100%"}} className={`${lessRoundedBasicLargeButton}`} onClick={() => location.reload()}>Try Again</button>
+            <button className={`${lessRoundedBasicLargeButton} overflow-visible`}><Link to="/" >Back Home</Link></button>
           </div>
-      </InfoWrapper>
     </Document>
   )
 }

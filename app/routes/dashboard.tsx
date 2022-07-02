@@ -1,4 +1,4 @@
-import { LoaderFunction, redirect } from '@remix-run/node'
+import { LoaderFunction, MetaFunction, redirect } from '@remix-run/node'
 import { Outlet } from '@remix-run/react'
 import DashBoardWrapper from '~/components/wrappers/dashboardWrapper'
 import { destroySession, getSession } from '~/supabase/session'
@@ -29,6 +29,10 @@ export const loader : LoaderFunction = async ({request}) => {
 
   return null
 }
+
+export const meta: MetaFunction = () => {
+  return { title: "Dashboard" };
+};
 
 const Dashboard = () => {
   return (

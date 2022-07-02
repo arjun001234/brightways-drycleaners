@@ -1,4 +1,4 @@
-import { LoaderFunction } from '@remix-run/node'
+import { LoaderFunction, MetaFunction } from '@remix-run/node'
 import { AboutPageData } from '~/types/types';
 import { getBusiness } from '~/sanity/query/business.server';
 import InfoWrapper from '~/components/wrappers/infoWrapper';
@@ -14,6 +14,10 @@ export const loader : LoaderFunction = async () : Promise<AboutPageData> => {
     }
 } 
 
+export const meta: MetaFunction = () => {
+  return { title: "About" };
+};
+
 const AbouPage = () => {
 
    const {business} = useLoaderData<AboutPageData>();
@@ -21,11 +25,11 @@ const AbouPage = () => {
   return (
     <InfoWrapper id="about">
     <div className="col-start-1 col-span-full">
-        <section className='flex flex-col-reverse md:flex-row '>
-            <div className='md:flex-1'>
+        <section className='flex flex-col-reverse lg:flex-row '>
+            <div className='lg:flex-1'>
               <p className='text-[18px] font-text text-gray-400'>{business.detailedDesc}</p>
             </div>
-            <div className='md:flex-1'>
+            <div className='lg:flex-1'>
 
             </div>
         </section>

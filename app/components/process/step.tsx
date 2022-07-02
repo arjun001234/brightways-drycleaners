@@ -10,7 +10,7 @@ type StepProps = {
 const Step : React.FC<StepProps> = ({step}) => {
 
   return (
-    <motion.section variants={scaleAnim} initial="hidden" whileInView="visible"  viewport={{once: true}} className={`flex flex-1 flex-col justify-between h-[200px] items-center `} >
+    <motion.section variants={scaleAnim} initial="hidden" whileInView="visible"  viewport={{once: true}} className={`flex flex-1 flex-col gap-3 items-center overflow-visible`} >
         <div className=' h-24 w-24 rounded-[50%] bg-slate-100 flex justify-center items-center'>
           <img className='h-10 w-10' alt={step.heading} src={step.image.imageUrl} />
         </div>

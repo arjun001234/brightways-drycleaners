@@ -1,6 +1,11 @@
+import { MetaFunction } from "@remix-run/node";
 import { Outlet } from "@remix-run/react";
 import { AnimatePresence } from "framer-motion";
 import InfoWrapper from "~/components/wrappers/infoWrapper";
+
+export const meta: MetaFunction = () => {
+  return { title: "Auth" };
+};
 
 const Auth = () => {
 

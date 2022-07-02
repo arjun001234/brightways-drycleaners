@@ -13,7 +13,7 @@ const Process : React.FC = () => {
 
   return (
       <InfoWrapper heading="How it's works" subHeading='hdhhdshbsdjbasj' id="process">
-      <motion.div variants={fade} initial="hidden" whileInView="visible" viewport={{once: true}}  transition={{staggerChildren: 0.5}} className={`flex flex-col sm:flex-row h-auto gap-10 w-full relative md:py-[50px] col-start-1 col-span-full`}>
+      <motion.div variants={fade} initial="hidden" whileInView="visible" viewport={{once: true}}  transition={{staggerChildren: 0.5}} className={`flex flex-col lg:flex-row h-auto gap-10 w-full relative lg:py-[50px] col-start-1 col-span-full`}>
             {process.steps.map((step) => {
                return <Step step={step} key={step._key} />
             })}
