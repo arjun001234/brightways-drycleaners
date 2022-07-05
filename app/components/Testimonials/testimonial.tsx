@@ -1,19 +1,24 @@
 import React from "react"
 import { testimonialsType } from "~/types/types"
+import { FadeOutScaleUpAnim } from "~/utils/animations/basicAnim"
+import { motion } from 'framer-motion'
+import { isHomePage } from "~/utils/helpers/IsHomePage"
+import { useLoaderData, useLocation } from "@remix-run/react"
 
 type testimonialsProps = {
     testimonial: testimonialsType
+    delay: number
 }
 
-const Testimonial : React.FC<testimonialsProps> = ({testimonial}) => {
+const Testimonial : React.FC<testimonialsProps> = ({testimonial,delay}) => {
+
+  const location = useLocation()
 
   return (
-    <div className={`hover:shadow-lg hover:translate-y-3 transition duration-500 delay-100 min-w-[250px] w-[250px] min-h-[250px] h-[250px] dark:bg-gray-800 bg-gray-100 rounded-lg flex flex-col items-center justify-center p-4`}>
-           <p className='text-[14px] dark:text-white text-black font-text font-semibold mb-3 min-h-[100px] h-[100px]'>"{testimonial.review}"</p>
+    <motion.div variants={FadeOutScaleUpAnim} initial="hidden" whileInView="visible" custom={delay} viewport={{once: true}} className={`${!isHomePage(location.pathname) ? "w-full min-w-full min-h-auto h-auto p-6 items-start gap-5" : 'min-w-[250px] w-[250px] min-h-[250px] h-[250px] items-center p-4 gap-0'} hover:shadow-lg hover:translate-y-3 transition duration-500 delay-100 dark:bg-gray-800 bg-gray-100 rounded-lg flex flex-col justify-center`}>
+           <p className={`${!isHomePage(location.pathname) ? "min-h-auto h-auto" : "min-h-[100px] h-[100px] mb-3"} text-[14px] dark:text-white text-black font-text font-semibold`}>"{testimonial.review}"</p>
            <p className="text-[16px] text-gray-400 font-text font-extrabold">{testimonial.name}</p>
-           {/* <p className='text-text-gray text-[14px] font-normal'>{testimonial.source}</p> */}
-           {/* <a href={`/reviews/${testimonial.id}`}>Read Full Review</a> */}
-    </div>
+    </motion.div>
   )
 }
 

@@ -22,18 +22,6 @@ var __spreadValues = (a, b) => {
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __markAsModule = (target) => __defProp(target, "__esModule", { value: true });
-var __objRest = (source, exclude) => {
-  var target = {};
-  for (var prop in source)
-    if (__hasOwnProp.call(source, prop) && exclude.indexOf(prop) < 0)
-      target[prop] = source[prop];
-  if (source != null && __getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(source)) {
-      if (exclude.indexOf(prop) < 0 && __propIsEnum.call(source, prop))
-        target[prop] = source[prop];
-    }
-  return target;
-};
 var __esm = (fn, res) => function __init() {
   return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
 };
@@ -136,7 +124,7 @@ var global_large_default = "/build/_assets/global-large-55DNWN2R.css";
 var toast_default = "/build/_assets/toast-5P2K5C2H.css";
 
 // app/tailwind.css
-var tailwind_default = "/build/_assets/tailwind-6QFCSV3Y.css";
+var tailwind_default = "/build/_assets/tailwind-LVKKXLMZ.css";
 
 // app/components/ui/layout.tsx
 init_react();
@@ -241,12 +229,11 @@ var appContext_default = AppContextProvider;
 // app/utils/styles.ts
 init_react();
 var largeBasicButton = "h-[60px] w-full lg:w-auto flex justify-center items-center px-[30px] rounded-md lg:rounded-[30px] border-2 border-gray-400 font-text font-medium text-[18px] dark:text-white text-black hover:border-blue hover:scale-110 transition-all duration-300";
-var basicButton = "h-[40px] w-full lg:w-auto flex justify-center items-center px-[30px] rounded-md lg:rounded-[30px] border-2 border-gray-400 font-text font-medium text-[18px] dark:text-white text-black hover:border-blue hover:scale-110 transition-all duration-300";
+var basicButton = "min-h-[40px] h-auto w-full lg:w-auto flex justify-center items-center px-[30px] rounded-md lg:rounded-[30px] border-2 border-gray-400 font-text font-medium text-[18px] dark:text-white text-black hover:border-blue hover:scale-110 transition-all duration-300";
 var lessRoundedBasicLargeButton = "h-[60px] w-full lg:w-auto flex justify-center items-center px-[30px] rounded-md border-2 border-gray-400 font-text font-medium text-[18px] dark:text-white text-black hover:border-blue hover:scale-105 transition-all duration-300";
-var lessRoundedBasicLargeButtonFull = "h-[60px] w-full flex justify-center items-center px-[30px] rounded-md border-2 border-gray-400 font-text font-medium text-[18px] dark:text-white text-black hover:border-blue hover:scale-105 transition-all duration-300";
 var borderGrowAnim = "after:z-[-1] after:content-[''] after:absolute after:top-0 after:left-0 after:right-0 after:bottom-0 hover:after:opacity-100 hover:after:scale-105 after:scale-100 after:opacity-0 after:border-[3px] after:border-blue after:rounded-md after:transition-all after:duration-300";
 var lessRoundedBasicInput = "h-[60px] w-full flex justify-center items-center px-[30px] rounded-md border-2 border-gray-400 font-text font-medium text-[18px] dark:text-white  text-black transition-all duration-300 outline-none border-none dark:bg-gray-800 bg-gray-50 px-3  placeholder:font-text placeholder:font-semibold placeholder:text-gray-400 text-[16px]";
-var lessRoundedBasicInputWithBorder = "h-[60px] w-full flex justify-center items-center px-[30px] rounded-md border-2 border-gray-400 font-text font-medium text-[18px] dark:text-white  text-black transition-all duration-300 outline-none dark:bg-gray-800 bg-gray-50 px-3  placeholder:font-text placeholder:font-semibold placeholder:text-gray-400 text-[16px]";
+var lessRoundedBasicInputWithBorder = "h-[60px] w-full flex justify-center items-center px-[30px] rounded-md border-2 border-gray-400 font-text font-medium text-[18px] dark:text-white  text-black transition-all duration-300 outline-none dark:bg-gray-800 bg-gray-50 px-3  placeholder:font-text placeholder:font-semibold placeholder:text-gray-400 text-[16px] focus:border-blue";
 
 // app/components/ui/header.tsx
 var import_react8 = require("@remix-run/react");
@@ -340,7 +327,12 @@ var Header = () => {
     }, link.name), /* @__PURE__ */ import_react7.default.createElement("span", {
       className: `${isCurrentPage(link.to) ? "w-full" : "w-0"}  group-hover:w-full hidden lg:flex h-[4px] transition-all bg-blue duration-100`
     }));
-  }), /* @__PURE__ */ import_react7.default.createElement("li", {
+  }), isAuthenticated2 && user ? /* @__PURE__ */ import_react7.default.createElement("li", {
+    className: ` py-4 w-[80%] lg:hidden font-text font-[18px] font-bold flex flex-col gap-1 justify-center items-center rounded-md transition-all duration-300 dark:text-white text-black lg:text-gray-400 lg:p-2 lg:w-auto lg:overflow-visible lg:font-medium`
+  }, /* @__PURE__ */ import_react7.default.createElement(import_react8.Link, {
+    to: "/dashboard/profile",
+    onClick: () => setOpen(false)
+  }, "Profile")) : /* @__PURE__ */ import_react7.default.createElement("li", {
     className: ` py-4 w-[80%] lg:hidden font-text font-[18px] font-bold flex flex-col gap-1 justify-center items-center rounded-md transition-all duration-300 dark:text-white text-black lg:text-gray-400 lg:p-2 lg:w-auto lg:overflow-visible lg:font-medium`
   }, /* @__PURE__ */ import_react7.default.createElement(import_react8.Link, {
     to: "/auth",
@@ -885,6 +877,9 @@ init_react();
 var import_react22 = require("@remix-run/react");
 var import_react23 = __toESM(require("react"));
 var import_io = require("react-icons/io");
+var capitalizeFirstLetter = (str) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+};
 var ProfileSidebar = () => {
   const matches = (0, import_react22.useMatches)();
   const [open, setOpen] = import_react23.default.useState(false);
@@ -895,7 +890,7 @@ var ProfileSidebar = () => {
     onClick: () => setOpen((prev) => !prev)
   }, /* @__PURE__ */ import_react23.default.createElement("p", {
     className: " font-text font-medium text-[18px] dark:text-white text-black"
-  }, "Menu"), !open ? /* @__PURE__ */ import_react23.default.createElement(import_io.IoMdArrowDropdown, {
+  }, capitalizeFirstLetter(matches[2].id.split("/")[2])), !open ? /* @__PURE__ */ import_react23.default.createElement(import_io.IoMdArrowDropdown, {
     className: "w-10 h-10 dark:fill-white fill-black"
   }) : /* @__PURE__ */ import_react23.default.createElement(import_io.IoMdArrowDropup, {
     className: "w-7 h-7 dark:fill-white fill-black"
@@ -966,7 +961,11 @@ __export(bookings_exports, {
 init_react();
 var import_react26 = __toESM(require("react"));
 var Bookings = () => {
-  return /* @__PURE__ */ import_react26.default.createElement("div", null, "Bookings");
+  return /* @__PURE__ */ import_react26.default.createElement("div", {
+    className: "h-full w-full flex justify-center items-center"
+  }, /* @__PURE__ */ import_react26.default.createElement("h1", {
+    className: "font-heading font-medium dark:text-white text-black text-[24px]"
+  }, "Coming Soon"));
 };
 var bookings_default = Bookings;
 
@@ -981,31 +980,28 @@ init_react();
 var import_node3 = require("@remix-run/node");
 var import_react28 = require("@remix-run/react");
 var import_react29 = __toESM(require("react"));
-var import_md = require("react-icons/md");
-var import_ai2 = require("react-icons/ai");
 var import_fa2 = require("react-icons/fa");
 
 // app/components/ui/input.tsx
 init_react();
 var import_react27 = __toESM(require("react"));
-var Input = ({ label, type, placeholder, name, error, handleChange, defaultValue = "", disabled = false, style }) => {
-  return /* @__PURE__ */ import_react27.default.createElement("div", {
-    className: `w-full flex flex-col gap-2`
-  }, /* @__PURE__ */ import_react27.default.createElement("label", {
-    className: "font-text font-normal text-[16px] dark:text-white text-black",
-    htmlFor: name
-  }, label), /* @__PURE__ */ import_react27.default.createElement("input", {
-    className: style,
-    onChange: handleChange.bind(null),
-    type,
-    placeholder,
-    name,
-    defaultValue,
-    disabled
-  }), error && /* @__PURE__ */ import_react27.default.createElement("p", {
-    className: " text-[#FF0000]"
-  }, error));
-};
+var Input = import_react27.default.forwardRef(({ label, type, placeholder, name, error, handleChange, defaultValue = "", disabled = false, style }, ref) => /* @__PURE__ */ import_react27.default.createElement("div", {
+  className: `w-full flex flex-col gap-2`
+}, /* @__PURE__ */ import_react27.default.createElement("label", {
+  className: "font-text font-normal text-[16px] dark:text-white text-black",
+  htmlFor: name
+}, label), /* @__PURE__ */ import_react27.default.createElement("input", {
+  ref,
+  className: style,
+  onChange: handleChange.bind(null),
+  type,
+  placeholder,
+  name,
+  defaultValue,
+  disabled
+}), error && /* @__PURE__ */ import_react27.default.createElement("p", {
+  className: " text-[#FF0000]"
+}, error)));
 var input_default = Input;
 
 // app/utils/helpers/createProfile.ts
@@ -1090,6 +1086,8 @@ var ProfilePage = () => {
   const tranistion = (0, import_react28.useTransition)();
   const { user, isAuthenticated: isAuthenticated2, setProfile, profile } = import_react29.default.useContext(AppContext);
   const [validationError, setValidationError] = import_react29.default.useState((data == null ? void 0 : data.validationErrors) ? data.validationErrors : {});
+  const nameRef = import_react29.default.useRef(null);
+  const contactNumber = import_react29.default.useRef(null);
   import_react29.default.useEffect(() => {
     if (data == null ? void 0 : data.success) {
       setProfile(data.success);
@@ -1115,6 +1113,15 @@ var ProfilePage = () => {
       setValidationError((prev) => __spreadProps(__spreadValues({}, prev), { contactNumber: void 0 }));
     }
   };
+  const handleDiscard = () => {
+    setValidationError({});
+    if (nameRef.current) {
+      nameRef.current.value = "";
+    }
+    if (contactNumber.current) {
+      contactNumber.current.value = "";
+    }
+  };
   return /* @__PURE__ */ import_react29.default.createElement("div", {
     className: "flex flex-col gap-20 overflow-visible"
   }, /* @__PURE__ */ import_react29.default.createElement("section", {
@@ -1131,12 +1138,13 @@ var ProfilePage = () => {
   }, /* @__PURE__ */ import_react29.default.createElement(input_default, {
     type: "text",
     name: "name",
+    ref: nameRef,
     label: "Name",
     placeholder: "Your Name",
     error: validationError.name,
     handleChange: handleNameChange,
     defaultValue: profile == null ? void 0 : profile.name,
-    style: lessRoundedBasicInput
+    style: lessRoundedBasicInputWithBorder
   }), /* @__PURE__ */ import_react29.default.createElement(input_default, {
     defaultValue: user.email,
     type: "text",
@@ -1146,38 +1154,31 @@ var ProfilePage = () => {
     handleChange: () => {
     },
     error: void 0,
-    style: lessRoundedBasicInput
+    style: lessRoundedBasicInputWithBorder
   }), /* @__PURE__ */ import_react29.default.createElement(input_default, {
     defaultValue: (profile == null ? void 0 : profile.contactNumber) ? profile.contactNumber : "",
     type: "text",
     name: "contactNumber",
+    ref: contactNumber,
     label: "Contact Number",
     placeholder: "Your contact number",
     handleChange: handleContactNumberChange,
     error: validationError.contactNumber,
-    style: lessRoundedBasicInput
+    style: lessRoundedBasicInputWithBorder
   }), /* @__PURE__ */ import_react29.default.createElement("input", {
     className: "hidden",
     name: "event",
     defaultValue: "UPDATE_USER"
-  }), /* @__PURE__ */ import_react29.default.createElement("button", {
+  }), /* @__PURE__ */ import_react29.default.createElement("section", {
+    className: "my-3 flex flex-row items-center justify-start gap-5 overflow-visible"
+  }, /* @__PURE__ */ import_react29.default.createElement("button", {
     disabled: tranistion.state === "submitting" && Object.keys(validationError).length > 0,
-    className: `${lessRoundedBasicLargeButtonFull}`
-  }, "Save"))), /* @__PURE__ */ import_react29.default.createElement("section", {
-    className: "flex flex-col gap-10 overflow-visible"
-  }, /* @__PURE__ */ import_react29.default.createElement("div", {
-    className: "flex justify-start items-center gap-3"
-  }, /* @__PURE__ */ import_react29.default.createElement(import_ai2.AiOutlineHome, {
-    className: "dark:fill-white fill-black h-10 w-10"
-  }), /* @__PURE__ */ import_react29.default.createElement("h1", {
-    className: " font-heading font-medium dark:text-white text-black text-[24px]"
-  }, "Address")), /* @__PURE__ */ import_react29.default.createElement(import_react28.Outlet, null), /* @__PURE__ */ import_react29.default.createElement("button", {
-    className: `${lessRoundedBasicLargeButton} flex justify-center items-center`
-  }, /* @__PURE__ */ import_react29.default.createElement(import_react28.Link, {
-    to: "/dashboard/profile/newAddress"
-  }, "New Address"), /* @__PURE__ */ import_react29.default.createElement(import_md.MdAdd, {
-    className: "dark:fill-white fill-black ml-3 h-5 w-5"
-  }))), /* @__PURE__ */ import_react29.default.createElement("section", {
+    className: `${lessRoundedBasicLargeButton}`
+  }, "Save"), /* @__PURE__ */ import_react29.default.createElement("button", {
+    type: "button",
+    onClick: handleDiscard.bind(null),
+    className: `${lessRoundedBasicLargeButton}`
+  }, "Discard")))), /* @__PURE__ */ import_react29.default.createElement("section", {
     className: "flex flex-col md:flex-row justify-center items-center gap-5 mt-[50px] w-full overflow-visible"
   }, /* @__PURE__ */ import_react29.default.createElement(import_react28.Form, {
     method: "post",
@@ -1207,75 +1208,6 @@ var ErrorBoundary3 = ({ error }) => {
 };
 var profile_default = ProfilePage;
 
-// route:D:\projects\brightways\remix\app\routes\dashboard\profile\newAddress.tsx
-var newAddress_exports = {};
-__export(newAddress_exports, {
-  default: () => newAddress_default
-});
-init_react();
-
-// app/components/containers/form.tsx
-init_react();
-var import_react30 = require("@remix-run/react");
-var import_react31 = __toESM(require("react"));
-var FormComponent = ({ method, action: action6, inputs, buttons }) => {
-  return /* @__PURE__ */ import_react31.default.createElement(import_react30.Form, {
-    method,
-    action: action6
-  }, inputs.map((i) => {
-    return /* @__PURE__ */ import_react31.default.createElement(input_default, __spreadValues({
-      key: i.name
-    }, i));
-  }), buttons.map((_a) => {
-    var _b = _a, { disabled = false } = _b, b = __objRest(_b, ["disabled"]);
-    if (b.handleClick) {
-      return /* @__PURE__ */ import_react31.default.createElement("button", {
-        key: b.id,
-        type: "button",
-        className: b.style,
-        disabled,
-        onClick: b.handleClick
-      }, b.content);
-    }
-    return /* @__PURE__ */ import_react31.default.createElement("button", {
-      key: b.id,
-      type: b.type,
-      className: b.style,
-      disabled
-    }, b.content);
-  }));
-};
-var form_default = FormComponent;
-
-// route:D:\projects\brightways\remix\app\routes\dashboard\profile\newAddress.tsx
-var NewAddress = () => {
-  const handleAddressChange = (e) => {
-  };
-  return /* @__PURE__ */ React.createElement(form_default, {
-    method: "post",
-    action: "/dashboard/profile/newAddress",
-    buttons: [
-      {
-        id: 1,
-        type: "submit",
-        content: "Add",
-        disabled: false,
-        style: lessRoundedBasicLargeButton
-      }
-    ],
-    inputs: [{
-      type: "text",
-      label: "Address",
-      name: "address",
-      placeholder: "Enter your address here",
-      error: void 0,
-      handleChange: handleAddressChange,
-      style: lessRoundedBasicInput
-    }]
-  });
-};
-var newAddress_default = NewAddress;
-
 // route:D:\projects\brightways\remix\app\routes\dashboard\review.tsx
 var review_exports = {};
 __export(review_exports, {
@@ -1285,8 +1217,8 @@ __export(review_exports, {
 });
 init_react();
 var import_node4 = require("@remix-run/node");
-var import_react32 = require("@remix-run/react");
-var import_react33 = __toESM(require("react"));
+var import_react30 = require("@remix-run/react");
+var import_react31 = __toESM(require("react"));
 var import_bs3 = require("react-icons/bs");
 var import_react_toastify2 = require("react-toastify");
 
@@ -1367,10 +1299,12 @@ var loader4 = async ({ request }) => {
   });
 };
 var Review = () => {
-  const transition = (0, import_react32.useTransition)();
-  const data = (0, import_react32.useLoaderData)();
-  const actionData = (0, import_react32.useActionData)();
-  const [validationError, setValidationError] = import_react33.default.useState((actionData == null ? void 0 : actionData.validationErrors) ? actionData.validationErrors : {});
+  const transition = (0, import_react30.useTransition)();
+  const data = (0, import_react30.useLoaderData)();
+  const actionData = (0, import_react30.useActionData)();
+  const [validationError, setValidationError] = import_react31.default.useState((actionData == null ? void 0 : actionData.validationErrors) ? actionData.validationErrors : {});
+  const reviewRef = import_react31.default.useRef(null);
+  const ratingRef = import_react31.default.useRef(null);
   const handleReviewChange = (e) => {
     const value = e.target.value;
     if (value.length === 0) {
@@ -1387,47 +1321,64 @@ var Review = () => {
       setValidationError((prev) => __spreadProps(__spreadValues({}, prev), { rating: "value should be between 0 - 5" }));
     }
   };
-  import_react33.default.useEffect(() => {
+  const handleDiscard = () => {
+    setValidationError({});
+    if (ratingRef.current) {
+      ratingRef.current.value = "";
+    }
+    if (reviewRef.current) {
+      reviewRef.current.value = "";
+    }
+  };
+  import_react31.default.useEffect(() => {
     if (actionData == null ? void 0 : actionData.success) {
       import_react_toastify2.toast.success("Reviewed Successfully", {
         position: "top-right"
       });
     }
   }, [actionData]);
-  return /* @__PURE__ */ import_react33.default.createElement("div", {
+  return /* @__PURE__ */ import_react31.default.createElement("div", {
     className: "flex flex-col gap-20 overflow-visible"
-  }, /* @__PURE__ */ import_react33.default.createElement("section", {
+  }, /* @__PURE__ */ import_react31.default.createElement("section", {
     className: "flex flex-col gap-10 overflow-visible"
-  }, /* @__PURE__ */ import_react33.default.createElement("div", {
+  }, /* @__PURE__ */ import_react31.default.createElement("div", {
     className: "flex justify-start items-center gap-3"
-  }, /* @__PURE__ */ import_react33.default.createElement(import_bs3.BsPen, {
+  }, /* @__PURE__ */ import_react31.default.createElement(import_bs3.BsPen, {
     className: "dark:fill-white fill-black h-10 w-10"
-  }), /* @__PURE__ */ import_react33.default.createElement("h1", {
+  }), /* @__PURE__ */ import_react31.default.createElement("h1", {
     className: " font-heading font-medium dark:text-white text-black text-[24px]"
-  }, "Write Review")), data.reviews && data.reviews.length < 2 && /* @__PURE__ */ import_react33.default.createElement("form", {
+  }, "Write Review")), data.reviews && data.reviews.length < 2 && /* @__PURE__ */ import_react31.default.createElement("form", {
     method: "post",
     className: "flex flex-col gap-5 items-start overflow-visible"
-  }, /* @__PURE__ */ import_react33.default.createElement(input_default, {
+  }, /* @__PURE__ */ import_react31.default.createElement(input_default, {
     type: "text",
     name: "review",
+    ref: reviewRef,
     placeholder: "Your Review",
     label: "Review",
     handleChange: handleReviewChange,
     error: validationError.review,
-    style: lessRoundedBasicInput
-  }), /* @__PURE__ */ import_react33.default.createElement(input_default, {
+    style: lessRoundedBasicInputWithBorder
+  }), /* @__PURE__ */ import_react31.default.createElement(input_default, {
     type: "text",
     name: "rating",
+    ref: ratingRef,
     placeholder: "Rating 0 to 5",
     label: "Rating",
     handleChange: handleRatingChange,
     error: validationError.rating,
-    style: lessRoundedBasicInput
-  }), /* @__PURE__ */ import_react33.default.createElement("button", {
+    style: lessRoundedBasicInputWithBorder
+  }), /* @__PURE__ */ import_react31.default.createElement("section", {
+    className: "my-3 flex flex-row items-center justify-start gap-5 overflow-visible"
+  }, /* @__PURE__ */ import_react31.default.createElement("button", {
     disabled: transition.state === "submitting" || validationError.review ? true : validationError.rating ? true : false,
     type: "submit",
-    className: `${lessRoundedBasicLargeButtonFull}`
-  }, transition.state === "submitting" ? "Posting..." : "Post"))), /* @__PURE__ */ import_react33.default.createElement("section", null));
+    className: `${lessRoundedBasicLargeButton}`
+  }, transition.state === "submitting" ? "Posting..." : "Post"), /* @__PURE__ */ import_react31.default.createElement("button", {
+    type: "button",
+    onClick: handleDiscard.bind(null),
+    className: `${lessRoundedBasicLargeButton}`
+  }, "Discard")))), /* @__PURE__ */ import_react31.default.createElement("section", null));
 };
 var review_default = Review;
 
@@ -1440,25 +1391,25 @@ __export(services_exports, {
 });
 init_react();
 var import_node5 = require("@remix-run/node");
-var import_react36 = __toESM(require("react"));
+var import_react34 = __toESM(require("react"));
 
 // app/components/services/detailedServices.tsx
 init_react();
-var import_react35 = require("@remix-run/react");
+var import_react33 = require("@remix-run/react");
 
 // app/components/services/detailedService.tsx
 init_react();
-var import_react34 = __toESM(require("react"));
+var import_react32 = __toESM(require("react"));
 var DeatailedService = ({ service }) => {
-  return /* @__PURE__ */ import_react34.default.createElement("div", {
+  return /* @__PURE__ */ import_react32.default.createElement("div", {
     className: `flex flex-col-reverse lg:flex-row lg:even:flex-row-reverse items-center gap-20 overflow-visible odd:animate-bounce-in-right even:animate-bounce-in-left`
-  }, /* @__PURE__ */ import_react34.default.createElement("section", {
+  }, /* @__PURE__ */ import_react32.default.createElement("section", {
     className: "flex-1 flex flex-col gap-3 overflow-visible"
-  }, /* @__PURE__ */ import_react34.default.createElement("h1", {
+  }, /* @__PURE__ */ import_react32.default.createElement("h1", {
     className: "font-heading font-bold text-[24px] dark:text-white text-black overflow-visible"
-  }, service.name), /* @__PURE__ */ import_react34.default.createElement("p", {
+  }, service.name), /* @__PURE__ */ import_react32.default.createElement("p", {
     className: "font-text font-medium text-gray-400 text-[18px] overflow-visible"
-  }, service.detailedDesc)), /* @__PURE__ */ import_react34.default.createElement("section", {
+  }, service.detailedDesc)), /* @__PURE__ */ import_react32.default.createElement("section", {
     className: "flex-1 flex flex-row"
   }));
 };
@@ -1466,7 +1417,7 @@ var detailedService_default = DeatailedService;
 
 // app/components/services/detailedServices.tsx
 var DetailedServices = () => {
-  const { services } = (0, import_react35.useLoaderData)();
+  const { services } = (0, import_react33.useLoaderData)();
   return /* @__PURE__ */ React.createElement("div", {
     className: `grid grid-cols-1 w-full h-auto gap-40 overflow-y-visible col-start-1 col-span-full`
   }, services.map((service) => {
@@ -1521,9 +1472,9 @@ var meta4 = () => {
   return { title: "Services" };
 };
 var ServicesPage = () => {
-  return /* @__PURE__ */ import_react36.default.createElement(infoWrapper_default, {
+  return /* @__PURE__ */ import_react34.default.createElement(infoWrapper_default, {
     id: "services"
-  }, /* @__PURE__ */ import_react36.default.createElement(detailedServices_default, null));
+  }, /* @__PURE__ */ import_react34.default.createElement(detailedServices_default, null));
 };
 var services_default = ServicesPage;
 
@@ -1538,13 +1489,13 @@ init_react();
 
 // app/components/contact/contact.tsx
 init_react();
-var import_react37 = require("@remix-run/react");
-var import_react38 = __toESM(require("react"));
+var import_react35 = require("@remix-run/react");
+var import_react36 = __toESM(require("react"));
 var import_react_toastify3 = require("react-toastify");
 var Contact = () => {
-  const transition = (0, import_react37.useTransition)();
-  const data = (0, import_react37.useActionData)();
-  const [formErrors, setFormErrors] = import_react38.default.useState((data == null ? void 0 : data.validationErrors) ? data.validationErrors : {});
+  const transition = (0, import_react35.useTransition)();
+  const data = (0, import_react35.useActionData)();
+  const [formErrors, setFormErrors] = import_react36.default.useState((data == null ? void 0 : data.validationErrors) ? data.validationErrors : {});
   const handleNameChange = (e) => {
     const name = e.target.value;
     if (!name) {
@@ -1577,31 +1528,31 @@ var Contact = () => {
       setFormErrors((prev) => __spreadProps(__spreadValues({}, prev), { message: void 0 }));
     }
   };
-  import_react38.default.useEffect(() => {
+  import_react36.default.useEffect(() => {
     if (data == null ? void 0 : data.error) {
       import_react_toastify3.toast.error(data.error);
     }
   }, [data]);
-  import_react38.default.useEffect(() => {
+  import_react36.default.useEffect(() => {
     if (data == null ? void 0 : data.success) {
       import_react_toastify3.toast.success("Message Sent!");
     }
   }, [data]);
-  return /* @__PURE__ */ import_react38.default.createElement("div", {
+  return /* @__PURE__ */ import_react36.default.createElement("div", {
     className: "w-full flex flex-col lg:flex-row justify-center align-middle overflow-visible col-start-1 col-span-full"
-  }, /* @__PURE__ */ import_react38.default.createElement("section", {
+  }, /* @__PURE__ */ import_react36.default.createElement("section", {
     className: "hidden lg:flex justify-center items-center lg:flex-1 animate-bounce-in-left"
-  }, /* @__PURE__ */ import_react38.default.createElement("h1", null, "Image Here")), /* @__PURE__ */ import_react38.default.createElement(import_react37.Form, {
+  }, /* @__PURE__ */ import_react36.default.createElement("h1", null, "Image Here")), /* @__PURE__ */ import_react36.default.createElement(import_react35.Form, {
     method: "post",
     action: "/contact",
     className: "lg:flex-1 flex flex-col gap-5 overflow-visible animate-bounce-in-right"
-  }, /* @__PURE__ */ import_react38.default.createElement("div", {
+  }, /* @__PURE__ */ import_react36.default.createElement("div", {
     className: "flex flex-col "
-  }, /* @__PURE__ */ import_react38.default.createElement("h1", {
+  }, /* @__PURE__ */ import_react36.default.createElement("h1", {
     className: "font-heading font-semibold text-[42px] dark:text-white text-black"
-  }, "Contact Us"), /* @__PURE__ */ import_react38.default.createElement("p", {
+  }, "Contact Us"), /* @__PURE__ */ import_react36.default.createElement("p", {
     className: "font-text font-normal text-[16px] dark:text-white text-black"
-  }, "Explore the future with us.", /* @__PURE__ */ import_react38.default.createElement("br", null), "Feel free to get in touch.")), /* @__PURE__ */ import_react38.default.createElement(input_default, {
+  }, "Explore the future with us.", /* @__PURE__ */ import_react36.default.createElement("br", null), "Feel free to get in touch.")), /* @__PURE__ */ import_react36.default.createElement(input_default, {
     name: "name",
     label: "Name",
     placeholder: "Enter your name here.",
@@ -1609,7 +1560,7 @@ var Contact = () => {
     style: lessRoundedBasicInput,
     error: formErrors.name,
     handleChange: handleNameChange
-  }), /* @__PURE__ */ import_react38.default.createElement(input_default, {
+  }), /* @__PURE__ */ import_react36.default.createElement(input_default, {
     name: "contactNumber",
     label: "Contact Number",
     placeholder: "Enter your number here.",
@@ -1617,7 +1568,7 @@ var Contact = () => {
     style: lessRoundedBasicInput,
     error: formErrors.contactNumber,
     handleChange: handleEmailChange
-  }), /* @__PURE__ */ import_react38.default.createElement(input_default, {
+  }), /* @__PURE__ */ import_react36.default.createElement(input_default, {
     name: "message",
     label: "Message",
     placeholder: "Enter your message here.",
@@ -1625,7 +1576,7 @@ var Contact = () => {
     style: lessRoundedBasicInput,
     error: formErrors.message,
     handleChange: handleMessageChange
-  }), /* @__PURE__ */ import_react38.default.createElement("button", {
+  }), /* @__PURE__ */ import_react36.default.createElement("button", {
     disabled: transition.state === "submitting",
     className: `${lessRoundedBasicLargeButton} mt-5`,
     type: "submit"
@@ -1732,45 +1683,45 @@ __export(pricing_exports, {
   meta: () => meta6
 });
 init_react();
-var import_react43 = __toESM(require("react"));
+var import_react41 = __toESM(require("react"));
 
 // app/components/services/container.tsx
 init_react();
-var import_react41 = __toESM(require("react"));
+var import_react39 = __toESM(require("react"));
 
 // app/components/services/service.tsx
 init_react();
-var import_react39 = __toESM(require("react"));
+var import_react37 = __toESM(require("react"));
 
 // public/images/dry-cleaning.png
 var dry_cleaning_default = "/build/_assets/dry-cleaning-E25CI4UP.png";
 
 // app/components/services/service.tsx
-var import_react40 = require("@remix-run/react");
+var import_react38 = require("@remix-run/react");
 var Service = ({ service, delay }) => {
-  const location2 = (0, import_react40.useLocation)();
-  return /* @__PURE__ */ import_react39.default.createElement(import_react40.Link, {
+  const location2 = (0, import_react38.useLocation)();
+  return /* @__PURE__ */ import_react37.default.createElement(import_react38.Link, {
     to: `/pricing/${service.name}`,
-    className: `${isHomePage(location2.pathname) ? "lg:h-60 h-40 w-full lg:w-60 flex-col justify-center items-center" : `h-24 w-full flex-row`} dark:bg-gray-800 bg-slate-100 p-3 gap-2 rounded-md flex flex-row items-cente hover:scale-110 relative z-10 overflow-visible ${borderGrowAnim} animate-fade-in-fwd animation-delay-${delay}`
-  }, /* @__PURE__ */ import_react39.default.createElement("section", {
+    className: `${isHomePage(location2.pathname) ? "lg:h-64 h-40 w-full lg:w-64 flex-col justify-center items-center" : `h-24 w-full flex-row`} dark:bg-gray-800 bg-slate-100 p-3 gap-2 rounded-md flex flex-row items-cente hover:scale-110 relative z-10 overflow-visible ${borderGrowAnim} animate-fade-in-fwd animation-delay-${delay}`
+  }, /* @__PURE__ */ import_react37.default.createElement("section", {
     className: "flex justify-center opacity-100 items-center overflow-hidden h-[50px] w-[50px]"
-  }, /* @__PURE__ */ import_react39.default.createElement("img", {
+  }, /* @__PURE__ */ import_react37.default.createElement("img", {
     className: " h-full w-full",
     src: dry_cleaning_default
-  })), /* @__PURE__ */ import_react39.default.createElement("section", {
+  })), /* @__PURE__ */ import_react37.default.createElement("section", {
     className: "dark:text-white text-black flex flex-col gap-[3px] opacity-100"
-  }, /* @__PURE__ */ import_react39.default.createElement("p", null, service.name)));
+  }, /* @__PURE__ */ import_react37.default.createElement("p", null, service.name)));
 };
 var service_default = Service;
 
 // app/components/services/container.tsx
 var Container2 = ({ services, open }) => {
-  return /* @__PURE__ */ import_react41.default.createElement("section", {
+  return /* @__PURE__ */ import_react39.default.createElement("section", {
     className: `absolute min-h-screen overflow-y-scroll h-auto left-0 ${open ? "top-[100px]" : "top-[-100%]"} w-full flex justify-center py-[50px] lg:py-0 lg:static lg:overflow-visible lg:col-start-1 lg:col-span-4 lg:w-auto lg:h-auto dark:bg-slate-900 bg-white transition-all duration-500 ease-linear z-20`
-  }, /* @__PURE__ */ import_react41.default.createElement("div", {
+  }, /* @__PURE__ */ import_react39.default.createElement("div", {
     className: "flex flex-col gap-5 overflow-visible w-[80%] lg:w-full"
   }, services.map((service, index) => {
-    return /* @__PURE__ */ import_react41.default.createElement(service_default, {
+    return /* @__PURE__ */ import_react39.default.createElement(service_default, {
       key: service._id,
       delay: (index + 1) * 100,
       service
@@ -1781,11 +1732,11 @@ var container_default2 = Container2;
 
 // app/components/context/cartContext.tsx
 init_react();
-var import_react42 = __toESM(require("react"));
-var CartContext = import_react42.default.createContext(null);
+var import_react40 = __toESM(require("react"));
+var CartContext = import_react40.default.createContext(null);
 var CartProvider = ({ children }) => {
-  const [items, setItems] = import_react42.default.useState([]);
-  const [totalCost, setTotalCost] = import_react42.default.useState(0);
+  const [items, setItems] = import_react40.default.useState([]);
+  const [totalCost, setTotalCost] = import_react40.default.useState(0);
   const getTotalCost = () => {
     const cost = items.reduce((prev, curr) => {
       return prev + curr.quantity * curr.item.price;
@@ -1817,7 +1768,7 @@ var CartProvider = ({ children }) => {
       });
     }
   };
-  import_react42.default.useEffect(() => {
+  import_react40.default.useEffect(() => {
     getTotalCost();
   }, [items]);
   const getTotalItems = () => {
@@ -1825,15 +1776,15 @@ var CartProvider = ({ children }) => {
       return prev + curr.quantity;
     }, 0);
   };
-  return /* @__PURE__ */ import_react42.default.createElement(CartContext.Provider, {
+  return /* @__PURE__ */ import_react40.default.createElement(CartContext.Provider, {
     value: { cart: { estimatedCost: totalCost, items }, add, remove, getTotalItems }
   }, children);
 };
 var cartContext_default = CartProvider;
 
 // route:D:\projects\brightways\remix\app\routes\pricing.tsx
-var import_react44 = require("@remix-run/react");
-var import_md2 = require("react-icons/md");
+var import_react42 = require("@remix-run/react");
+var import_md = require("react-icons/md");
 var loader6 = async () => {
   const services = await getServices();
   if (!services) {
@@ -1847,21 +1798,24 @@ var meta6 = () => {
   return { title: "Pricing" };
 };
 var PricingPage = () => {
-  const { services } = (0, import_react44.useLoaderData)();
-  const [open, setOpen] = import_react43.default.useState(false);
-  return /* @__PURE__ */ import_react43.default.createElement(cartContext_default, null, /* @__PURE__ */ import_react43.default.createElement(infoWrapper_default, {
+  const { services } = (0, import_react42.useLoaderData)();
+  const [open, setOpen] = import_react41.default.useState(false);
+  import_react41.default.useEffect(() => {
+    setOpen(false);
+  }, []);
+  return /* @__PURE__ */ import_react41.default.createElement(cartContext_default, null, /* @__PURE__ */ import_react41.default.createElement(infoWrapper_default, {
     id: "pricing"
-  }, /* @__PURE__ */ import_react43.default.createElement("div", {
+  }, /* @__PURE__ */ import_react41.default.createElement("div", {
     className: "fixed right-5 bottom-5 rounded-[50%] h-[50px] w-[50px] flex justify-center items-center bg-slate-100 dark:bg-slate-800 z-50 lg:hidden",
     onClick: () => setOpen((prev) => !prev)
-  }, open ? /* @__PURE__ */ import_react43.default.createElement(import_md2.MdOutlineKeyboardArrowUp, {
+  }, open ? /* @__PURE__ */ import_react41.default.createElement(import_md.MdOutlineKeyboardArrowUp, {
     className: " scale-110 dark:fill-white fill-black"
-  }) : /* @__PURE__ */ import_react43.default.createElement(import_md2.MdOutlineKeyboardArrowDown, {
+  }) : /* @__PURE__ */ import_react41.default.createElement(import_md.MdOutlineKeyboardArrowDown, {
     className: " scale-110 dark:fill-white fill-black"
-  })), /* @__PURE__ */ import_react43.default.createElement(container_default2, {
+  })), /* @__PURE__ */ import_react41.default.createElement(container_default2, {
     services,
     open
-  }), /* @__PURE__ */ import_react43.default.createElement(import_react44.Outlet, {
+  }), /* @__PURE__ */ import_react41.default.createElement(import_react42.Outlet, {
     context: { services }
   })));
 };
@@ -1877,23 +1831,23 @@ init_react();
 
 // app/components/pricing/service.tsx
 init_react();
-var import_react47 = require("@remix-run/react");
-var import_react48 = __toESM(require("react"));
+var import_react45 = require("@remix-run/react");
+var import_react46 = __toESM(require("react"));
 
 // app/components/pricing/category.tsx
 init_react();
-var import_react46 = __toESM(require("react"));
+var import_react44 = __toESM(require("react"));
 
 // app/components/pricing/item.tsx
 init_react();
-var import_react45 = __toESM(require("react"));
+var import_react43 = __toESM(require("react"));
 var Item = ({ item, operation = "ADD" /* ADD */, classes = "" }) => {
-  const { add, remove } = import_react45.default.useContext(CartContext);
-  return /* @__PURE__ */ import_react45.default.createElement("div", {
+  const { add, remove } = import_react43.default.useContext(CartContext);
+  return /* @__PURE__ */ import_react43.default.createElement("div", {
     className: `flex flex-row items-center gap-3 ` + classes
-  }, /* @__PURE__ */ import_react45.default.createElement("p", {
+  }, /* @__PURE__ */ import_react43.default.createElement("p", {
     className: "flex-1 font-text text-[16px] dark:text-white text-black"
-  }, item.name), /* @__PURE__ */ import_react45.default.createElement("p", {
+  }, item.name), /* @__PURE__ */ import_react43.default.createElement("p", {
     className: "font-text text-[16px] dark:text-white text-black"
   }, item.minPrice, " - ", item.maxPrice));
 };
@@ -1901,14 +1855,14 @@ var item_default = Item;
 
 // app/components/pricing/category.tsx
 var Category = ({ category }) => {
-  return /* @__PURE__ */ import_react46.default.createElement("div", {
+  return /* @__PURE__ */ import_react44.default.createElement("div", {
     className: "flex flex-col gap-3"
-  }, /* @__PURE__ */ import_react46.default.createElement("span", {
+  }, /* @__PURE__ */ import_react44.default.createElement("span", {
     className: "font-text text-[18px] text-gray-400 text-left font-semibold"
-  }, category.name), /* @__PURE__ */ import_react46.default.createElement("section", {
+  }, category.name), /* @__PURE__ */ import_react44.default.createElement("section", {
     className: "flex flex-col gap-2"
   }, category.items.map((item) => {
-    return /* @__PURE__ */ import_react46.default.createElement(item_default, {
+    return /* @__PURE__ */ import_react44.default.createElement(item_default, {
       key: item._id,
       item,
       operation: "ADD" /* ADD */
@@ -1919,20 +1873,20 @@ var category_default = Category;
 
 // app/components/pricing/service.tsx
 var Service2 = ({ service }) => {
-  const { categories } = (0, import_react47.useLoaderData)();
+  const { categories } = (0, import_react45.useLoaderData)();
   if (!service) {
-    return /* @__PURE__ */ import_react48.default.createElement("div", null, "Not Found");
+    return /* @__PURE__ */ import_react46.default.createElement("div", null, "Not Found");
   }
-  return /* @__PURE__ */ import_react48.default.createElement("div", {
+  return /* @__PURE__ */ import_react46.default.createElement("div", {
     className: "flex flex-col flex-1 w-auto h-auto gap-2 col-start-1 col-span-full lg:col-start-5 lg:col-span-7"
-  }, /* @__PURE__ */ import_react48.default.createElement("h2", {
+  }, /* @__PURE__ */ import_react46.default.createElement("h2", {
     className: "font-heading text-[32px] dark:text-white text-black font-semibold"
-  }, service.name), /* @__PURE__ */ import_react48.default.createElement("p", {
+  }, service.name), /* @__PURE__ */ import_react46.default.createElement("p", {
     className: "font-text text-[16px] dark:text-white text-black"
-  }, service.detailedDesc), /* @__PURE__ */ import_react48.default.createElement("section", {
+  }, service.detailedDesc), /* @__PURE__ */ import_react46.default.createElement("section", {
     className: "flex flex-col gap-8 mt-5"
   }, categories.map((category) => {
-    return /* @__PURE__ */ import_react48.default.createElement(category_default, {
+    return /* @__PURE__ */ import_react46.default.createElement(category_default, {
       key: category._id,
       category
     });
@@ -1963,7 +1917,7 @@ var getItems = async (serviceName) => {
 };
 
 // route:D:\projects\brightways\remix\app\routes\pricing\$service.tsx
-var import_react49 = require("@remix-run/react");
+var import_react47 = require("@remix-run/react");
 var loader7 = async ({ params }) => {
   const name = params.service;
   const items = await getItems(name);
@@ -1988,8 +1942,8 @@ var loader7 = async ({ params }) => {
   };
 };
 var SingleService = () => {
-  const params = (0, import_react49.useParams)();
-  const { services } = (0, import_react49.useOutletContext)();
+  const params = (0, import_react47.useParams)();
+  const { services } = (0, import_react47.useOutletContext)();
   return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(service_default2, {
     service: services.find((s) => s.name === params.service)
   }));
@@ -2002,21 +1956,259 @@ __export(pricing_exports2, {
   default: () => pricing_default2
 });
 init_react();
-var import_react50 = __toESM(require("react"));
+var import_react48 = __toESM(require("react"));
 var Index2 = () => {
-  return /* @__PURE__ */ import_react50.default.createElement("div", {
+  return /* @__PURE__ */ import_react48.default.createElement("div", {
     className: "flex-1 flex justify-center items-center col-start-1 col-span-full lg:col-start-5 lg:col-span-7 mt-[50px] lg:mt-0 h-[300px]"
-  }, /* @__PURE__ */ import_react50.default.createElement("p", {
+  }, /* @__PURE__ */ import_react48.default.createElement("p", {
     className: " font-heading font-semibold text-[24px] dark:text-white text-black"
   }, "Select service to view prices"));
 };
 var pricing_default2 = Index2;
 
+// route:D:\projects\brightways\remix\app\routes\process.tsx
+var process_exports = {};
+__export(process_exports, {
+  default: () => process_default,
+  loader: () => loader8
+});
+init_react();
+var import_react51 = require("@remix-run/react");
+
+// app/components/process/step.tsx
+init_react();
+var import_react49 = __toESM(require("react"));
+var import_framer_motion3 = require("framer-motion");
+
+// app/utils/animations/basicAnim.ts
+init_react();
+var FadeOutScaleUpAnim = {
+  visible: (d) => ({
+    scale: 1,
+    opacity: 1,
+    transition: {
+      type: "tween",
+      ease: "easeInOut",
+      delay: d || 0.2
+    }
+  }),
+  hidden: {
+    scale: 0,
+    opacity: 0
+  }
+};
+var horizontalAnim = {
+  visible: (x) => ({
+    translateX: x,
+    transition: {
+      duration: 0.5,
+      type: "tween",
+      ease: "linear"
+    }
+  }),
+  hidden: (x) => ({
+    translateX: x,
+    transition: {
+      duration: 1,
+      type: "tween",
+      ease: "linear"
+    }
+  })
+};
+var fade = {
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.2,
+      type: "tween",
+      ease: "linear"
+    }
+  },
+  hidden: {
+    opacity: 0
+  }
+};
+
+// app/components/process/step.tsx
+var import_react50 = require("@remix-run/react");
+var Step = ({ step, delay }) => {
+  const location2 = (0, import_react50.useLocation)();
+  return /* @__PURE__ */ import_react49.default.createElement(import_framer_motion3.motion.section, {
+    variants: FadeOutScaleUpAnim,
+    initial: "hidden",
+    whileInView: "visible",
+    custom: delay,
+    viewport: { once: true },
+    className: ` flex flex-1 flex-col gap-3 items-center overflow-visible`
+  }, /* @__PURE__ */ import_react49.default.createElement("div", {
+    className: " h-24 w-24 rounded-[50%] bg-slate-100 flex justify-center items-center"
+  }, /* @__PURE__ */ import_react49.default.createElement("img", {
+    className: "h-10 w-10",
+    alt: step.heading,
+    src: step.image.imageUrl
+  })), /* @__PURE__ */ import_react49.default.createElement("h1", {
+    className: "font-heading text-black dark:text-white text-[20px] font-bold place text-center"
+  }, step.heading), !isHomePage(location2.pathname) && /* @__PURE__ */ import_react49.default.createElement("p", {
+    className: "font-text text-[16px] font-normal text-gray-400"
+  }, step.desc));
+};
+var step_default = Step;
+
+// app/sanity/query/process.server.ts
+init_react();
+var getProcessQuery = () => {
+  return `*[_type == "process"]{
+        _createdAt,
+          _id,
+          _rev,
+          _type,
+          _updatedAt,
+          desc,
+          title,
+          "steps": steps[]{
+            _key,
+            desc,
+            heading,
+            number,
+            "image": ${getImageQuery("image")}
+          },
+      }[0]`;
+};
+var getProcess = async () => {
+  try {
+    const res = await sanityQueryClient.post(sanityPostQueryUrl, {
+      query: getProcessQuery()
+    });
+    if (res.status === 200) {
+      return res.data.result;
+    } else {
+      throw new Error("Couldn't fetch process");
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+};
+
+// route:D:\projects\brightways\remix\app\routes\process.tsx
+var loader8 = async () => {
+  const process2 = await getProcess();
+  if (!process2) {
+    throw new Error("Couldn't fetch process");
+  }
+  return {
+    process: process2
+  };
+};
+var ProcessPage = () => {
+  const { process: process2 } = (0, import_react51.useLoaderData)();
+  return /* @__PURE__ */ React.createElement(infoWrapper_default, {
+    id: "process"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "col-start-1 col-span-full flex flex-col gap-10"
+  }, process2.steps.map((step) => {
+    return /* @__PURE__ */ React.createElement(step_default, {
+      key: step._key,
+      step,
+      delay: 0.2
+    });
+  })));
+};
+var process_default = ProcessPage;
+
+// route:D:\projects\brightways\remix\app\routes\reviews.tsx
+var reviews_exports = {};
+__export(reviews_exports, {
+  default: () => reviews_default,
+  loader: () => loader9
+});
+init_react();
+var import_node7 = require("@remix-run/node");
+var import_react54 = require("@remix-run/react");
+
+// app/components/Testimonials/testimonial.tsx
+init_react();
+var import_react52 = __toESM(require("react"));
+var import_framer_motion4 = require("framer-motion");
+var import_react53 = require("@remix-run/react");
+var Testimonial = ({ testimonial, delay }) => {
+  const location2 = (0, import_react53.useLocation)();
+  return /* @__PURE__ */ import_react52.default.createElement(import_framer_motion4.motion.div, {
+    variants: FadeOutScaleUpAnim,
+    initial: "hidden",
+    whileInView: "visible",
+    custom: delay,
+    viewport: { once: true },
+    className: `${!isHomePage(location2.pathname) ? "w-full min-w-full min-h-auto h-auto p-6 items-start gap-5" : "min-w-[250px] w-[250px] min-h-[250px] h-[250px] items-center p-4 gap-0"} hover:shadow-lg hover:translate-y-3 transition duration-500 delay-100 dark:bg-gray-800 bg-gray-100 rounded-lg flex flex-col justify-center`
+  }, /* @__PURE__ */ import_react52.default.createElement("p", {
+    className: `${!isHomePage(location2.pathname) ? "min-h-auto h-auto" : "min-h-[100px] h-[100px] mb-3"} text-[14px] dark:text-white text-black font-text font-semibold`
+  }, '"', testimonial.review, '"'), /* @__PURE__ */ import_react52.default.createElement("p", {
+    className: "text-[16px] text-gray-400 font-text font-extrabold"
+  }, testimonial.name));
+};
+var testimonial_default = Testimonial;
+
+// app/data/data.tsx
+init_react();
+var testimonialData = [{
+  id: 1,
+  name: "Arjun",
+  review: "This product is so cool and create so much value bla bla bla bla",
+  rating: 5,
+  source: "Google"
+}, {
+  id: 2,
+  name: "Arjun",
+  review: "This product is so cool and create so much value bla bla bla bla",
+  rating: 5,
+  source: "Google"
+}, {
+  id: 3,
+  name: "Arjun",
+  review: "This product is so cool and create so much value bla bla bla bla",
+  rating: 5,
+  source: "Google"
+}, {
+  id: 4,
+  name: "Arjun",
+  review: "This product is so cool and create so much value bla bla bla bla",
+  rating: 5,
+  source: "Google"
+}, {
+  id: 5,
+  name: "Arjun",
+  review: "This product is so cool and create so much value bla bla bla bla",
+  rating: 5,
+  source: "Google"
+}];
+
+// route:D:\projects\brightways\remix\app\routes\reviews.tsx
+var loader9 = async () => {
+  return (0, import_node7.json)({
+    reviews: testimonialData
+  });
+};
+var Reviews = () => {
+  const { reviews } = (0, import_react54.useLoaderData)();
+  return /* @__PURE__ */ React.createElement(infoWrapper_default, {
+    id: "reviews"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "col-start-1 col-span-full flex flex-col gap-10"
+  }, reviews.map((review) => {
+    return /* @__PURE__ */ React.createElement(testimonial_default, {
+      testimonial: review,
+      key: review.id,
+      delay: 0.2
+    });
+  })));
+};
+var reviews_default = Reviews;
+
 // route:D:\projects\brightways\remix\app\routes\about.tsx
 var about_exports = {};
 __export(about_exports, {
   default: () => about_default,
-  loader: () => loader8,
+  loader: () => loader10,
   meta: () => meta7
 });
 init_react();
@@ -2055,8 +2247,8 @@ var getBusiness = async () => {
 };
 
 // route:D:\projects\brightways\remix\app\routes\about.tsx
-var import_react51 = require("@remix-run/react");
-var loader8 = async () => {
+var import_react55 = require("@remix-run/react");
+var loader10 = async () => {
   const business = await getBusiness();
   if (!business) {
     throw new Error("Couldn't fetch business");
@@ -2069,7 +2261,7 @@ var meta7 = () => {
   return { title: "About" };
 };
 var AbouPage = () => {
-  const { business } = (0, import_react51.useLoaderData)();
+  const { business } = (0, import_react55.useLoaderData)();
   return /* @__PURE__ */ React.createElement(infoWrapper_default, {
     id: "about"
   }, /* @__PURE__ */ React.createElement("div", {
@@ -2091,20 +2283,20 @@ var routes_exports = {};
 __export(routes_exports, {
   ErrorBoundary: () => ErrorBoundary4,
   default: () => Index3,
-  loader: () => loader9
+  loader: () => loader11
 });
 init_react();
 var import_bi5 = require("react-icons/bi");
 
 // app/components/home/featuresList.tsx
 init_react();
-var import_react55 = require("@remix-run/react");
+var import_react59 = require("@remix-run/react");
 
 // app/components/containers/container.tsx
 init_react();
-var import_react52 = __toESM(require("react"));
+var import_react56 = __toESM(require("react"));
 var Container3 = ({ children }) => {
-  return /* @__PURE__ */ import_react52.default.createElement("div", {
+  return /* @__PURE__ */ import_react56.default.createElement("div", {
     className: "relative h-auto px-[10vw] w-full"
   }, children);
 };
@@ -2112,100 +2304,44 @@ var container_default3 = Container3;
 
 // app/components/features/feature.tsx
 init_react();
-var import_react53 = __toESM(require("react"));
-var import_framer_motion3 = require("framer-motion");
-
-// app/utils/animations/basicAnim.ts
-init_react();
-var scaleAnim = {
-  visible: () => ({
-    scale: 1,
-    transition: {
-      duration: 0.5,
-      type: "tween",
-      ease: "linear"
-    }
-  }),
-  hidden: () => ({
-    scale: 0,
-    transition: {
-      duration: 0.5,
-      type: "tween",
-      ease: "linear"
-    }
-  })
-};
-var horizontalAnim = {
-  visible: (x) => ({
-    translateX: x,
-    transition: {
-      duration: 0.5,
-      type: "tween",
-      ease: "linear"
-    }
-  }),
-  hidden: (x) => ({
-    translateX: x,
-    transition: {
-      duration: 1,
-      type: "tween",
-      ease: "linear"
-    }
-  })
-};
-var fade = {
-  visible: () => ({
-    opacity: 1,
-    transition: {
-      duration: 0.2,
-      type: "tween",
-      ease: "linear",
-      staggerChildren: 0.5,
-      delayChildren: 0.5
-    }
-  }),
-  hidden: () => ({
-    opacity: 0
-  })
-};
-
-// app/components/features/feature.tsx
-var import_react54 = require("@remix-run/react");
+var import_react57 = __toESM(require("react"));
+var import_framer_motion5 = require("framer-motion");
+var import_react58 = require("@remix-run/react");
 var Feature = ({ feature, index }) => {
-  return /* @__PURE__ */ import_react53.default.createElement(import_framer_motion3.motion.div, {
+  return /* @__PURE__ */ import_react57.default.createElement(import_framer_motion5.motion.div, {
     variants: horizontalAnim,
     initial: "hidden",
     whileInView: "visible",
     viewport: { once: true },
     custom: [index % 2 === 0 ? "-100%" : "100%", "0%"],
     className: `flex flex-col-reverse gap-10 lg:flex-row lg:even:flex-row-reverse items-center lg:gap-20 overflow-visible col-start-1 col-span-full mb-[50px] lg:mb-[100px]`
-  }, /* @__PURE__ */ import_react53.default.createElement("section", {
+  }, /* @__PURE__ */ import_react57.default.createElement("section", {
     className: `flex flex-1 flex-col items-start justify-center gap-3 overflow-visible`
-  }, /* @__PURE__ */ import_react53.default.createElement("p", {
+  }, /* @__PURE__ */ import_react57.default.createElement("p", {
     className: "text-blue text-[14px] font-bold h-auto overflow-visible"
-  }, feature.title), /* @__PURE__ */ import_react53.default.createElement("h1", {
+  }, feature.title), /* @__PURE__ */ import_react57.default.createElement("h1", {
     className: "text-[32px] text-black dark:text-white font-heading leading-[44px] font-semibold  h-auto overflow-visible"
-  }, feature.heading), /* @__PURE__ */ import_react53.default.createElement("p", {
+  }, feature.heading), /* @__PURE__ */ import_react57.default.createElement("p", {
     className: "text-[16px] text-gray-400 font-text font-normal leading-6"
-  }, feature.desc), feature.highlights && /* @__PURE__ */ import_react53.default.createElement("ul", {
+  }, feature.desc), feature.highlights && /* @__PURE__ */ import_react57.default.createElement("ul", {
     className: "text-[16px] text-gray-400 font-text font-normal list-disc flex flex-col items-start gap-1 overflow-visible"
   }, feature.highlights.map((highlight, index2) => {
-    return /* @__PURE__ */ import_react53.default.createElement("li", {
+    return /* @__PURE__ */ import_react57.default.createElement("li", {
       className: "overflow-visible",
       key: index2
     }, highlight);
-  })), feature.callToActions && /* @__PURE__ */ import_react53.default.createElement("section", {
+  })), feature.callToActions && /* @__PURE__ */ import_react57.default.createElement("section", {
     className: "flex flex-row gap-5 items-center justify-start overflow-visible w-full"
   }, feature.callToActions.map((callToAction) => {
-    return /* @__PURE__ */ import_react53.default.createElement("button", {
+    return /* @__PURE__ */ import_react57.default.createElement("button", {
       key: callToAction._key,
       className: `${largeBasicButton} mt-3`
-    }, /* @__PURE__ */ import_react53.default.createElement(import_react54.Link, {
+    }, /* @__PURE__ */ import_react57.default.createElement(import_react58.Link, {
       to: callToAction.to
     }, callToAction.name));
-  }))), /* @__PURE__ */ import_react53.default.createElement("section", {
+  }))), /* @__PURE__ */ import_react57.default.createElement("section", {
     className: "flex flex-1 justify-center items-center"
-  }, /* @__PURE__ */ import_react53.default.createElement("img", {
+  }, /* @__PURE__ */ import_react57.default.createElement("img", {
     src: feature.image.imageUrl,
     alt: feature.image.alt,
     className: "h-auto w-[350px]"
@@ -2215,7 +2351,7 @@ var feature_default = Feature;
 
 // app/components/home/featuresList.tsx
 var FeaturesList = () => {
-  const { features } = (0, import_react55.useLoaderData)();
+  const { features } = (0, import_react59.useLoaderData)();
   return /* @__PURE__ */ React.createElement(container_default3, null, /* @__PURE__ */ React.createElement(grid_default, null, features.map((feature, index) => {
     return /* @__PURE__ */ React.createElement(feature_default, {
       key: feature._id,
@@ -2228,27 +2364,27 @@ var featuresList_default = FeaturesList;
 
 // app/components/home/landingPage.tsx
 init_react();
-var import_react56 = __toESM(require("react"));
-var import_react57 = require("@remix-run/react");
+var import_react60 = __toESM(require("react"));
+var import_react61 = require("@remix-run/react");
 var LandingPage = () => {
-  const { business } = (0, import_react57.useLoaderData)();
-  return /* @__PURE__ */ import_react56.default.createElement(container_default3, null, /* @__PURE__ */ import_react56.default.createElement(grid_default, null, /* @__PURE__ */ import_react56.default.createElement("section", {
+  const { business } = (0, import_react61.useLoaderData)();
+  return /* @__PURE__ */ import_react60.default.createElement(container_default3, null, /* @__PURE__ */ import_react60.default.createElement(grid_default, null, /* @__PURE__ */ import_react60.default.createElement("section", {
     className: "col-start-1 col-span-full lg:col-start-1 lg:col-span-6"
-  }, /* @__PURE__ */ import_react56.default.createElement("p", {
+  }, /* @__PURE__ */ import_react60.default.createElement("p", {
     className: "text-[42px] dark:text-white text-black font-semibold font-heading mx-auto overflow-hidden"
-  }, business.tagline), /* @__PURE__ */ import_react56.default.createElement("p", {
+  }, business.tagline), /* @__PURE__ */ import_react60.default.createElement("p", {
     className: "text-xl text-gray-400 font-text mt-3 mb-5 lg:my-0"
-  }, business.shortDesc), /* @__PURE__ */ import_react56.default.createElement("div", {
+  }, business.shortDesc), /* @__PURE__ */ import_react60.default.createElement("div", {
     className: "flex flex-col lg:flex-row gap-5 my-4 overflow-visible w-full lg:w-auto"
-  }, /* @__PURE__ */ import_react56.default.createElement("button", {
+  }, /* @__PURE__ */ import_react60.default.createElement("button", {
     className: `${largeBasicButton} animate-bounce-in-right delay-100`
-  }, "Book now"), /* @__PURE__ */ import_react56.default.createElement("button", {
+  }, "Book now"), /* @__PURE__ */ import_react60.default.createElement("button", {
     className: `${largeBasicButton} animate-bounce-in-right delay-200`
-  }, /* @__PURE__ */ import_react56.default.createElement("a", {
+  }, /* @__PURE__ */ import_react60.default.createElement("a", {
     href: "#process"
-  }, "See how it's work")))), /* @__PURE__ */ import_react56.default.createElement("section", {
+  }, "See how it's work")))), /* @__PURE__ */ import_react60.default.createElement("section", {
     className: "row-start-1 col-start-1 col-span-full lg:col-start-7 lg:col-span-5"
-  }, /* @__PURE__ */ import_react56.default.createElement("img", {
+  }, /* @__PURE__ */ import_react60.default.createElement("img", {
     alt: "brightways-landing-page-pic",
     className: "h-[300px] w-[300px]"
   }))));
@@ -2259,103 +2395,62 @@ var landingPage_default = LandingPage;
 
 // app/components/home/process.tsx
 init_react();
-var import_react59 = require("@remix-run/react");
-var import_framer_motion5 = require("framer-motion");
-var import_react60 = __toESM(require("react"));
-
-// app/components/process/step.tsx
-init_react();
-var import_react58 = __toESM(require("react"));
-var import_framer_motion4 = require("framer-motion");
-var Step = ({ step }) => {
-  return /* @__PURE__ */ import_react58.default.createElement(import_framer_motion4.motion.section, {
-    variants: scaleAnim,
-    initial: "hidden",
-    whileInView: "visible",
-    viewport: { once: true },
-    className: `flex flex-1 flex-col gap-3 items-center overflow-visible`
-  }, /* @__PURE__ */ import_react58.default.createElement("div", {
-    className: " h-24 w-24 rounded-[50%] bg-slate-100 flex justify-center items-center"
-  }, /* @__PURE__ */ import_react58.default.createElement("img", {
-    className: "h-10 w-10",
-    alt: step.heading,
-    src: step.image.imageUrl
-  })), /* @__PURE__ */ import_react58.default.createElement("h1", {
-    className: "font-heading text-black dark:text-white text-[20px] font-bold place text-center"
-  }, step.heading));
-};
-var step_default = Step;
-
-// app/components/home/process.tsx
+var import_react62 = require("@remix-run/react");
+var import_react63 = __toESM(require("react"));
 var Process = () => {
-  const { process: process2 } = (0, import_react59.useLoaderData)();
-  return /* @__PURE__ */ import_react60.default.createElement(infoWrapper_default, {
+  const { process: process2 } = (0, import_react62.useLoaderData)();
+  return /* @__PURE__ */ import_react63.default.createElement(infoWrapper_default, {
     heading: "How it's works",
     subHeading: "hdhhdshbsdjbasj",
     id: "process"
-  }, /* @__PURE__ */ import_react60.default.createElement(import_framer_motion5.motion.div, {
-    variants: fade,
-    initial: "hidden",
-    whileInView: "visible",
-    viewport: { once: true },
-    transition: { staggerChildren: 0.5 },
-    className: `flex flex-col lg:flex-row h-auto gap-10 w-full relative lg:py-[50px] col-start-1 col-span-full`
-  }, process2.steps.map((step) => {
-    return /* @__PURE__ */ import_react60.default.createElement(step_default, {
+  }, /* @__PURE__ */ import_react63.default.createElement("div", {
+    className: `flex flex-col lg:flex-row h-auto lg:h-[300px] gap-10 w-full relative lg:pt-[50px] col-start-1 col-span-full`
+  }, process2.steps.map((step, index) => {
+    return /* @__PURE__ */ import_react63.default.createElement(step_default, {
       step,
-      key: step._key
+      key: step._key,
+      delay: (index + 2) / 10
     });
-  })), /* @__PURE__ */ import_react60.default.createElement("section", {
-    className: "col-start-1 col-span-full overflow-visible h-auto flex justify-center items-center py-[50px] lg:py-0"
-  }, /* @__PURE__ */ import_react60.default.createElement("button", {
+  })), /* @__PURE__ */ import_react63.default.createElement("section", {
+    className: "col-start-1 col-span-full overflow-visible h-auto flex justify-center items-start py-[50px] lg:py-0"
+  }, /* @__PURE__ */ import_react63.default.createElement("button", {
     className: `${largeBasicButton}`
-  }, "Learn More")));
+  }, /* @__PURE__ */ import_react63.default.createElement(import_react62.Link, {
+    to: "/process"
+  }, "Learn More"))));
 };
-var process_default = Process;
+var process_default2 = Process;
 
 // app/components/home/testimonialsList.tsx
 init_react();
-var import_react62 = require("@remix-run/react");
-
-// app/components/Testimonials/testimonial.tsx
-init_react();
-var import_react61 = __toESM(require("react"));
-var Testimonial = ({ testimonial }) => {
-  return /* @__PURE__ */ import_react61.default.createElement("div", {
-    className: `hover:shadow-lg hover:translate-y-3 transition duration-500 delay-100 min-w-[250px] w-[250px] min-h-[250px] h-[250px] dark:bg-gray-800 bg-gray-100 rounded-lg flex flex-col items-center justify-center p-4`
-  }, /* @__PURE__ */ import_react61.default.createElement("p", {
-    className: "text-[14px] dark:text-white text-black font-text font-semibold mb-3 min-h-[100px] h-[100px]"
-  }, '"', testimonial.review, '"'), /* @__PURE__ */ import_react61.default.createElement("p", {
-    className: "text-[16px] text-gray-400 font-text font-extrabold"
-  }, testimonial.name));
-};
-var testimonial_default = Testimonial;
-
-// app/components/home/testimonialsList.tsx
+var import_react64 = require("@remix-run/react");
 var TestimonialsList = () => {
-  const { testimonials } = (0, import_react62.useLoaderData)();
+  const { testimonials } = (0, import_react64.useLoaderData)();
   return /* @__PURE__ */ React.createElement(infoWrapper_default, {
     subHeading: testimonials.sub_heading,
     heading: testimonials.heading,
     id: "reviews"
   }, /* @__PURE__ */ React.createElement("section", {
-    className: "flex overflow-x-scroll justify-start flex-row w-full items-center lg:justify-center lg:py-[50px] h-auto gap-10 col-start-1 col-span-full"
-  }, testimonials.data.map((testimonial) => {
+    className: "flex overflow-x-scroll justify-start flex-row w-full items-center lg:justify-center lg:py-[50px] h-auto gap-10 col-start-1 col-span-full no-scrollbar"
+  }, testimonials.data.map((testimonial, index) => {
     return /* @__PURE__ */ React.createElement(testimonial_default, {
       key: Math.random() * 100,
-      testimonial
+      testimonial,
+      delay: (index + 2) / 10
     });
   })), /* @__PURE__ */ React.createElement("section", {
     className: "col-start-1 col-span-full overflow-visible h-auto flex justify-center items-center py-[50px] lg:py-0"
   }, /* @__PURE__ */ React.createElement("button", {
     className: `${largeBasicButton} mb-[50px]`
-  }, "More Reviews")));
+  }, /* @__PURE__ */ React.createElement(import_react64.Link, {
+    to: "/reviews"
+  }, "More Reviews"))));
 };
 var testimonialsList_default = TestimonialsList;
 
 // app/components/ui/sidebar.tsx
 init_react();
-var import_react63 = __toESM(require("react"));
+var import_react65 = __toESM(require("react"));
 var import_bi4 = require("react-icons/bi");
 var import_bs4 = require("react-icons/bs");
 
@@ -2366,85 +2461,54 @@ var gmail_default = "/build/_assets/gmail-F2VKWGQN.png";
 var whatsapp_default = "/build/_assets/whatsapp-QSRGVV7S.png";
 
 // app/components/ui/sidebar.tsx
-var import_ai3 = require("react-icons/ai");
+var import_ai2 = require("react-icons/ai");
+var import_md2 = require("react-icons/md");
 var SideBar = () => {
-  const [showList, setShowList] = import_react63.default.useState(false);
-  return /* @__PURE__ */ import_react63.default.createElement("div", {
+  const [showList, setShowList] = import_react65.default.useState(false);
+  return /* @__PURE__ */ import_react65.default.createElement("div", {
     className: "group fixed right-[30px] bottom-[30px] gap-2 z-50 flex flex-col h-auto w-auto"
-  }, /* @__PURE__ */ import_react63.default.createElement("section", {
+  }, /* @__PURE__ */ import_react65.default.createElement("section", {
     onClick: () => setShowList((prev) => !prev),
-    className: `bg-white  h-16 w-16 flex justify-center items-center rounded-[50%] hover:scale-110 ${showList ? "opacity-100 scale-100" : "opacity-0 scale-0"} transition-all duration-500 delay-400`
-  }, /* @__PURE__ */ import_react63.default.createElement(import_ai3.AiOutlineArrowUp, {
+    className: `bg-slate-100 dark:bg-gray-800  h-16 w-16 flex justify-center items-center rounded-[50%] hover:scale-110 ${showList ? "opacity-100 scale-100" : "opacity-0 scale-0"} transition-all duration-500 delay-400`
+  }, /* @__PURE__ */ import_react65.default.createElement(import_ai2.AiOutlineArrowUp, {
     className: "h-8 w-8 text-blue",
     onClick: () => window.scroll({ top: 0, left: 0, behavior: "smooth" })
-  })), /* @__PURE__ */ import_react63.default.createElement("section", {
-    className: `bg-white h-16 w-16 flex justify-center items-center rounded-[50%] ${showList ? "opacity-100 scale-100" : "opacity-0 scale-0"} transition-all duration-500 delay-300`
-  }, /* @__PURE__ */ import_react63.default.createElement("a", {
+  })), /* @__PURE__ */ import_react65.default.createElement("section", {
+    className: `bg-slate-100 dark:bg-gray-800 h-16 w-16 flex justify-center items-center rounded-[50%] ${showList ? "opacity-100 scale-100" : "opacity-0 scale-0"} transition-all duration-500 delay-300`
+  }, /* @__PURE__ */ import_react65.default.createElement("a", {
     target: "_blank",
     href: `mailto:brightwaysdryclean@gmail.com`,
     className: ""
-  }, /* @__PURE__ */ import_react63.default.createElement("img", {
+  }, /* @__PURE__ */ import_react65.default.createElement("img", {
     className: "h-8 w-8",
     src: gmail_default
-  }))), /* @__PURE__ */ import_react63.default.createElement("section", {
-    className: `bg-white h-16 w-16 flex justify-center items-center rounded-[50%] ${showList ? "opacity-100 scale-100" : "opacity-0 scale-0"} transition-all duration-500 delay-200`
-  }, /* @__PURE__ */ import_react63.default.createElement("a", {
+  }))), /* @__PURE__ */ import_react65.default.createElement("section", {
+    className: `bg-slate-100 dark:bg-gray-800 h-16 w-16 flex justify-center items-center rounded-[50%] ${showList ? "opacity-100 scale-100" : "opacity-0 scale-0"} transition-all duration-500 delay-200`
+  }, /* @__PURE__ */ import_react65.default.createElement("a", {
     target: "_blank",
     href: `https://api.whatsapp.com/send?phone=919810136709&text=hi%20i%20would%20like%20to%20chat%20with%20you."`,
     className: ""
-  }, /* @__PURE__ */ import_react63.default.createElement("img", {
+  }, /* @__PURE__ */ import_react65.default.createElement("img", {
     className: "h-8 w-8",
     src: whatsapp_default
-  }))), /* @__PURE__ */ import_react63.default.createElement("section", {
-    className: `bg-white h-16 w-16 flex justify-center items-center rounded-[50%] ${showList ? "opacity-100 scale-100" : "opacity-0 scale-0"} transition-all duration-500 delay-100`
-  }, /* @__PURE__ */ import_react63.default.createElement("a", {
+  }))), /* @__PURE__ */ import_react65.default.createElement("section", {
+    className: `bg-slate-100 dark:bg-gray-800 h-16 w-16 flex justify-center items-center rounded-[50%] ${showList ? "opacity-100 scale-100" : "opacity-0 scale-0"} transition-all duration-500 delay-100`
+  }, /* @__PURE__ */ import_react65.default.createElement("a", {
     target: "_blank",
     href: `tel:+919810136709`,
     className: ""
-  }, /* @__PURE__ */ import_react63.default.createElement(import_bs4.BsFillTelephoneFill, {
+  }, /* @__PURE__ */ import_react65.default.createElement(import_bs4.BsFillTelephoneFill, {
     className: "h-8 w-8 text-blue"
-  }))), /* @__PURE__ */ import_react63.default.createElement("section", {
+  }))), /* @__PURE__ */ import_react65.default.createElement("section", {
     onClick: () => setShowList((prev) => !prev),
-    className: "bg-white h-16 w-16 flex justify-center items-center rounded-[50%]"
-  }, /* @__PURE__ */ import_react63.default.createElement(import_bi4.BiSupport, {
+    className: "bg-slate-100 dark:bg-gray-800 h-16 w-16 flex justify-center items-center rounded-[50%]"
+  }, showList ? /* @__PURE__ */ import_react65.default.createElement(import_md2.MdClose, {
+    className: "h-8 w-8"
+  }) : /* @__PURE__ */ import_react65.default.createElement(import_bi4.BiSupport, {
     className: "h-8 w-8"
   })));
 };
 var sidebar_default2 = SideBar;
-
-// app/data/data.tsx
-init_react();
-var testimonialData = [{
-  id: 1,
-  name: "Arjun",
-  review: "This product is so cool and create so much value bla bla bla bla",
-  rating: 5,
-  source: "Google"
-}, {
-  id: 2,
-  name: "Arjun",
-  review: "This product is so cool and create so much value bla bla bla bla",
-  rating: 5,
-  source: "Google"
-}, {
-  id: 3,
-  name: "Arjun",
-  review: "This product is so cool and create so much value bla bla bla bla",
-  rating: 5,
-  source: "Google"
-}, {
-  id: 4,
-  name: "Arjun",
-  review: "This product is so cool and create so much value bla bla bla bla",
-  rating: 5,
-  source: "Google"
-}, {
-  id: 5,
-  name: "Arjun",
-  review: "This product is so cool and create so much value bla bla bla bla",
-  rating: 5,
-  source: "Google"
-}];
 
 // app/sanity/query/features.server.ts
 init_react();
@@ -2480,72 +2544,36 @@ var getFeatures = async () => {
   }
 };
 
-// app/sanity/query/process.server.ts
-init_react();
-var getProcessQuery = () => {
-  return `*[_type == "process"]{
-        _createdAt,
-          _id,
-          _rev,
-          _type,
-          _updatedAt,
-          desc,
-          title,
-          "steps": steps[]{
-            _key,
-            desc,
-            heading,
-            number,
-            "image": ${getImageQuery("image")}
-          },
-      }[0]`;
-};
-var getProcess = async () => {
-  try {
-    const res = await sanityQueryClient.post(sanityPostQueryUrl, {
-      query: getProcessQuery()
-    });
-    if (res.status === 200) {
-      return res.data.result;
-    } else {
-      throw new Error("Couldn't fetch process");
-    }
-  } catch (error) {
-    console.log(error);
-    throw new Error(error.message);
-  }
-};
-
 // app/components/home/servicesList.tsx
 init_react();
-var import_react64 = __toESM(require("react"));
-var import_framer_motion6 = require("framer-motion");
-var import_react65 = require("@remix-run/react");
+var import_react66 = __toESM(require("react"));
+var import_react67 = require("@remix-run/react");
 var ServicesList = () => {
-  const { services } = (0, import_react65.useLoaderData)();
-  return /* @__PURE__ */ import_react64.default.createElement(infoWrapper_default, {
+  const { services } = (0, import_react67.useLoaderData)();
+  return /* @__PURE__ */ import_react66.default.createElement(infoWrapper_default, {
     heading: "Our Services",
     subHeading: "hdhhdshbsdjbasj",
     id: "services"
-  }, /* @__PURE__ */ import_react64.default.createElement(import_framer_motion6.motion.section, {
-    transition: { staggerChildren: 0.5 },
+  }, /* @__PURE__ */ import_react66.default.createElement("section", {
     className: "flex flex-row gap-10 lg:pb-[50px] flex-wrap justify-center items-center overflow-visible col-start-1 col-span-full"
   }, services.map((service, index) => {
-    return /* @__PURE__ */ import_react64.default.createElement(service_default, {
+    return /* @__PURE__ */ import_react66.default.createElement(service_default, {
       key: service._id,
       service,
-      delay: (index + 1) * 100
+      delay: (index + 1 + 2) * 100
     });
-  })), /* @__PURE__ */ import_react64.default.createElement("section", {
+  })), /* @__PURE__ */ import_react66.default.createElement("section", {
     className: "col-start-1 col-span-full overflow-visible h-auto flex justify-center items-center py-[50px] lg:py-0"
-  }, /* @__PURE__ */ import_react64.default.createElement("button", {
+  }, /* @__PURE__ */ import_react66.default.createElement("button", {
     className: `${largeBasicButton}  col-start-1 col-span-full`
-  }, "See More Services")));
+  }, /* @__PURE__ */ import_react66.default.createElement(import_react67.Link, {
+    to: "/services"
+  }, "See more services"))));
 };
 var servicesList_default = ServicesList;
 
 // route:D:\projects\brightways\remix\app\routes\index.tsx
-async function loader9() {
+async function loader11() {
   const business = await getBusiness();
   if (!business) {
     throw new Error("Couldn't fetch business");
@@ -2577,8 +2605,8 @@ async function loader9() {
 }
 function Index3() {
   return /* @__PURE__ */ React.createElement("div", {
-    className: "h-auto relative w-screen overflow-x-hidden flex flex-col items-center scroll-smooth bg-inherit gap-[50px] lg:gap-[100px] mt-[150px] lg:mt-[200px]"
-  }, /* @__PURE__ */ React.createElement(landingPage_default, null), /* @__PURE__ */ React.createElement(featuresList_default, null), /* @__PURE__ */ React.createElement(servicesList_default, null), /* @__PURE__ */ React.createElement(process_default, null), /* @__PURE__ */ React.createElement(testimonialsList_default, null), /* @__PURE__ */ React.createElement(sidebar_default2, null));
+    className: "h-auto relative w-screen overflow-x-hidden flex flex-col items-center scroll-smooth bg-inherit gap-[50px] lg:gap-0 mt-[150px] lg:mt-[200px]"
+  }, /* @__PURE__ */ React.createElement(landingPage_default, null), /* @__PURE__ */ React.createElement(featuresList_default, null), /* @__PURE__ */ React.createElement(servicesList_default, null), /* @__PURE__ */ React.createElement(process_default2, null), /* @__PURE__ */ React.createElement(testimonialsList_default, null), /* @__PURE__ */ React.createElement(sidebar_default2, null));
 }
 var ErrorBoundary4 = ({ error }) => {
   return /* @__PURE__ */ React.createElement("section", {
@@ -2604,8 +2632,8 @@ __export(auth_exports, {
   meta: () => meta8
 });
 init_react();
-var import_react66 = require("@remix-run/react");
-var import_framer_motion7 = require("framer-motion");
+var import_react68 = require("@remix-run/react");
+var import_framer_motion6 = require("framer-motion");
 var meta8 = () => {
   return { title: "Auth" };
 };
@@ -2613,8 +2641,8 @@ var Auth = () => {
   return /* @__PURE__ */ React.createElement(infoWrapper_default, {
     id: "auth"
   }, /* @__PURE__ */ React.createElement("main", {
-    className: "md:bg-inherit md:dark:bg-gray-800 md:bg-gray-100 md:p-10  h-auto overflow-visible col-start-1 col-span-full lg:col-start-4 lg:col-end-10"
-  }, /* @__PURE__ */ React.createElement(import_framer_motion7.AnimatePresence, null, /* @__PURE__ */ React.createElement(import_react66.Outlet, null))));
+    className: "md:bg-inherit md:dark:bg-gray-800 md:bg-gray-100 md:p-10 h-fit overflow-visible col-start-1 col-span-full lg:col-start-4 lg:col-end-10"
+  }, /* @__PURE__ */ React.createElement(import_framer_motion6.AnimatePresence, null, /* @__PURE__ */ React.createElement(import_react68.Outlet, null))));
 };
 var auth_default = Auth;
 
@@ -2623,12 +2651,12 @@ var callback_exports = {};
 __export(callback_exports, {
   action: () => action4,
   default: () => callback_default,
-  loader: () => loader10
+  loader: () => loader12
 });
 init_react();
-var import_node7 = require("@remix-run/node");
-var import_react67 = require("@remix-run/react");
-var import_react68 = __toESM(require("react"));
+var import_node8 = require("@remix-run/node");
+var import_react69 = require("@remix-run/react");
+var import_react70 = __toESM(require("react"));
 var import_supabase6 = __toESM(require_supabase());
 var action4 = async ({ request }) => {
   const formData = await request.formData();
@@ -2639,7 +2667,7 @@ var action4 = async ({ request }) => {
     session.flash("error", {
       message: "Something went wrong"
     });
-    return (0, import_node7.redirect)("/auth", {
+    return (0, import_node8.redirect)("/auth", {
       headers: {
         "Set-Cookie": await commitSession(session)
       }
@@ -2651,7 +2679,7 @@ var action4 = async ({ request }) => {
     session.flash("error", {
       message: "Something went wrong"
     });
-    return (0, import_node7.redirect)("/auth", {
+    return (0, import_node8.redirect)("/auth", {
       headers: {
         "Set-Cookie": await commitSession(session)
       }
@@ -2660,7 +2688,7 @@ var action4 = async ({ request }) => {
   if (event === "SIGNED_IN") {
     session.set("access_token", supaSession == null ? void 0 : supaSession.access_token);
     console.log("inside signedin switch case");
-    return (0, import_node7.redirect)("/", {
+    return (0, import_node8.redirect)("/", {
       headers: {
         "Set-Cookie": await commitSession(session, { expires: new Date(supaSession.expires_at), maxAge: supaSession.expires_in })
       }
@@ -2668,7 +2696,7 @@ var action4 = async ({ request }) => {
   }
   return null;
 };
-var loader10 = async ({ request }) => {
+var loader12 = async ({ request }) => {
   const urlSearchParams = new URLSearchParams(request.url.split("?")[1]);
   const params = Object.fromEntries(urlSearchParams.entries());
   const session = await getSession(request.headers.get("Cookie"));
@@ -2676,7 +2704,7 @@ var loader10 = async ({ request }) => {
     session.flash("error", {
       message: params["error"]
     });
-    return (0, import_node7.redirect)("/auth", {
+    return (0, import_node8.redirect)("/auth", {
       headers: {
         "Set-Cookie": await commitSession(session)
       }
@@ -2685,9 +2713,9 @@ var loader10 = async ({ request }) => {
   return null;
 };
 var Callback = () => {
-  const submit = (0, import_react67.useSubmit)();
-  const transition = (0, import_react67.useTransition)();
-  import_react68.default.useEffect(() => {
+  const submit = (0, import_react69.useSubmit)();
+  const transition = (0, import_react69.useTransition)();
+  import_react70.default.useEffect(() => {
     const { data, error } = import_supabase6.supabaseClient.auth.onAuthStateChange((event, session) => {
       const formData = new FormData();
       formData.set("session", JSON.stringify(session));
@@ -2707,9 +2735,9 @@ var Callback = () => {
       data == null ? void 0 : data.unsubscribe();
     };
   }, []);
-  return /* @__PURE__ */ import_react68.default.createElement("div", {
+  return /* @__PURE__ */ import_react70.default.createElement("div", {
     className: "w-full flex justify-center items-center overflow-visible"
-  }, transition.state === "loading" && /* @__PURE__ */ import_react68.default.createElement("div", {
+  }, transition.state === "loading" && /* @__PURE__ */ import_react70.default.createElement("div", {
     className: " inline-block w-[50px] h-[50px] after:contents-[''] after:block after:h-[40px] after:w-[40px] after:m-[5px] after:rounded-[50%] after:border-2 after:border-t-blue after:animate-spin overflow-visible"
   }));
 };
@@ -2721,35 +2749,27 @@ __export(auth_exports2, {
   LoginMethod: () => LoginMethod,
   action: () => action5,
   default: () => auth_default2,
-  loader: () => loader11
+  loader: () => loader13
 });
 init_react();
-
-// public/icons/google.png
-var google_default = "/build/_assets/google-DNT3BFC7.png";
-
-// public/icons/facebook.png
-var facebook_default = "/build/_assets/facebook-MZKXK7VM.png";
-
-// route:D:\projects\brightways\remix\app\routes\auth\index.tsx
-var import_framer_motion8 = require("framer-motion");
+var import_framer_motion7 = require("framer-motion");
 var import_tiny_invariant = __toESM(require("tiny-invariant"));
 var import_supabase8 = __toESM(require_supabase());
-var import_node8 = require("@remix-run/node");
-var import_react69 = require("@remix-run/react");
+var import_node9 = require("@remix-run/node");
+var import_react71 = require("@remix-run/react");
 var LoginMethod = /* @__PURE__ */ ((LoginMethod2) => {
   LoginMethod2["GOOGLE"] = "GOOGLE";
   LoginMethod2["FACEBOOK"] = "FACEBOOK";
   LoginMethod2["EMAIL"] = "EMAIL";
   return LoginMethod2;
 })(LoginMethod || {});
-var loader11 = async ({ request }) => {
+var loader13 = async ({ request }) => {
   const session = await getSession(request.headers.get("Cookie"));
   const response = {};
   if (session.has("error")) {
     response.error = session.get("error");
   }
-  return (0, import_node8.json)(response, {
+  return (0, import_node9.json)(response, {
     headers: {
       "Set-Cookie": await destroySession(session)
     }
@@ -2764,14 +2784,14 @@ var action5 = async ({ request }) => {
       const email = form.get("email");
       (0, import_tiny_invariant.default)(typeof email === "string", "inavlid input");
       if (email.length === 0) {
-        return (0, import_node8.json)({
+        return (0, import_node9.json)({
           error: {
             message: "email required"
           }
         });
       }
       if (!/\S+@\S+\.\S+/.test(email)) {
-        return (0, import_node8.json)({
+        return (0, import_node9.json)({
           error: {
             message: "invalid email"
           }
@@ -2783,13 +2803,13 @@ var action5 = async ({ request }) => {
         redirectTo: `${process.env.SERVER_URL}/auth/callback`
       });
       if (error) {
-        return (0, import_node8.json)({
+        return (0, import_node9.json)({
           error: {
             message: error.message
           }
         });
       }
-      return (0, import_node8.json)({
+      return (0, import_node9.json)({
         success: {
           message: "Check your email"
         }
@@ -2799,9 +2819,9 @@ var action5 = async ({ request }) => {
   return null;
 };
 var Login = () => {
-  const transition = (0, import_react69.useTransition)();
-  const notification = (0, import_react69.useActionData)();
-  const { error } = (0, import_react69.useLoaderData)();
+  const transition = (0, import_react71.useTransition)();
+  const notification = (0, import_react71.useActionData)();
+  const { error } = (0, import_react71.useLoaderData)();
   const handleGoogleLogin = () => {
     import_supabase8.supabaseClient.auth.signIn({
       provider: "google"
@@ -2816,7 +2836,7 @@ var Login = () => {
       redirectTo: `${window.env.SERVER_URL}/auth/callback`
     });
   };
-  return /* @__PURE__ */ React.createElement(import_framer_motion8.motion.section, {
+  return /* @__PURE__ */ React.createElement(import_framer_motion7.motion.section, {
     variants: fade,
     initial: "hidden",
     animate: "visible",
@@ -2831,7 +2851,7 @@ var Login = () => {
     className: `text-[16px] font-text font-semibold text-[#B00020]`
   }, error.message)) : null, /* @__PURE__ */ React.createElement("h1", {
     className: "font-heading text-[32px] text-center font-bold dark:text-white text-black"
-  }, "Login"), /* @__PURE__ */ React.createElement(import_react69.Form, {
+  }, "Login"), /* @__PURE__ */ React.createElement(import_react71.Form, {
     method: "post",
     action: "/auth?index",
     className: "flex flex-col gap-5 overflow-visible"
@@ -2848,37 +2868,13 @@ var Login = () => {
     className: `${lessRoundedBasicLargeButton}`,
     type: "submit",
     disabled: transition.state === "submitting"
-  }, "Login")), /* @__PURE__ */ React.createElement("div", {
-    className: "flex flex-row justify-center items-center gap-2"
-  }, /* @__PURE__ */ React.createElement("span", {
-    className: " bg-gray-400 h-[2px] flex-1"
-  }), /* @__PURE__ */ React.createElement("p", {
-    className: " text-[18px] font-text dark:text-white text-black"
-  }, "or"), /* @__PURE__ */ React.createElement("span", {
-    className: " bg-gray-400 h-[2px] flex-1"
-  })), /* @__PURE__ */ React.createElement("section", {
-    className: "flex flex-row justify-center gap-5 items-center overflow-visible"
-  }, /* @__PURE__ */ React.createElement("button", {
-    disabled: transition.state === "submitting",
-    className: `${lessRoundedBasicLargeButton}`,
-    onClick: handleGoogleLogin.bind(null)
-  }, /* @__PURE__ */ React.createElement("img", {
-    className: "h-10 w-10",
-    src: google_default
-  })), /* @__PURE__ */ React.createElement("button", {
-    disabled: transition.state === "submitting",
-    className: `${lessRoundedBasicLargeButton}`,
-    onClick: handleFacebookLogin.bind(void 0)
-  }, /* @__PURE__ */ React.createElement("img", {
-    className: "h-10 w-10",
-    src: facebook_default
-  }))));
+  }, "Login")));
 };
 var auth_default2 = Login;
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
 init_react();
-var assets_manifest_default = { "version": "ef5a37e4", "entry": { "module": "/build/entry.client-OSTJD6ZG.js", "imports": ["/build/_shared/chunk-G7QDGFFA.js", "/build/_shared/chunk-XV23MX66.js"] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "module": "/build/root-UJTEGQEL.js", "imports": ["/build/_shared/chunk-6YOBSU5K.js", "/build/_shared/chunk-4W53IXAO.js", "/build/_shared/chunk-LYZ2V7RN.js", "/build/_shared/chunk-DIIY5LL2.js", "/build/_shared/chunk-CZUHRWWS.js", "/build/_shared/chunk-5QXCMY7U.js", "/build/_shared/chunk-FCHWPAX5.js", "/build/_shared/chunk-UFU3F37A.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": true, "hasErrorBoundary": true }, "routes/about": { "id": "routes/about", "parentId": "root", "path": "about", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/about-WYAAWJNG.js", "imports": ["/build/_shared/chunk-6TW2643V.js", "/build/_shared/chunk-V7QGJMSH.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/auth": { "id": "routes/auth", "parentId": "root", "path": "auth", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/auth-J325STHE.js", "imports": ["/build/_shared/chunk-V7QGJMSH.js"], "hasAction": false, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/auth/callback": { "id": "routes/auth/callback", "parentId": "routes/auth", "path": "callback", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/auth/callback-YSD6XF66.js", "imports": ["/build/_shared/chunk-ZBM7MCAA.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/auth/index": { "id": "routes/auth/index", "parentId": "routes/auth", "path": void 0, "index": true, "caseSensitive": void 0, "module": "/build/routes/auth/index-CZ22WXJ2.js", "imports": ["/build/_shared/chunk-ZBM7MCAA.js", "/build/_shared/chunk-CUB2A36P.js", "/build/_shared/chunk-4W53IXAO.js", "/build/_shared/chunk-AJU2FLGQ.js", "/build/_shared/chunk-UFU3F37A.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/contact": { "id": "routes/contact", "parentId": "root", "path": "contact", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/contact-I6YZ4NKC.js", "imports": ["/build/_shared/chunk-V7QGJMSH.js", "/build/_shared/chunk-AJU2FLGQ.js", "/build/_shared/chunk-DMXYXIB6.js"], "hasAction": true, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/dashboard": { "id": "routes/dashboard", "parentId": "root", "path": "dashboard", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/dashboard-JX6U5JA5.js", "imports": ["/build/_shared/chunk-AJU2FLGQ.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/dashboard/bookings": { "id": "routes/dashboard/bookings", "parentId": "routes/dashboard", "path": "bookings", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/dashboard/bookings-SLMBUNRL.js", "imports": void 0, "hasAction": false, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/dashboard/profile": { "id": "routes/dashboard/profile", "parentId": "routes/dashboard", "path": "profile", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/dashboard/profile-H4H6ZGFA.js", "imports": ["/build/_shared/chunk-7MBFRISP.js", "/build/_shared/chunk-LYZ2V7RN.js", "/build/_shared/chunk-DIIY5LL2.js", "/build/_shared/chunk-DX6LXIYQ.js", "/build/_shared/chunk-FCHWPAX5.js", "/build/_shared/chunk-DMXYXIB6.js", "/build/_shared/chunk-UFU3F37A.js"], "hasAction": true, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": true }, "routes/dashboard/profile/newAddress": { "id": "routes/dashboard/profile/newAddress", "parentId": "routes/dashboard/profile", "path": "newAddress", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/dashboard/profile/newAddress-QDWOYIHA.js", "imports": void 0, "hasAction": false, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/dashboard/review": { "id": "routes/dashboard/review", "parentId": "routes/dashboard", "path": "review", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/dashboard/review-7U6V3SKP.js", "imports": ["/build/_shared/chunk-CZUHRWWS.js", "/build/_shared/chunk-5QXCMY7U.js", "/build/_shared/chunk-FCHWPAX5.js", "/build/_shared/chunk-DMXYXIB6.js", "/build/_shared/chunk-UFU3F37A.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/index": { "id": "routes/index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "module": "/build/routes/index-S33GBNL4.js", "imports": ["/build/_shared/chunk-CUB2A36P.js", "/build/_shared/chunk-HC43MPLC.js", "/build/_shared/chunk-6AZQIGZS.js", "/build/_shared/chunk-6TW2643V.js", "/build/_shared/chunk-V7QGJMSH.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": true }, "routes/pricing": { "id": "routes/pricing", "parentId": "root", "path": "pricing", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/pricing-USCWOZJI.js", "imports": ["/build/_shared/chunk-3AO5V6RL.js", "/build/_shared/chunk-HC43MPLC.js", "/build/_shared/chunk-6AZQIGZS.js", "/build/_shared/chunk-V7QGJMSH.js", "/build/_shared/chunk-7MBFRISP.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/pricing/$service": { "id": "routes/pricing/$service", "parentId": "routes/pricing", "path": ":service", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/pricing/$service-ZBDN3O5U.js", "imports": void 0, "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/pricing/index": { "id": "routes/pricing/index", "parentId": "routes/pricing", "path": void 0, "index": true, "caseSensitive": void 0, "module": "/build/routes/pricing/index-X325CHIW.js", "imports": void 0, "hasAction": false, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/services": { "id": "routes/services", "parentId": "root", "path": "services", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/services-XM6JZXTL.js", "imports": ["/build/_shared/chunk-6AZQIGZS.js", "/build/_shared/chunk-V7QGJMSH.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/stores/index": { "id": "routes/stores/index", "parentId": "root", "path": "stores", "index": true, "caseSensitive": void 0, "module": "/build/routes/stores/index-LCX25Q3R.js", "imports": ["/build/_shared/chunk-V7QGJMSH.js", "/build/_shared/chunk-DX6LXIYQ.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": true } }, "url": "/build/manifest-EF5A37E4.js" };
+var assets_manifest_default = { "version": "87533448", "entry": { "module": "/build/entry.client-DDVWCELN.js", "imports": ["/build/_shared/chunk-MNLR4OGR.js", "/build/_shared/chunk-XV23MX66.js"] }, "routes": { "root": { "id": "root", "parentId": void 0, "path": "", "index": void 0, "caseSensitive": void 0, "module": "/build/root-HA4N3XPA.js", "imports": ["/build/_shared/chunk-DRQKQCUS.js", "/build/_shared/chunk-6YOBSU5K.js", "/build/_shared/chunk-OEFHZLDF.js", "/build/_shared/chunk-CZUHRWWS.js", "/build/_shared/chunk-5QXCMY7U.js", "/build/_shared/chunk-AUEZTORJ.js", "/build/_shared/chunk-FCHWPAX5.js", "/build/_shared/chunk-4W53IXAO.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": true, "hasErrorBoundary": true }, "routes/about": { "id": "routes/about", "parentId": "root", "path": "about", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/about-5UQD6HQO.js", "imports": ["/build/_shared/chunk-6TW2643V.js", "/build/_shared/chunk-YLCQDP7H.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/auth": { "id": "routes/auth", "parentId": "root", "path": "auth", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/auth-4MUODD35.js", "imports": ["/build/_shared/chunk-YLCQDP7H.js"], "hasAction": false, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/auth/callback": { "id": "routes/auth/callback", "parentId": "routes/auth", "path": "callback", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/auth/callback-NQBFQ5UI.js", "imports": ["/build/_shared/chunk-ZBM7MCAA.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/auth/index": { "id": "routes/auth/index", "parentId": "routes/auth", "path": void 0, "index": true, "caseSensitive": void 0, "module": "/build/routes/auth/index-OHB4UKJ2.js", "imports": ["/build/_shared/chunk-ZBM7MCAA.js", "/build/_shared/chunk-XZNYROYL.js", "/build/_shared/chunk-AUEZTORJ.js", "/build/_shared/chunk-AJU2FLGQ.js", "/build/_shared/chunk-4W53IXAO.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/contact": { "id": "routes/contact", "parentId": "root", "path": "contact", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/contact-YFOFIMZ2.js", "imports": ["/build/_shared/chunk-ZCMDBRZJ.js", "/build/_shared/chunk-AJU2FLGQ.js", "/build/_shared/chunk-YLCQDP7H.js"], "hasAction": true, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/dashboard": { "id": "routes/dashboard", "parentId": "root", "path": "dashboard", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/dashboard-XYODMTJI.js", "imports": ["/build/_shared/chunk-AJU2FLGQ.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/dashboard/bookings": { "id": "routes/dashboard/bookings", "parentId": "routes/dashboard", "path": "bookings", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/dashboard/bookings-I7L55CBQ.js", "imports": void 0, "hasAction": false, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/dashboard/profile": { "id": "routes/dashboard/profile", "parentId": "routes/dashboard", "path": "profile", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/dashboard/profile-WTXWJDRE.js", "imports": ["/build/_shared/chunk-OEFHZLDF.js", "/build/_shared/chunk-DX6LXIYQ.js", "/build/_shared/chunk-ZCMDBRZJ.js", "/build/_shared/chunk-AUEZTORJ.js", "/build/_shared/chunk-FCHWPAX5.js"], "hasAction": true, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": true }, "routes/dashboard/review": { "id": "routes/dashboard/review", "parentId": "routes/dashboard", "path": "review", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/dashboard/review-6C454YDH.js", "imports": ["/build/_shared/chunk-CZUHRWWS.js", "/build/_shared/chunk-5QXCMY7U.js", "/build/_shared/chunk-ZCMDBRZJ.js", "/build/_shared/chunk-AUEZTORJ.js", "/build/_shared/chunk-FCHWPAX5.js"], "hasAction": true, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/index": { "id": "routes/index", "parentId": "root", "path": void 0, "index": true, "caseSensitive": void 0, "module": "/build/routes/index-CKBYTNDJ.js", "imports": ["/build/_shared/chunk-S3VP7PEW.js", "/build/_shared/chunk-XKFTFY4V.js", "/build/_shared/chunk-4D243TCN.js", "/build/_shared/chunk-XZNYROYL.js", "/build/_shared/chunk-6TW2643V.js", "/build/_shared/chunk-6AZQIGZS.js", "/build/_shared/chunk-YLCQDP7H.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": true }, "routes/pricing": { "id": "routes/pricing", "parentId": "root", "path": "pricing", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/pricing-HRC3SM2V.js", "imports": ["/build/_shared/chunk-3AO5V6RL.js", "/build/_shared/chunk-S3VP7PEW.js", "/build/_shared/chunk-6AZQIGZS.js", "/build/_shared/chunk-YLCQDP7H.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/pricing/$service": { "id": "routes/pricing/$service", "parentId": "routes/pricing", "path": ":service", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/pricing/$service-5Y3FKS5L.js", "imports": void 0, "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/pricing/index": { "id": "routes/pricing/index", "parentId": "routes/pricing", "path": void 0, "index": true, "caseSensitive": void 0, "module": "/build/routes/pricing/index-X325CHIW.js", "imports": void 0, "hasAction": false, "hasLoader": false, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/process": { "id": "routes/process", "parentId": "root", "path": "process", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/process-XHIFTUPR.js", "imports": ["/build/_shared/chunk-XKFTFY4V.js", "/build/_shared/chunk-XZNYROYL.js", "/build/_shared/chunk-YLCQDP7H.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/reviews": { "id": "routes/reviews", "parentId": "root", "path": "reviews", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/reviews-Q6CB4DDJ.js", "imports": ["/build/_shared/chunk-4D243TCN.js", "/build/_shared/chunk-XZNYROYL.js", "/build/_shared/chunk-YLCQDP7H.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/services": { "id": "routes/services", "parentId": "root", "path": "services", "index": void 0, "caseSensitive": void 0, "module": "/build/routes/services-M2L24WT6.js", "imports": ["/build/_shared/chunk-6AZQIGZS.js", "/build/_shared/chunk-YLCQDP7H.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": false }, "routes/stores/index": { "id": "routes/stores/index", "parentId": "root", "path": "stores", "index": true, "caseSensitive": void 0, "module": "/build/routes/stores/index-WXY4PXQT.js", "imports": ["/build/_shared/chunk-DX6LXIYQ.js", "/build/_shared/chunk-YLCQDP7H.js"], "hasAction": false, "hasLoader": true, "hasCatchBoundary": false, "hasErrorBoundary": true } }, "url": "/build/manifest-87533448.js" };
 
 // server-entry-module:@remix-run/dev/server-build
 var entry = { module: entry_server_exports };
@@ -2922,14 +2918,6 @@ var routes = {
     index: void 0,
     caseSensitive: void 0,
     module: profile_exports
-  },
-  "routes/dashboard/profile/newAddress": {
-    id: "routes/dashboard/profile/newAddress",
-    parentId: "routes/dashboard/profile",
-    path: "newAddress",
-    index: void 0,
-    caseSensitive: void 0,
-    module: newAddress_exports
   },
   "routes/dashboard/review": {
     id: "routes/dashboard/review",
@@ -2978,6 +2966,22 @@ var routes = {
     index: true,
     caseSensitive: void 0,
     module: pricing_exports2
+  },
+  "routes/process": {
+    id: "routes/process",
+    parentId: "root",
+    path: "process",
+    index: void 0,
+    caseSensitive: void 0,
+    module: process_exports
+  },
+  "routes/reviews": {
+    id: "routes/reviews",
+    parentId: "root",
+    path: "reviews",
+    index: void 0,
+    caseSensitive: void 0,
+    module: reviews_exports
   },
   "routes/about": {
     id: "routes/about",

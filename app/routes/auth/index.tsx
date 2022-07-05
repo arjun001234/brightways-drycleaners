@@ -157,7 +157,7 @@ const Login = () => {
           Login
         </button>
       </Form>
-      <div className="flex flex-row justify-center items-center gap-2">
+      {/* <div className="flex flex-row justify-center items-center gap-2">
         <span className=" bg-gray-400 h-[2px] flex-1"></span>
         <p className=" text-[18px] font-text dark:text-white text-black">or</p>
         <span className=" bg-gray-400 h-[2px] flex-1"></span>
@@ -177,7 +177,7 @@ const Login = () => {
         >
           <img className="h-10 w-10" src={facebookIcon} />
         </button>
-      </section>
+      </section> */}
     </motion.section>
   );
 };

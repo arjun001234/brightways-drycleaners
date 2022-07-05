@@ -8,7 +8,7 @@ import { definitions } from '~/supabase'
 import { isAuthenticated, supabaseAdmin } from '~/supabase/supabase.server'
 import { FormResponse, Review, ReviewValidationError } from '~/types/types'
 import { createReview } from '~/utils/helpers/createReview'
-import { lessRoundedBasicInput, lessRoundedBasicLargeButtonFull } from '~/utils/styles'
+import { lessRoundedBasicInput, lessRoundedBasicInputWithBorder, lessRoundedBasicLargeButton, lessRoundedBasicLargeButtonFull } from '~/utils/styles'
 
 type LoaderDataType = {
   error?: string,
@@ -79,6 +79,8 @@ const Review = () => {
   const data = useLoaderData<LoaderDataType>();
   const actionData = useActionData<FormResponse<Review,ReviewValidationError>>()
   const [validationError,setValidationError] = React.useState<ReviewValidationError>(actionData?.validationErrors ? actionData.validationErrors : {})
+  const reviewRef = React.useRef<HTMLInputElement | null>(null);
+  const ratingRef = React.useRef<HTMLInputElement | null>(null);
 
   const handleReviewChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value
@@ -95,6 +97,16 @@ const Review = () => {
       setValidationError(prev => ({...prev,rating: "invalid input"}))
     }else if(!/[+]?([0-4]*\.[0-9]+|[0-5])/.test(value)){
       setValidationError(prev => ({...prev,rating: "value should be between 0 - 5"}))
+    }
+  }
+
+  const handleDiscard = () => {
+    setValidationError({})
+    if(ratingRef.current){
+      ratingRef.current.value = ""
+    }
+    if(reviewRef.current){
+      reviewRef.current.value = ""
     }
   }
 
@@ -115,9 +127,12 @@ const Review = () => {
         </div>
         {data.reviews && data.reviews.length < 2  &&
         <form method='post' className="flex flex-col gap-5 items-start overflow-visible">
-          <Input  type="text" name="review"  placeholder='Your Review' label="Review" handleChange={handleReviewChange} error={validationError.review} style={lessRoundedBasicInput} />
-          <Input  type="text" name="rating"  placeholder='Rating 0 to 5' label="Rating" handleChange={handleRatingChange} error={validationError.rating} style={lessRoundedBasicInput} />
-          <button disabled={transition.state === "submitting" || validationError.review ? true : false  || validationError.rating  ? true : false} type="submit" className={`${lessRoundedBasicLargeButtonFull}`}>{transition.state === "submitting" ? "Posting..." : "Post"}</button>
+          <Input  type="text" name="review" ref={reviewRef} placeholder='Your Review' label="Review" handleChange={handleReviewChange} error={validationError.review} style={lessRoundedBasicInputWithBorder} />
+          <Input  type="text" name="rating" ref={ratingRef} placeholder='Rating 0 to 5' label="Rating" handleChange={handleRatingChange} error={validationError.rating} style={lessRoundedBasicInputWithBorder} />
+          <section className="my-3 flex flex-row items-center justify-start gap-5 overflow-visible">
+          <button disabled={transition.state === "submitting" || validationError.review ? true : false  || validationError.rating  ? true : false} type="submit" className={`${lessRoundedBasicLargeButton}`}>{transition.state === "submitting" ? "Posting..." : "Post"}</button>
+          <button type="button"  onClick={handleDiscard.bind(null)} className={`${lessRoundedBasicLargeButton}`}>Discard</button>
+          </section>
         </form>}
         </section>
         <section>

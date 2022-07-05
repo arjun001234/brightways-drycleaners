@@ -30,6 +30,10 @@ const PricingPage = () => {
 
   const [open, setOpen] = React.useState(false);
 
+  React.useEffect(() => {
+    setOpen(false)
+  },[])
+
   return (
     <CartProvider>
       <InfoWrapper id="pricing">

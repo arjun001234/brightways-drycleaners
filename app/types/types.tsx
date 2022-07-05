@@ -195,3 +195,7 @@ export type AboutPageData = {
 export type ServicesPageData = {
     services: Service[]
 }
+
+export type ProcessPageData = {
+    process: Process
+}

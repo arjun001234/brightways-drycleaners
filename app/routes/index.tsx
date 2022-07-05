@@ -51,7 +51,7 @@ export async function loader(): Promise<IndexPageData> {
 export default function Index() {
 
   return (
-    <div className="h-auto relative w-screen overflow-x-hidden flex flex-col items-center scroll-smooth bg-inherit gap-[50px] lg:gap-[100px] mt-[150px] lg:mt-[200px]">
+    <div className="h-auto relative w-screen overflow-x-hidden flex flex-col items-center scroll-smooth bg-inherit gap-[50px] lg:gap-0 mt-[150px] lg:mt-[200px]">
       <LandingPage />
       {/* <Metrics /> */}
       <Features />
