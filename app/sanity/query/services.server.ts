@@ -1,16 +1,16 @@
 import { AxiosError } from "axios"
-import { Service } from "../../types/types"
 import { sanityPostQueryUrl, sanityQueryClient, sanityQueryResponseType } from '../sanity.server'
+import { Service } from "../types"
 import { getImageQuery } from "./image.server"
 
 export const getServiceQuery = () => {
     return `*[_type == 'service']{
-        _id,
+        id,
         name,
         shortDesc,
         detailedDesc,
         "image": ${getImageQuery("image")}
-      }`
+      }[] | order(id asc)`
 }
 
 export const getServices = async (): Promise<Service[]> => {

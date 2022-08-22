@@ -20,7 +20,7 @@ const DeatailedService : React.FC<DetailedServiceProps> = ({service}) => {
               <ScheduleButton content="Book Now" />
             </div>
         </section>
-        <section className='flex-1 flex flex-row h-auto w-[256px] max-w-[256px] w-[256px]'>
+        <section className='flex-1 flex flex-row h-auto min-w-[256px] w-[256px] max-w-[256px] h-[256px]'>
           <img className='h-full w-full z-10 rounded-lg' src={service.image.imageUrl} alt={service.image.alt} />
         </section>
     </div>
