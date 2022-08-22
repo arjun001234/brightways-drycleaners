@@ -1,10 +1,8 @@
 import { useLoaderData } from "@remix-run/react";
-import React from "react";
 import { IndexPageData } from "~/types/types";
 import Container from "../containers/container";
 import Grid from "../containers/grid";
 import Feature from "../features/feature";
-import InfoWrapper from "../wrappers/infoWrapper";
 
 const FeaturesList = () => {
   const { features } = useLoaderData<IndexPageData>();

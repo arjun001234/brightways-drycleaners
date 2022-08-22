@@ -4,7 +4,7 @@ import Container from '~/components/stores/container'
 import InfoWrapper from '~/components/wrappers/infoWrapper'
 import { StorePageData } from '~/types/types'
 import { getStores } from '~/sanity/query/stores.server'
-import { ErrorBoundaryComponent, LoaderFunction } from '@remix-run/node'
+import { ErrorBoundaryComponent, LoaderFunction, MetaFunction } from '@remix-run/node'
 
 
 export const loader : LoaderFunction = async () : Promise<StorePageData> => {
@@ -19,6 +19,10 @@ export const loader : LoaderFunction = async () : Promise<StorePageData> => {
         stores: stores
     }
 }
+
+export const meta: MetaFunction = () => {
+  return { title: "Stores" };
+};
 
 const Index : React.FC = () => {
   return (

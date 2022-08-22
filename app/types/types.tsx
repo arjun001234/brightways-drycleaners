@@ -1,4 +1,5 @@
 import { User } from '@supabase/supabase-js';
+import { Business, Footer, Header, Image, Metric, Process, Review, Service, Store } from '~/sanity/types';
 import { definitions } from '~/supabase';
 
 export enum itemOperation {
@@ -6,80 +7,21 @@ export enum itemOperation {
     SUBTRACT = 'SUBTRACT'
 }
 
-export interface Link {
-    _key: string,
-    name: string,
-    to: string,
-}
-
-export interface LinkList {
-    _key: string,
-    name: string,
-    links: Link[]
-}
-
-export interface Image {
-    alt: string,
-    imageUrl: string,
-    caption: string
-}
-
-export type Header = {
-    _id: string
-    logo: Image,
-    nav: Link[]
-}
-
-export type Footer = {
-    logo: Image,
-    desc: string,
-    sections: LinkList[]
-}
-
 export type LayoutPageData = {
     header: Header,
     footer: Footer,
     env: typeof window.env,
     user?: User,
-    profile?: definitions['profiles']
     isAuthenticated: boolean
 }
 
-export type Feature = {
-    _id: string
-    number: string
-    desc: string,
-    heading: string,
-    title: string,
-    image: Image,
-    callToActions: Link[],
-    highlights: string[]
+export type BookingDto = definitions["bookings"] & {
+    token: string
 }
 
-export type Step = {
-    _key: string,
-    desc: string,
-    heading: string,
-    number: number
-    image: Image
-}
-
-export type Process = {
-    _id: string
-    desc: string,
-    title: string
-    steps: Step[]
-}
-
-export type Contact = {
-    name: string,
-    contactNumber: string,
-    message: string
-}
-
-export type Review = {
-    review: string
-    rating: number
+export type BookingValidationError = Omit<Partial<definitions['bookings']>,"time_slot"> & {
+    time_slot?: string
+    token?: string
 }
 
 export type ProfileValidationError = {
@@ -100,88 +42,24 @@ export type  ContactValidationError =  {
 
 export type FormResponse<T,U> = {
     validationErrors?: U
-    success?: T
+    success?: T | string
     error?: string
 }
 
-export type Store = {
-    _id: string
-    address: string,
-    contactNumber: string,
-    direction: string,
-    name: string,
-    openOn: string,
-    timings: string
-}
-
-export type testimonialsType = {
-    id: number,
-    name: string
-    review: string
-    rating: number
-    source: string
-}
-
-export type Category = {
-    _id: number,
-    name: string
-    desc?: string
-}
-
-export type Item = {
-    _id: number
-    name: string
-    desc?: string
-    minPrice: number
-    maxPrice: number
-    service: Service
-    category: Category
-}
-
-export type Service = {
-    _id: string
-    name: string
-    shortDesc: string
-    image: Image
-    detailedDesc: string
-}
-
-export type Founder = {
-    _key: string
-    name: string
-    description: string
-    message: string
-}
-
-export type Business = {
-    companyName: string
-    coverImage: Image
-    detailedDesc: string
-    logo: Image
-    shortDesc: string
-    tagline: string
-    founder: string
-    whyUs: string[]
-}
-
 export interface IndexPageData {
-    testimonials: {
-        heading: string
-        sub_heading: string,
-        data: testimonialsType[]
-    }
+    reviews: Review[]
     services: Service[]
     process: Process
-    features: Feature[]
     business: Business
+    metrics: Metric[]
+}
+
+export interface ContactPageData {
+    image: Image
 }
 
 export interface StorePageData {
     stores: Store[]
-}
-
-export type ReviewsPageDataType = {
-    reviews: testimonialsType[]
 }
 
 export type PricingPageData = {
@@ -194,4 +72,8 @@ export type AboutPageData = {
 
 export type ServicesPageData = {
     services: Service[]
+}
+
+export type ProcessPageData = {
+    process: Process
 }

@@ -1,4 +1,4 @@
-import { LoaderFunction, Response } from '@remix-run/node'
+import { LoaderFunction, MetaFunction, Response } from '@remix-run/node'
 import React from 'react'
 import DetailedServices from '~/components/services/detailedServices'
 import InfoWrapper from '~/components/wrappers/infoWrapper'
@@ -16,6 +16,11 @@ export const loader : LoaderFunction = async () : Promise<ServicesPageData> => {
     services: services
   }
 }
+
+export const meta: MetaFunction = () => {
+  return { title: "Services" };
+};
+
 
 const ServicesPage : React.FC = () => {
   return (

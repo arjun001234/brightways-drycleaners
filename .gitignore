@@ -10,6 +10,8 @@ dockerfile
 docker-compose.yml
 codegen.yaml
 /app/prisma/migrations
+build
 
 # Local Netlify folder
 .netlify
+.vercel

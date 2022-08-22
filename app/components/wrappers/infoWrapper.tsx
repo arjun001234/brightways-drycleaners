@@ -7,19 +7,22 @@ import Info from '../ui/info'
 type InfoWrapperProps = {
     heading?: string,
     subHeading?: string,
-    id: string
+    id: string,
+    isGrid?: boolean
 }
 
-const InfoWrapper : React.FC<InfoWrapperProps> = ({children,heading,subHeading,id}) => {
+const InfoWrapper : React.FC<InfoWrapperProps> = ({children,heading,subHeading,id,isGrid = true}) => {
 
   const location = useLocation()
 
   return (
-    <div id={id} className={`flex bg-inherit flex-col items-center gap-[50px] md:gap-[70px] px-[10vw] md:min-h-screen h-auto w-full justify-center overflow-visible ${isHomePage(location.pathname) ? "lg:py-[50px]" : "py-[100px] md:pb-[100px] md:pt-[150px]"}`}>
-        {heading && subHeading && <Info heading={heading} subHeading={subHeading} />}
-        <Grid>
+    <div id={id} className={` relative flex bg-inherit flex-col items-center gap-[50px] lg:gap-[70px] px-[10vw] lg:min-h-screen h-auto w-full justify-center ${isHomePage(location.pathname) ? "lg:py-[50px]" : "py-[100px] lg:pb-[100px] lg:pt-[150px]"}`}>
+        {heading && <Info heading={heading} subHeading={subHeading} />}
+        
+        {isGrid && <Grid>
           {children}
-        </Grid>
+        </Grid>}
+        {!isGrid && children}
     </div>
   )
 }

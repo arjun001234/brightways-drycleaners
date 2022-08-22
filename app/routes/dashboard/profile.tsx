@@ -71,6 +71,8 @@ const ProfilePage = () => {
   const tranistion = useTransition()
   const {user,isAuthenticated,setProfile,profile} = React.useContext(AppContext)
   const [validationError,setValidationError] = React.useState<ProfileValidationError>(data?.validationErrors ? data.validationErrors : {})
+  const nameRef = React.useRef<HTMLInputElement | null>(null)
+  const contactNumber = React.useRef<HTMLInputElement | null>(null)
 
   React.useEffect(() => {
     if(data?.success){
@@ -101,6 +103,16 @@ const ProfilePage = () => {
     }
   }
 
+  const handleDiscard = () => {
+    setValidationError({})
+    if(nameRef.current){
+      nameRef.current.value = ""
+    }
+    if(contactNumber.current){
+      contactNumber.current.value = ""
+    }
+  }
+
   return (
     <div className='flex flex-col gap-20 overflow-visible'>
       {/* <section className="flex justify-center items-center h-auto">
@@ -112,21 +124,24 @@ const ProfilePage = () => {
           <h1 className=" font-heading font-medium dark:text-white text-black text-[24px]">Details</h1>
         </div>
         <Form method="post" className="flex flex-col gap-5 items-start overflow-visible">
-          <Input type="text" name="name" label="Name" placeholder="Your Name" error={validationError.name} handleChange={handleNameChange}  defaultValue={profile?.name} style={lessRoundedBasicInput} />
-          <Input  defaultValue={user.email} type="text" name="email" label="Email" placeholder="Your Email" handleChange={() => {}} error={undefined} style={lessRoundedBasicInput}  />
-          <Input  defaultValue={profile?.contactNumber ? profile.contactNumber : ""} type="text" name="contactNumber" label="Contact Number" placeholder="Your contact number" handleChange={handleContactNumberChange} error={validationError.contactNumber} style={lessRoundedBasicInput}/>
+          <Input type="text" name="name" ref={nameRef} label="Name" placeholder="Your Name" error={validationError.name} handleChange={handleNameChange}  defaultValue={profile?.name} style={lessRoundedBasicInputWithBorder} />
+          <Input  defaultValue={user.email} type="text" name="email" label="Email" placeholder="Your Email" handleChange={() => {}} error={undefined} style={lessRoundedBasicInputWithBorder}  />
+          <Input  defaultValue={profile?.contactNumber ? profile.contactNumber : ""} type="text" name="contactNumber" ref={contactNumber} label="Contact Number" placeholder="Your contact number" handleChange={handleContactNumberChange} error={validationError.contactNumber} style={lessRoundedBasicInputWithBorder}/>
           <input className="hidden" name="event" defaultValue="UPDATE_USER" />
-          <button disabled={tranistion.state === "submitting" && Object.keys(validationError).length > 0} className={`${lessRoundedBasicLargeButtonFull}`}>Save</button>
+          <section className="my-3 flex flex-row items-center justify-start gap-5 overflow-visible">
+          <button disabled={tranistion.state === "submitting" && Object.keys(validationError).length > 0} className={`${lessRoundedBasicLargeButton}`}>Save</button>
+          <button type="button"  onClick={handleDiscard.bind(null)} className={`${lessRoundedBasicLargeButton}`}>Discard</button>
+          </section>
         </Form>
       </section>
-      <section className="flex flex-col gap-10 overflow-visible">
+      {/* <section className="flex flex-col gap-10 overflow-visible">
         <div className="flex justify-start items-center gap-3">
           <AiOutlineHome className="dark:fill-white fill-black h-10 w-10" />
           <h1 className=" font-heading font-medium dark:text-white text-black text-[24px]">Address</h1>
         </div>
         <Outlet />
         <button className={`${lessRoundedBasicLargeButton} flex justify-center items-center`}><Link to="/dashboard/profile/newAddress">New Address</Link><MdAdd className="dark:fill-white fill-black ml-3 h-5 w-5" /></button>
-      </section>
+      </section> */}
       <section className="flex flex-col md:flex-row justify-center items-center gap-5 mt-[50px] w-full overflow-visible">
         <Form method="post" className="w-full md:w-auto overflow-visible">
           <input className="hidden" name="event" defaultValue="SIGN_OUT" />

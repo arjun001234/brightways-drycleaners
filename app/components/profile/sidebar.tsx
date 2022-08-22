@@ -2,6 +2,10 @@ import { Link, useMatches } from '@remix-run/react'
 import React from 'react';
 import {IoMdArrowDropdown, IoMdArrowDropup} from 'react-icons/io'
 
+const capitalizeFirstLetter = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 const ProfileSidebar = () => {
 
   const matches = useMatches()
@@ -10,7 +14,7 @@ const ProfileSidebar = () => {
   return (
     <div className={`w-full md:w-[200px] px-[20px] md:px-[50px] absolute md:static dark:bg-gray-900 bg-white`}>
       <section className='md:hidden flex justify-between items-center w-full h-[50px]' onClick={() => setOpen(prev => !prev)}>
-        <p className=' font-text font-medium text-[18px] dark:text-white text-black'>Menu</p>
+        <p className=' font-text font-medium text-[18px] dark:text-white text-black'>{capitalizeFirstLetter(matches[2].id.split("/")[2])}</p>
         {!open ? <IoMdArrowDropdown className='w-10 h-10 dark:fill-white fill-black' /> : <IoMdArrowDropup className='w-7 h-7 dark:fill-white fill-black'/>}
       </section>
       <ul className={`w-full md:h-full flex flex-col items-start bg-inherit ${open ? "h-full" : "h-0"}`}>

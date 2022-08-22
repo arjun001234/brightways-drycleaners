@@ -23,7 +23,9 @@ export const createProfile = (formData: FormData) : [Pick<definitions['profiles'
         }]
     }
 
-    if(!/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(contactNumber)){
+
+
+    if(!/\+?\d[\d -]{8,12}\d/.test(contactNumber)){
         return [null,{
             name: "invalid contact number"
         }]

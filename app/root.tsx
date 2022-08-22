@@ -1,4 +1,5 @@
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
@@ -19,8 +20,6 @@ import Layout from "./components/ui/layout";
 import AppContextProvider from "./components/context/appContext";
 import { LayoutPageData } from "./types/types";
 import { BiError } from "react-icons/bi";
-import { CatchBoundaryComponent } from "@remix-run/react/routeModules";
-import InfoWrapper from "./components/wrappers/infoWrapper";
 import ThemeContextProvider from "./components/context/themeContext";
 import { lessRoundedBasicLargeButton } from "./utils/styles";
 import { getHeader } from "./sanity/query/header.server";
@@ -28,6 +27,7 @@ import { getFooter } from "./sanity/query/footer.server";
 import { getSession } from "./supabase/session";
 import { isAuthenticated, supabaseAdmin } from "./supabase/supabase.server";
 import { definitions } from "./supabase";
+import { CatchBoundaryComponent } from "@remix-run/react/dist/routeModules";
 
 export const loader: LoaderFunction = async ({request}) => {
 
@@ -48,29 +48,31 @@ export const loader: LoaderFunction = async ({request}) => {
     env: {
       SUPABASE_URL: process.env.SUPABASE_URL,
       SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
-      SERVER_URL: process.env.SERVER_URL
+      SERVER_URL: process.env.SERVER_URL,
+      RECAPTCHA_SITE_KEY: process.env.RECAPTCHA_SITE_KEY,
+      GOOGLE_MAP_API_KEY: process.env.GOOGLE_MAP_API_KEY
     }
   } as LayoutPageData
 
-  const session = await getSession(request.headers.get('Cookie'))
+  // const session = await getSession(request.headers.get('Cookie'))
 
-  if(session.has("access_token")){
-    const [user,error] = await isAuthenticated(request,true);
-    if(user){
-       response.isAuthenticated = true
-       response.user = user
-    }
-    if(error){
-      console.log(error)
-    }
-    const profileResponse= await supabaseAdmin.from<definitions['profiles']>("profiles").select("*").eq("id",user?.id).single()
-    if(profileResponse.data){
-      response.profile = profileResponse.data
-    }
-    if(profileResponse.error){
-      console.log(profileResponse.error)
-    }
-  }
+  // if(session.has("access_token")){
+  //   const [user,error] = await isAuthenticated(request,true);
+  //   if(user){
+  //      response.isAuthenticated = true
+  //      response.user = user
+  //   }
+  //   if(error){
+  //     console.log(error)
+  //   }
+  //   const profileResponse= await supabaseAdmin.from<definitions['profiles']>("profiles").select("*").eq("id",user?.id).single()
+  //   if(profileResponse.data){
+  //     response.profile = profileResponse.data
+  //   }
+  //   if(profileResponse.error){
+  //     console.log(profileResponse.error)
+  //   }
+  // }
 
   return response;
 };
@@ -176,13 +178,11 @@ export const CatchBoundary : CatchBoundaryComponent = () => {
 
   return (
     <Document>
-      <InfoWrapper id="error">
-          <div className="md:border-2 md:border-gray-400 p-10 flex flex-col gap-5">
-            <h1 className=" font-heading font-bold text-[100px] dark:text-white text-black ">{error.status}</h1>
+          <div className=" absolute right-0 lg:right-[calc(50%-200px)] top-[calc(50%-200px)] md:border-2 md:border-gray-400 p-10 flex flex-col gap-5 col-start-1 col-span-full lg:col-start-4 lg:col-end-10 h-[400px] w-full lg:w-[400px]">
+            <h1 className=" font-heading font-bold text-[50px] lg:text-[100px] dark:text-white text-black text-center overflow-visible">{error.status}</h1>
             <p className=" font-text font-medium text-center text-[18px] dark:text-white text-black">{error.data}</p>
-            <button style={{width: "100%"}} className={`${lessRoundedBasicLargeButton}`} onClick={() => location.reload()}>Try Again</button>
+            <button className={`${lessRoundedBasicLargeButton} overflow-visible`}><Link to="/" >Back Home</Link></button>
           </div>
-      </InfoWrapper>
     </Document>
   )
 }

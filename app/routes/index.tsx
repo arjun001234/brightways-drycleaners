@@ -1,27 +1,24 @@
 import { BiError } from "react-icons/bi";
-import Features from "~/components/home/featuresList";
 import LandingPage from "~/components/home/landingPage";
 import Process from "~/components/home/process";
-import ReviewsPage from "~/components/home/testimonialsList";
+import ReviewsPage from "~/components/home/reviewsList";
 import SideBar from "~/components/ui/sidebar";
-import { testimonialData } from "~/data/data";
 import { IndexPageData } from "~/types/types";
 import { getBusiness } from "~/sanity/query/business.server";
-import { getFeatures } from "~/sanity/query/features.server";
 import { getProcess } from "~/sanity/query/process.server";
 import ServicesList from "~/components/home/servicesList";
 import { ErrorBoundaryComponent } from "@remix-run/node";
 import { getServices } from "~/sanity/query/services.server";
+import Metrics from "~/components/metrics/metrics";
+import AboutSection from "~/components/home/aboutSection";
+import WhyUsSection from "~/components/home/whyUsSection";
+import { getMetrics } from "~/sanity/query/metric.server";
+import { getReviews } from "~/sanity/query/review.server";
 
 export async function loader(): Promise<IndexPageData> {
     const business = await getBusiness();
     if (!business) {
       throw new Error("Couldn't fetch business");
-    }
-
-    const features = await getFeatures()
-    if (!features) {
-      throw new Error("Couldn't fetch features");
     }
 
     const process = await getProcess()
@@ -34,16 +31,22 @@ export async function loader(): Promise<IndexPageData> {
       throw new Error("Coundn't fetch services")
     }
 
+    const metrics = await getMetrics();
+    if(!metrics){
+      throw new Error("Coundn't fetch metrics")
+    }
+
+    const reviews = await getReviews();
+    if(!reviews){
+      throw new Error("Coundn't fetch reviews");
+    }
+
   const data = {
-    testimonials: {
-      heading: "Testimonials",
-      sub_heading: "People love what we do and we want to let your know",
-      data: testimonialData.slice(0,3),
-    },
-    services: services.slice(0,3),
+    reviews: reviews,
+    services: services,
     process: process,
-    features: features,
     business: business,
+    metrics: metrics
   };
   return data;
 }
@@ -51,10 +54,12 @@ export async function loader(): Promise<IndexPageData> {
 export default function Index() {
 
   return (
-    <div className="h-auto relative w-screen overflow-x-hidden flex flex-col items-center scroll-smooth bg-inherit gap-[50px] lg:gap-[100px] md:gap-0 mt-[150px] lg:mt-[200px]">
+    <div className="h-auto relative w-screen overflow-visible flex flex-col items-center scroll-smooth bg-inherit gap-[50px]">
       <LandingPage />
-      {/* <Metrics /> */}
-      <Features />
+      <Metrics />
+      <AboutSection />
+      <WhyUsSection />
+      {/* <Features /> */}
       <ServicesList />
       <Process />
       <ReviewsPage />
@@ -64,6 +69,8 @@ export default function Index() {
 }
 
 export const ErrorBoundary: ErrorBoundaryComponent = ({ error }) => {
+
+  console.log(error);
 
   return (
       <section className="min-h-screen min-w-full flex bg-blue justify-center items-center">
