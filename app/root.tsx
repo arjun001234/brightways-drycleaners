@@ -20,8 +20,6 @@ import Layout from "./components/ui/layout";
 import AppContextProvider from "./components/context/appContext";
 import { LayoutPageData } from "./types/types";
 import { BiError } from "react-icons/bi";
-import { CatchBoundaryComponent } from "@remix-run/react/routeModules";
-import InfoWrapper from "./components/wrappers/infoWrapper";
 import ThemeContextProvider from "./components/context/themeContext";
 import { lessRoundedBasicLargeButton } from "./utils/styles";
 import { getHeader } from "./sanity/query/header.server";
@@ -29,6 +27,7 @@ import { getFooter } from "./sanity/query/footer.server";
 import { getSession } from "./supabase/session";
 import { isAuthenticated, supabaseAdmin } from "./supabase/supabase.server";
 import { definitions } from "./supabase";
+import { CatchBoundaryComponent } from "@remix-run/react/dist/routeModules";
 
 export const loader: LoaderFunction = async ({request}) => {
 
@@ -49,29 +48,31 @@ export const loader: LoaderFunction = async ({request}) => {
     env: {
       SUPABASE_URL: process.env.SUPABASE_URL,
       SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
-      SERVER_URL: process.env.SERVER_URL
+      SERVER_URL: process.env.SERVER_URL,
+      RECAPTCHA_SITE_KEY: process.env.RECAPTCHA_SITE_KEY,
+      GOOGLE_MAP_API_KEY: process.env.GOOGLE_MAP_API_KEY
     }
   } as LayoutPageData
 
-  const session = await getSession(request.headers.get('Cookie'))
+  // const session = await getSession(request.headers.get('Cookie'))
 
-  if(session.has("access_token")){
-    const [user,error] = await isAuthenticated(request,true);
-    if(user){
-       response.isAuthenticated = true
-       response.user = user
-    }
-    if(error){
-      console.log(error)
-    }
-    const profileResponse= await supabaseAdmin.from<definitions['profiles']>("profiles").select("*").eq("id",user?.id).single()
-    if(profileResponse.data){
-      response.profile = profileResponse.data
-    }
-    if(profileResponse.error){
-      console.log(profileResponse.error)
-    }
-  }
+  // if(session.has("access_token")){
+  //   const [user,error] = await isAuthenticated(request,true);
+  //   if(user){
+  //      response.isAuthenticated = true
+  //      response.user = user
+  //   }
+  //   if(error){
+  //     console.log(error)
+  //   }
+  //   const profileResponse= await supabaseAdmin.from<definitions['profiles']>("profiles").select("*").eq("id",user?.id).single()
+  //   if(profileResponse.data){
+  //     response.profile = profileResponse.data
+  //   }
+  //   if(profileResponse.error){
+  //     console.log(profileResponse.error)
+  //   }
+  // }
 
   return response;
 };

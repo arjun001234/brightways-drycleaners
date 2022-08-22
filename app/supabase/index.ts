@@ -12,15 +12,18 @@ export interface paths {
       };
     };
   };
-  "/profiles": {
+  "/bookings": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.profiles.id"];
-          created_at?: parameters["rowFilter.profiles.created_at"];
-          avatar_url?: parameters["rowFilter.profiles.avatar_url"];
-          name?: parameters["rowFilter.profiles.name"];
-          contactNumber?: parameters["rowFilter.profiles.contactNumber"];
+          id?: parameters["rowFilter.bookings.id"];
+          created_at?: parameters["rowFilter.bookings.created_at"];
+          name?: parameters["rowFilter.bookings.name"];
+          email?: parameters["rowFilter.bookings.email"];
+          contact_number?: parameters["rowFilter.bookings.contact_number"];
+          address?: parameters["rowFilter.bookings.address"];
+          pick_up_date?: parameters["rowFilter.bookings.pick_up_date"];
+          time_slot?: parameters["rowFilter.bookings.time_slot"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -42,7 +45,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["profiles"][];
+          schema: definitions["bookings"][];
         };
         /** Partial Content */
         206: unknown;
@@ -51,8 +54,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** profiles */
-          profiles?: definitions["profiles"];
+          /** bookings */
+          bookings?: definitions["bookings"];
         };
         query: {
           /** Filtering Columns */
@@ -71,11 +74,14 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.profiles.id"];
-          created_at?: parameters["rowFilter.profiles.created_at"];
-          avatar_url?: parameters["rowFilter.profiles.avatar_url"];
-          name?: parameters["rowFilter.profiles.name"];
-          contactNumber?: parameters["rowFilter.profiles.contactNumber"];
+          id?: parameters["rowFilter.bookings.id"];
+          created_at?: parameters["rowFilter.bookings.created_at"];
+          name?: parameters["rowFilter.bookings.name"];
+          email?: parameters["rowFilter.bookings.email"];
+          contact_number?: parameters["rowFilter.bookings.contact_number"];
+          address?: parameters["rowFilter.bookings.address"];
+          pick_up_date?: parameters["rowFilter.bookings.pick_up_date"];
+          time_slot?: parameters["rowFilter.bookings.time_slot"];
         };
         header: {
           /** Preference */
@@ -90,114 +96,18 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.profiles.id"];
-          created_at?: parameters["rowFilter.profiles.created_at"];
-          avatar_url?: parameters["rowFilter.profiles.avatar_url"];
-          name?: parameters["rowFilter.profiles.name"];
-          contactNumber?: parameters["rowFilter.profiles.contactNumber"];
+          id?: parameters["rowFilter.bookings.id"];
+          created_at?: parameters["rowFilter.bookings.created_at"];
+          name?: parameters["rowFilter.bookings.name"];
+          email?: parameters["rowFilter.bookings.email"];
+          contact_number?: parameters["rowFilter.bookings.contact_number"];
+          address?: parameters["rowFilter.bookings.address"];
+          pick_up_date?: parameters["rowFilter.bookings.pick_up_date"];
+          time_slot?: parameters["rowFilter.bookings.time_slot"];
         };
         body: {
-          /** profiles */
-          profiles?: definitions["profiles"];
-        };
-        header: {
-          /** Preference */
-          Prefer?: parameters["preferReturn"];
-        };
-      };
-      responses: {
-        /** No Content */
-        204: never;
-      };
-    };
-  };
-  "/reviews": {
-    get: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.reviews.id"];
-          created_at?: parameters["rowFilter.reviews.created_at"];
-          profile_id?: parameters["rowFilter.reviews.profile_id"];
-          review?: parameters["rowFilter.reviews.review"];
-          rating?: parameters["rowFilter.reviews.rating"];
-          /** Filtering Columns */
-          select?: parameters["select"];
-          /** Ordering */
-          order?: parameters["order"];
-          /** Limiting and Pagination */
-          offset?: parameters["offset"];
-          /** Limiting and Pagination */
-          limit?: parameters["limit"];
-        };
-        header: {
-          /** Limiting and Pagination */
-          Range?: parameters["range"];
-          /** Limiting and Pagination */
-          "Range-Unit"?: parameters["rangeUnit"];
-          /** Preference */
-          Prefer?: parameters["preferCount"];
-        };
-      };
-      responses: {
-        /** OK */
-        200: {
-          schema: definitions["reviews"][];
-        };
-        /** Partial Content */
-        206: unknown;
-      };
-    };
-    post: {
-      parameters: {
-        body: {
-          /** reviews */
-          reviews?: definitions["reviews"];
-        };
-        query: {
-          /** Filtering Columns */
-          select?: parameters["select"];
-        };
-        header: {
-          /** Preference */
-          Prefer?: parameters["preferReturn"];
-        };
-      };
-      responses: {
-        /** Created */
-        201: unknown;
-      };
-    };
-    delete: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.reviews.id"];
-          created_at?: parameters["rowFilter.reviews.created_at"];
-          profile_id?: parameters["rowFilter.reviews.profile_id"];
-          review?: parameters["rowFilter.reviews.review"];
-          rating?: parameters["rowFilter.reviews.rating"];
-        };
-        header: {
-          /** Preference */
-          Prefer?: parameters["preferReturn"];
-        };
-      };
-      responses: {
-        /** No Content */
-        204: never;
-      };
-    };
-    patch: {
-      parameters: {
-        query: {
-          id?: parameters["rowFilter.reviews.id"];
-          created_at?: parameters["rowFilter.reviews.created_at"];
-          profile_id?: parameters["rowFilter.reviews.profile_id"];
-          review?: parameters["rowFilter.reviews.review"];
-          rating?: parameters["rowFilter.reviews.rating"];
-        };
-        body: {
-          /** reviews */
-          reviews?: definitions["reviews"];
+          /** bookings */
+          bookings?: definitions["bookings"];
         };
         header: {
           /** Preference */
@@ -312,26 +222,7 @@ export interface paths {
 }
 
 export interface definitions {
-  profiles: {
-    /**
-     * Format: uuid
-     * @description Note:
-     * This is a Primary Key.<pk/>
-     */
-    id: string;
-    /**
-     * Format: timestamp with time zone
-     * @default now()
-     */
-    created_at?: string;
-    /** Format: text */
-    avatar_url?: string;
-    /** Format: character varying */
-    name?: string;
-    /** Format: character varying */
-    contactNumber?: string;
-  };
-  reviews: {
+  bookings: {
     /**
      * Format: uuid
      * @description Note:
@@ -344,16 +235,21 @@ export interface definitions {
      * @default now()
      */
     created_at?: string;
-    /**
-     * Format: uuid
-     * @description Note:
-     * This is a Foreign Key to `profiles.id`.<fk table='profiles' column='id'/>
-     */
-    profile_id?: string;
+    /** Format: character varying */
+    name: string;
+    /** Format: character varying */
+    email: string;
+    /** Format: character varying */
+    contact_number: string;
     /** Format: text */
-    review?: string;
-    /** Format: real */
-    rating?: number;
+    address: string;
+    /** Format: date */
+    pick_up_date: string;
+    /**
+     * Format: public.time_slots
+     * @enum {string}
+     */
+    time_slot: "10am - 12pm" | "12pm - 2pm" | "2pm - 4pm" | "4pm - 6pm";
   };
   contacts: {
     /**
@@ -408,30 +304,24 @@ export interface parameters {
   offset: string;
   /** @description Limiting and Pagination */
   limit: string;
-  /** @description profiles */
-  "body.profiles": definitions["profiles"];
+  /** @description bookings */
+  "body.bookings": definitions["bookings"];
   /** Format: uuid */
-  "rowFilter.profiles.id": string;
+  "rowFilter.bookings.id": string;
   /** Format: timestamp with time zone */
-  "rowFilter.profiles.created_at": string;
-  /** Format: text */
-  "rowFilter.profiles.avatar_url": string;
+  "rowFilter.bookings.created_at": string;
   /** Format: character varying */
-  "rowFilter.profiles.name": string;
+  "rowFilter.bookings.name": string;
   /** Format: character varying */
-  "rowFilter.profiles.contactNumber": string;
-  /** @description reviews */
-  "body.reviews": definitions["reviews"];
-  /** Format: uuid */
-  "rowFilter.reviews.id": string;
-  /** Format: timestamp with time zone */
-  "rowFilter.reviews.created_at": string;
-  /** Format: uuid */
-  "rowFilter.reviews.profile_id": string;
+  "rowFilter.bookings.email": string;
+  /** Format: character varying */
+  "rowFilter.bookings.contact_number": string;
   /** Format: text */
-  "rowFilter.reviews.review": string;
-  /** Format: real */
-  "rowFilter.reviews.rating": string;
+  "rowFilter.bookings.address": string;
+  /** Format: date */
+  "rowFilter.bookings.pick_up_date": string;
+  /** Format: public.time_slots */
+  "rowFilter.bookings.time_slot": string;
   /** @description contacts */
   "body.contacts": definitions["contacts"];
   /** Format: timestamp with time zone */

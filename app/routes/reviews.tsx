@@ -1,6 +1,6 @@
 import { json, LoaderFunction } from '@remix-run/node'
 import { useLoaderData } from '@remix-run/react'
-import Testimonial from '~/components/Testimonials/testimonial'
+import Testimonial from '~/components/testimonials/testimonial'
 import InfoWrapper from '~/components/wrappers/infoWrapper'
 import { testimonialData } from '~/data/data'
 import { ReviewsPageDataType } from '~/types/types'

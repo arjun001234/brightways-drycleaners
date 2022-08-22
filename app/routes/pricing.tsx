@@ -28,25 +28,21 @@ const PricingPage = () => {
 
   const {services} = useLoaderData<PricingPageData>();
 
-  const [open, setOpen] = React.useState(false);
-
-  React.useEffect(() => {
-    setOpen(false)
-  },[])
+  const handleClick = () => {
+    window.scrollTo(0,0)
+  }
 
   return (
     <CartProvider>
       <InfoWrapper id="pricing">
-      <div className='fixed right-5 bottom-5 rounded-[50%] h-[50px] w-[50px] flex justify-center items-center bg-slate-100 dark:bg-slate-800 z-50 lg:hidden' onClick={() => setOpen(prev => !prev)}>  
-        {open ? 
-        <MdOutlineKeyboardArrowUp className=" scale-110 dark:fill-white fill-black" /> :
-        <MdOutlineKeyboardArrowDown className=" scale-110 dark:fill-white fill-black" /> } 
+      <div className='fixed right-5 bottom-5 rounded-[50%] h-[50px] w-[50px] flex justify-center items-center bg-slate-100 dark:bg-slate-800 z-50 lg:hidden' onClick={handleClick.bind(null)}>  
+        <MdOutlineKeyboardArrowUp className=" scale-110 dark:fill-white fill-black"  />
       </div>
-          <Container services={services} open={open} />
-          <Outlet context={{services}} />
+          <Container services={services} />
           {/* <Cart open={open} handleOpen={handleOpen} />
           <CostEstimator open={open} /> */}
       </InfoWrapper>
+      <Outlet context={{services}} />
     </CartProvider>
   );
 };

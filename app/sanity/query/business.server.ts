@@ -14,6 +14,12 @@ export const getBusinessQuery = () => {
         detailedDesc,
         shortDesc,
         tagline,
+        founder,
+        "whyUs": whyUs[]{
+            _key,
+            content,
+            "icon": ${getImageQuery("icon")}
+        },
         "logo": ${getImageQuery("logo")},
         "coverImage": ${getImageQuery("coverImage")}
         }[0]`

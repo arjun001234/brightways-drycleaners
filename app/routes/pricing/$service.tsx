@@ -3,7 +3,10 @@ import Service from "~/components/pricing/service";
 import { Category, Item, Service as ServiceType } from "~/types/types";
 import { getItems } from "~/sanity/query/items.server";
 import { LoaderFunction } from "@remix-run/node";
-import { useOutletContext, useParams } from "@remix-run/react";
+import { useOutletContext, useParams,useMatches } from "@remix-run/react";
+import React from "react";
+import BackdropContainer from "~/components/containers/backdropContainer";
+import { GiConsoleController } from "react-icons/gi";
 
 export type ExtendedCategory = Category & {
   items: Item[]
@@ -42,10 +45,12 @@ const SingleService = () => {
 
   const {services} = useOutletContext<{services: ServiceType[]}>();
 
+  console.log(services,params)
+
   return (
-    <>
+    <BackdropContainer to="/pricing" heading={params.service!}>
       <Service service={services.find(s => s.name === params.service)} />
-    </>
+    </BackdropContainer>
   );
 };
 

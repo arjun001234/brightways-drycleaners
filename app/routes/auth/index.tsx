@@ -130,7 +130,7 @@ const Login = () => {
             {notification.success ? notification.success.message : (notification.error ? notification.error.message : null)}
           </p>
         </section>
-      ): null}
+      ) : null}
       {error ? (
          <section className={`flex justify-center items-center h-[50px] w-full border-2 border-[#B00020]`}>
           <p className={`text-[16px] font-text font-semibold text-[#B00020]`}>

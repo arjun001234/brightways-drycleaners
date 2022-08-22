@@ -4,6 +4,8 @@ declare global {
             SUPABASE_URL: string;
             SUPABASE_ANON_KEY: string;
             SERVER_URL: string;
+            RECAPTCHA_SITE_KEY: string;
+            GOOGLE_MAP_API_KEY: string
         }
     }
 }
@@ -16,6 +18,9 @@ declare global {
         SERVER_URL: string;
         SANITY_PROJECT_ID: string;
         SANITY_DATASET: string;
+        RECAPTCHA_SITE_KEY: string;
+        RECAPTCHA_SECRET_KEY: string;
+        GOOGLE_MAP_API_KEY: string
       }
     }
 }
