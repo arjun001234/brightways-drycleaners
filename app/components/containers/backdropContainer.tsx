@@ -19,7 +19,7 @@ const BackdropContainer : React.FC<BackdropContainerProps> = ({children,to,handl
             {to && <CgClose className='h-[30px] w-[30px] text-black dark:text-white' onClick={() => nav(-1)} />}
             {handleClose && <CgClose onClick={handleClose.bind(null)} className='h-[30px] w-[30px] text-black dark:text-white' />}
         </section>
-        <div className="w-full h-full lg:h-auto lg:w-[500px] mx-auto p-5 pt-0 lg:pt-0 lg:p-10 bg-white dark:bg-slate-900">
+        <div className="w-full h-full lg:h-auto lg:w-[500px] flex mx-auto p-5 pt-0 lg:pt-0 lg:p-10 bg-white dark:bg-slate-900">
           {children}
         </div>
     </div>

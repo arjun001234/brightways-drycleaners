@@ -1,12 +1,11 @@
 import { BiError } from "react-icons/bi";
 import LandingPage from "~/components/home/landingPage";
 import Process from "~/components/home/process";
-import ReviewsPage from "~/components/home/reviewsList";
 import SideBar from "~/components/ui/sidebar";
 import { IndexPageData } from "~/types/types";
 import { getBusiness } from "~/sanity/query/business.server";
 import { getProcess } from "~/sanity/query/process.server";
-import ServicesList from "~/components/home/servicesList";
+import ServicesList from "~/components/home/serviceList";
 import { ErrorBoundaryComponent } from "@remix-run/node";
 import { getServices } from "~/sanity/query/services.server";
 import Metrics from "~/components/metrics/metrics";
@@ -14,6 +13,8 @@ import AboutSection from "~/components/home/aboutSection";
 import WhyUsSection from "~/components/home/whyUsSection";
 import { getMetrics } from "~/sanity/query/metric.server";
 import { getReviews } from "~/sanity/query/review.server";
+import ReviewsList from "~/components/home/reviewsList";
+import { useLoaderData } from "@remix-run/react";
 
 export async function loader(): Promise<IndexPageData> {
     const business = await getBusiness();
@@ -53,16 +54,18 @@ export async function loader(): Promise<IndexPageData> {
 
 export default function Index() {
 
+  const {reviews,services} = useLoaderData<IndexPageData>()
+
   return (
-    <div className="h-auto relative w-screen overflow-visible flex flex-col items-center scroll-smooth bg-inherit gap-[50px]">
+    <div className="h-auto relative w-full max-w-[100vw] overflow-visible flex flex-col items-center scroll-smooth bg-inherit gap-[50px]">
       <LandingPage />
       <Metrics />
       <AboutSection />
       <WhyUsSection />
       {/* <Features /> */}
-      <ServicesList />
+      <ServicesList list={services} batchSize={3} listSize={services.length} containerId="services" sectionHeading="Our Services" actionButton={{to: "/services",content: "Know More"}}  />
       <Process />
-      <ReviewsPage />
+      <ReviewsList list={reviews} batchSize={3} listSize={reviews.length} containerId="reviews" sectionHeading="What Customers Say About Us" />
       <SideBar />
     </div>
   );

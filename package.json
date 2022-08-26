@@ -16,6 +16,7 @@
     "update-types": "npx openapi-typescript \"${SUPABASE_URL}/rest/v1/?apikey=${SUPABASE_ANON_KEY}\" --version=2 --output types/database/index.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.154.0",
     "@react-google-maps/api": "^2.12.1",
     "@remix-run/express": "^1.6.0",
     "@remix-run/node": "^1.6.0",
@@ -33,12 +34,14 @@
     "react-dom": "^17.0.2",
     "react-google-recaptcha": "^2.1.0",
     "react-icons": "^4.4.0",
+    "react-intersection-observer": "^9.4.0",
     "react-toastify": "^9.0.4",
     "tailwindcss-animation-delay": "^1.0.7",
     "tiny-invariant": "^1.2.0",
     "twilio": "^3.77.3"
   },
   "devDependencies": {
+    "@aws-sdk/types": "^3.127.0",
     "@remix-run/dev": "^1.6.0",
     "@remix-run/eslint-config": "^1.6.0",
     "@types/nodemailer": "^6.4.4",

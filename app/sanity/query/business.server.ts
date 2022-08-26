@@ -1,6 +1,6 @@
 import { AxiosError } from "axios"
-import { Business } from "../../types/types"
 import { sanityPostQueryUrl, sanityQueryClient, sanityQueryResponseType } from "../sanity.server"
+import { Business } from "../types"
 import { getImageQuery } from "./image.server"
 
 export const getBusinessQuery = () => {
@@ -14,7 +14,11 @@ export const getBusinessQuery = () => {
         detailedDesc,
         shortDesc,
         tagline,
-        founder,
+        "founder": founder{
+                name,
+                message,
+                "image": ${getImageQuery("image")}
+        },
         "whyUs": whyUs[]{
             _key,
             content,

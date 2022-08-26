@@ -5,14 +5,26 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
+      fontSize: {
+        sm: '14px',
+        base: '16px',
+        md: '18px',
+        lg: '20px',
+        xl: '24px',
+        '2xl': '32px',
+        '3xl': '36px'
+      },
+      text: {
+        heading: "36px",
+        "sub-heading": "24px",
+        text: "18px"
+      },
       fontFamily: {
         text: ["Inter"],
-        heading: ["Poppins"],
-        "sub-heading": [],
+        heading: ["Poppins"]
       },
       colors: {
         "text-gray": "#7F7F7F",
-        blue: "#2C4EFF",
         white: "#fff",
         black: "#000",
         "hover-black": "#28231D",

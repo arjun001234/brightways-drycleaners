@@ -95,9 +95,9 @@ export type Service = {
 }
 
 export type Founder = {
-    _type: string
     name: string
     message: string
+    image: Image
 }
 
 export type WhyUsType = {

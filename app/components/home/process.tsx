@@ -14,7 +14,7 @@ const Process : React.FC = () => {
 
   return (
     <SectionWrapper id="process" heading="How it works" bgColor="primary" color="white" darkColor="white" barColor="white">
-        <section className='flex flex-col lg:flex-row h-fit col-start-1 col-span-full'>
+        <section className='flex flex-wrap gap-y-5 flex-col lg:flex-row h-fit col-start-1 col-span-full'>
             {process.steps.map((step,index) => {
                return <Step step={step} key={step._key}  delay={isMobile ? 0 : (index+2)/10} />
             })}
