@@ -16,7 +16,6 @@ import globalMediumStylesUrl from "./styles/global-medium.css";
 import globalLargeStylesUrl from "./styles/global-large.css";
 import toastStyleSheetUrl from "./styles/toast.css";
 import tailWindStyles from "./tailwind.css";
-import Layout from "./components/ui/layout";
 import AppContextProvider from "./components/context/appContext";
 import { LayoutPageData } from "./types/types";
 import { BiError } from "react-icons/bi";
@@ -24,12 +23,16 @@ import ThemeContextProvider from "./components/context/themeContext";
 import { lessRoundedBasicLargeButton } from "./utils/styles";
 import { getHeader } from "./sanity/query/header.server";
 import { getFooter } from "./sanity/query/footer.server";
-import { getSession } from "./supabase/session";
-import { isAuthenticated, supabaseAdmin } from "./supabase/supabase.server";
-import { definitions } from "./supabase";
 import { CatchBoundaryComponent } from "@remix-run/react/dist/routeModules";
+import ComingSoon from "./components/ui/comingSoon";
+import Layout from "./components/ui/layout";
 
 export const loader: LoaderFunction = async ({request}) => {
+
+  throw new Response("Under Maintenance",{
+    status: 503
+  })
+
 
   const header = await getHeader()
 
@@ -53,26 +56,6 @@ export const loader: LoaderFunction = async ({request}) => {
       GOOGLE_MAP_API_KEY: process.env.GOOGLE_MAP_API_KEY
     }
   } as LayoutPageData
-
-  // const session = await getSession(request.headers.get('Cookie'))
-
-  // if(session.has("access_token")){
-  //   const [user,error] = await isAuthenticated(request,true);
-  //   if(user){
-  //      response.isAuthenticated = true
-  //      response.user = user
-  //   }
-  //   if(error){
-  //     console.log(error)
-  //   }
-  //   const profileResponse= await supabaseAdmin.from<definitions['profiles']>("profiles").select("*").eq("id",user?.id).single()
-  //   if(profileResponse.data){
-  //     response.profile = profileResponse.data
-  //   }
-  //   if(profileResponse.error){
-  //     console.log(profileResponse.error)
-  //   }
-  // }
 
   return response;
 };
@@ -178,11 +161,12 @@ export const CatchBoundary : CatchBoundaryComponent = () => {
 
   return (
     <Document>
-          <div className=" absolute right-0 lg:right-[calc(50%-200px)] top-[calc(50%-200px)] md:border-2 md:border-gray-400 p-10 flex flex-col gap-5 col-start-1 col-span-full lg:col-start-4 lg:col-end-10 h-[400px] w-full lg:w-[400px]">
+          {error.status === 503 && <ComingSoon  />}
+          {/* <div className=" absolute right-0 lg:right-[calc(50%-200px)] top-[calc(50%-200px)] md:border-2 md:border-gray-400 p-10 flex flex-col gap-5 col-start-1 col-span-full lg:col-start-4 lg:col-end-10 h-[400px] w-full lg:w-[400px]">
             <h1 className=" font-heading font-bold text-[50px] lg:text-[100px] dark:text-white text-black text-center overflow-visible">{error.status}</h1>
             <p className=" font-text font-medium text-center text-[18px] dark:text-white text-black">{error.data}</p>
             <button className={`${lessRoundedBasicLargeButton} overflow-visible`}><Link to="/" >Back Home</Link></button>
-          </div>
+          </div> */}
     </Document>
   )
 }

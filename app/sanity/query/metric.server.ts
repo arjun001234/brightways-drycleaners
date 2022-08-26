@@ -1,5 +1,6 @@
-import { Metric } from "~/types/types"
+
 import { sanityPostQueryUrl, sanityQueryClient, sanityQueryResponseType } from "../sanity.server"
+import { Metric } from "../types"
 
 export const getMetricsQuery = () => {
     return `*[_type == 'metric']{

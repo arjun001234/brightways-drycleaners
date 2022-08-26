@@ -87,7 +87,7 @@ export type Item = {
 }
 
 export type Service = {
-    _id: string
+    id: string
     name: string
     shortDesc: string
     image: Image
@@ -95,9 +95,9 @@ export type Service = {
 }
 
 export type Founder = {
-    _type: string
     name: string
     message: string
+    image: Image
 }
 
 export type WhyUsType = {

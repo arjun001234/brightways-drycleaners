@@ -9,7 +9,7 @@ const AboutSection = () => {
   return (
     <SectionWrapper id="about" heading='About Us' isGrid={false}>
         <section className='h-auto w-full flex flex-col gap-5'>
-            <p className='font-text text-[24px] font-medium text-gray-400'>{business.detailedDesc}</p>
+            <p className='font-text text-lg font-medium text-center text-gray-700 leading-9'>{business.detailedDesc}</p>
         </section>
     </SectionWrapper>
   )
