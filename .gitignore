@@ -11,7 +11,7 @@ docker-compose.yml
 codegen.yaml
 /app/prisma/migrations
 /app/tailwind.css
-/build
+/build 
 
 # Local Netlify folder
 .netlify
