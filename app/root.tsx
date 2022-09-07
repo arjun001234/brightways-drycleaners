@@ -7,60 +7,64 @@ import {
   Scripts,
   ScrollRestoration,
   useCatch,
-  useLoaderData
+  useLoaderData,
 } from "@remix-run/react";
 import React from "react";
-import { ErrorBoundaryComponent, LinksFunction, LoaderFunction, MetaFunction } from "@remix-run/node";
+import {
+  ErrorBoundaryComponent,
+  LinksFunction,
+  LoaderFunction,
+  MetaFunction,
+} from "@remix-run/node";
 import globalStylesUrl from "./styles/global.css";
-import globalMediumStylesUrl from "./styles/global-medium.css";
-import globalLargeStylesUrl from "./styles/global-large.css";
 import toastStyleSheetUrl from "./styles/toast.css";
 import tailWindStyles from "./tailwind.css";
 import AppContextProvider from "./components/context/appContext";
 import { LayoutPageData } from "./types/types";
-import { BiError } from "react-icons/bi";
 import ThemeContextProvider from "./components/context/themeContext";
-import { lessRoundedBasicLargeButton } from "./utils/styles";
 import { getHeader } from "./sanity/query/header.server";
 import { getFooter } from "./sanity/query/footer.server";
 import { CatchBoundaryComponent } from "@remix-run/react/dist/routeModules";
 import ComingSoon from "./components/ui/comingSoon";
 import Layout from "./components/ui/layout";
+import ServerError from "./components/errors/serverError";
+import logger from "./logging/logger";
+import crypto from 'crypto';
 
-export const loader: LoaderFunction = async ({request}) => {
+export const loader: LoaderFunction = async ({ request }) => {
+  // throw new Response("Under Maintenance",{
+  //   status: 500
+  // })
 
-  throw new Response("Under Maintenance",{
-    status: 503
-  })
-
-
-  const header = await getHeader()
+  const header = await getHeader();
 
   if (!header) {
-    throw new Response("Something went wrong",{status: 500});
+    throw new Response("Something went wrong", { status: 500 });
   }
   const footer = await getFooter();
   if (!footer) {
-    throw new Response("Something went wrong",{status: 500});
+    throw new Response("Something went wrong", { status: 500 });
   }
 
-  const response = {
+  const response : LayoutPageData = {
     header,
     footer,
     isAuthenticated: false,
+    nonce: crypto.randomBytes(16).toString("hex"),
     env: {
       SUPABASE_URL: process.env.SUPABASE_URL,
       SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
       SERVER_URL: process.env.SERVER_URL,
       RECAPTCHA_SITE_KEY: process.env.RECAPTCHA_SITE_KEY,
-      GOOGLE_MAP_API_KEY: process.env.GOOGLE_MAP_API_KEY
-    }
-  } as LayoutPageData
+      GOOGLE_MAP_API_KEY: process.env.GOOGLE_MAP_API_KEY,
+    },
+  } as LayoutPageData;
 
   return response;
 };
 
 export const links: LinksFunction = () => {
+
   return [
     {
       rel: "preconnect",
@@ -73,7 +77,7 @@ export const links: LinksFunction = () => {
     {
       rel: "preload",
       as: "style",
-      href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Outfit&family=Poppins&family=Inter&display=swap"
+      href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Outfit&family=Poppins&family=Inter&display=swap",
     },
     {
       rel: "stylesheet",
@@ -81,110 +85,107 @@ export const links: LinksFunction = () => {
     },
     {
       rel: "stylesheet",
-      href: globalStylesUrl,
+      href: globalStylesUrl
     },
     {
       rel: "stylesheet",
-      href: toastStyleSheetUrl,
+      href: toastStyleSheetUrl
     },
     {
       rel: "stylesheet",
-      href: tailWindStyles,
-    },
-    {
-      rel: "stylesheet",
-      href: globalMediumStylesUrl,
-      media: "print, (min-width: 640px)",
-    },
-    {
-      rel: "stylesheet",
-      href: globalLargeStylesUrl,
-      media: "screen and (min-width: 1024px)",
-    },
+      href: tailWindStyles
+    }
   ];
 };
 
 export const meta: MetaFunction = () => {
-  return { title: "Brightways" };
+  return {
+    title: "Brightways Drycleaners",
+    description: `Since 1964, Brightways Dry cleaners has been providing the best dry cleaner services in Faridabad. We are experts in Clothes Dry Cleaning, Shoes Dry Clean, Curtain Dry Cleaning, Sofa Dry Cleaning, Carpet Dry Cleaning. Call us or WhatsApp us on 8010801020.`
+  };
 };
 
 type DocumentProps = {
   env?: typeof window.env
-}
+  nonce?: string
+};
 
-const Document: React.FC<DocumentProps> = ({ children,env }) => {
+const Document: React.FC<DocumentProps> = ({ children, env, nonce}) => {
 
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta httpEquiv="Content-Security-Policy" content={`default-src 'self' brightwaysdrycleaners.com api.sanity.io; style-src 'self' 'unsafe-hashes' fonts.googleapis.com 'sha256-lhyBwc40leacQ9n74ktreS/EGE1VNvHUKqW16hIOKvk=' 'sha256-b+83wK2HeZ9RpHdSrLD3Q7Czye/tctcoV2OrhN9EjgE='; img-src *; script-src 'self' 'nonce-${nonce}' www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/; font-src 'self' fonts.gstatic.com; frame-src www.google.com/recaptcha/;`} />
+        <meta name="keywords" content="dry cleaner near me,brightways dry cleaners faridabad,brightways dry cleaners,best dry cleaners in faridabad,dry cleaners in nit faridabad,dryclean shop near me,drycleaner in sector 21c faridabad,drycleaner in sector 21c faridabad,curtain dry cleaning near me,dryclean shop near me,sofa dry cleaning,drycleaners,drycleaning,dry cleaning services near me" />
         <Meta />
         <Links />
       </head>
       <body className="bg-white dark:bg-gray-900">
-        <ThemeContextProvider>
-        {children}
-        </ThemeContextProvider>
-        <ScrollRestoration />
-        {env &&
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.env = ${JSON.stringify(env)}`
-          }}
-        />}
-        <Scripts />
-        <LiveReload />
+        <ThemeContextProvider>{children}</ThemeContextProvider>
+        {nonce && <ScrollRestoration nonce={nonce} />}
+        {env && (
+          <script
+            nonce={nonce}
+            dangerouslySetInnerHTML={{
+              __html: `window.env = ${JSON.stringify(env)}`,
+            }}
+          />
+        )}
+        {nonce && <Scripts nonce={nonce} />}
+        {nonce && <LiveReload nonce={nonce} />}
       </body>
     </html>
   );
 };
 
 export default function App() {
-
-  const {env} = useLoaderData<LayoutPageData>();
+  const { env,nonce } = useLoaderData<LayoutPageData>();
 
   return (
-    <Document env={env}>
+    <Document env={env} nonce={nonce}>
       <AppContextProvider>
         <Layout>
-            <Outlet />
+          <Outlet />
         </Layout>
       </AppContextProvider>
     </Document>
   );
 }
 
-export const CatchBoundary : CatchBoundaryComponent = () => {
+export const CatchBoundary: CatchBoundaryComponent = () => {
 
-  const error = useCatch()
+  const error = useCatch();
+
+  logger.error(error, "Server error in root component");
+
+  if (error.status === 503) {
+    return (
+      <Document>
+        <ComingSoon />
+      </Document>
+    );
+  }
 
   return (
     <Document>
-          {error.status === 503 && <ComingSoon  />}
-          {/* <div className=" absolute right-0 lg:right-[calc(50%-200px)] top-[calc(50%-200px)] md:border-2 md:border-gray-400 p-10 flex flex-col gap-5 col-start-1 col-span-full lg:col-start-4 lg:col-end-10 h-[400px] w-full lg:w-[400px]">
-            <h1 className=" font-heading font-bold text-[50px] lg:text-[100px] dark:text-white text-black text-center overflow-visible">{error.status}</h1>
-            <p className=" font-text font-medium text-center text-[18px] dark:text-white text-black">{error.data}</p>
-            <button className={`${lessRoundedBasicLargeButton} overflow-visible`}><Link to="/" >Back Home</Link></button>
-          </div> */}
+      <ServerError status={error.status} message={error.data} />
     </Document>
-  )
-}
+  );
+};
 
-export const ErrorBoundary: ErrorBoundaryComponent = ({ error } : {error: unknown}) => {
+export const ErrorBoundary: ErrorBoundaryComponent = ({
+  error,
+}: {
+  error: unknown;
+}) => {
 
-  console.log(error)
+  logger.error(error, "Unexpected error in root component");
 
   return (
     <Document>
-      <section className="min-h-screen min-w-full flex bg-blue justify-center items-center">
-      <div className="p-10 h-[400px] overflow-y-hidden rounded-lg bg-white flex flex-col justify-center gap-3 items-center">
-      <BiError className="fill-error-red h-[100px] w-[100px]" />
-      <h1 className="text-red font-heading font-extrabold text-[48px]">Sorry</h1>
-      <p className="font-text text-[18px] mb-3">Something went wrong!</p>
-      <button className="p-3 rounded-md bg-blue text-white font-text text-[18px]" onClick={() => location.reload()}>Try Again</button>
-      </div>
-      </section>
+      <ServerError status={500} message={"Something went wrong!"}  />
     </Document>
   );
 };

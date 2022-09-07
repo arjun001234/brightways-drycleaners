@@ -12,7 +12,8 @@ export type LayoutPageData = {
     footer: Footer,
     env: typeof window.env,
     user?: User,
-    isAuthenticated: boolean
+    isAuthenticated: boolean,
+    nonce: string
 }
 
 export type BookingDto = definitions["bookings"] & {
@@ -51,7 +52,7 @@ export interface IndexPageData {
     services: Service[]
     process: Process
     business: Business
-    metrics: Metric[]
+    metrics: Metric[],
 }
 
 export interface ContactPageData {
@@ -59,7 +60,8 @@ export interface ContactPageData {
 }
 
 export interface StorePageData {
-    stores: Store[]
+    stores: Store[],
+    mapApiKey: string
 }
 
 export type PricingPageData = {

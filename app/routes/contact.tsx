@@ -49,8 +49,7 @@ export const loader : LoaderFunction = async () => {
 export const meta: MetaFunction = () => {
   return {
     title: "Contact",
-    description: "Contact page of Brightways Drycleaners",
-    keywords: "Brightways,Drycleaners",
+    description: "Brightways Dry cleaners is providing you the best dry cleaning services in Faridabad for 50+ years. For any query call us or WhatsApp us on 8010801020"
   };
 };
 

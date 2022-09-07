@@ -29,6 +29,7 @@
     "framer-motion": "^6.3.11",
     "morgan": "^1.10.0",
     "nodemailer": "^6.7.8",
+    "pino": "^8.4.2",
     "react": "^17.0.2",
     "react-countup": "^6.2.0",
     "react-dom": "^17.0.2",

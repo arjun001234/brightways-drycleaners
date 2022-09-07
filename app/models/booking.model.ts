@@ -1,4 +1,5 @@
 import { IsDefined, IsEmail, IsMobilePhone, Length, registerDecorator, validate, ValidationArguments, ValidationError, ValidationOptions, Validator, ValidatorConstraint, ValidatorConstraintInterface } from 'class-validator';
+import logger from '~/logging/logger';
 import { definitions } from '~/supabase';
 import { supabaseAdmin } from '~/supabase/supabase.server';
 
@@ -17,7 +18,7 @@ export class IsValidPickUpDateConstraint implements ValidatorConstraintInterface
     validate(pickUpDate: string, args: ValidationArguments) {
         const selectedDate = new Date(pickUpDate);
         const now = new Date();
-        if (selectedDate < now) {
+        if (selectedDate.getDay() === now.getDay() || selectedDate < now) {
             return false
         }
         return true
@@ -120,14 +121,14 @@ class Booking {
         return key
     }
 
-    private keyToSnakeCase(key: string): string {
-        for (var i = 0; i < key.length; i++) {
-            if (/[A-Z]/.test(key.charAt(i))) {
-                key = key.slice(0, i) + "_"  + key.charAt(i).toLowerCase() + key.slice(i + 1)
-            }
-        }
-        return key
-    }
+    // private keyToSnakeCase(key: string): string {
+    //     for (var i = 0; i < key.length; i++) {
+    //         if (/[A-Z]/.test(key.charAt(i))) {
+    //             key = key.slice(0, i) + "_"  + key.charAt(i).toLowerCase() + key.slice(i + 1)
+    //         }
+    //     }
+    //     return key
+    // }
 
     private mapErrors(validationErrors: ValidationError[]): BookingValidationError {
         let errors: BookingValidationError = {};
@@ -138,16 +139,22 @@ class Booking {
     }
 
     public async saveToDB(input: BookingDto) {
-        const {error} = await supabaseAdmin.from<definitions['bookings']>("bookings").insert({
-            name: input.name,
-            email: input.email,
-            address: input.address,
-            contact_number: input.contactNumber,
-            pick_up_date: input.pickUpDate,
-            time_slot: input.timeSlot as definitions["bookings"]["time_slot"]
-        });
-        if(error){
-            console.log(error)
+        try {
+            
+            const {error,data} = await supabaseAdmin.from<definitions['bookings']>("bookings").insert({
+                name: input.name,
+                email: input.email,
+                address: input.address,
+                contact_number: input.contactNumber,
+                pick_up_date: input.pickUpDate,
+                time_slot: input.timeSlot as definitions["bookings"]["time_slot"]
+            });
+            if(error){
+                logger.error(error,"Booking insertion into database error")
+                throw new Error("Failed to Book")
+            }
+        } catch (error) {
+            logger.error(error,"Booking insertion into database error")
             throw new Error("Failed to Book")
         }
     }

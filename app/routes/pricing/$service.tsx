@@ -1,12 +1,10 @@
 
 import Service from "~/components/pricing/service";
-import { Category, Item, Service as ServiceType } from "~/types/types";
 import { getItems } from "~/sanity/query/items.server";
 import { LoaderFunction } from "@remix-run/node";
-import { useOutletContext, useParams,useMatches } from "@remix-run/react";
-import React from "react";
+import { useOutletContext, useParams } from "@remix-run/react";
 import BackdropContainer from "~/components/containers/backdropContainer";
-import { GiConsoleController } from "react-icons/gi";
+import { Category, Item, Service as ServiceType } from "~/sanity/types";
 
 export type ExtendedCategory = Category & {
   items: Item[]
@@ -14,12 +12,18 @@ export type ExtendedCategory = Category & {
 
 export const loader: LoaderFunction = async ({ params }) => {
 
-  const name = params.service;
+  const id = parseInt(params.service!);
 
-  const items = await getItems(name!)
+  if(isNaN(id)){
+    throw new Response("Service not found", { status: 404 });
+  }
+
+  const items = await getItems(id)
+
+  console.log(items)
 
   if (!items){
-     throw new Error("Not Found")
+    throw new Response("Service not found", { status: 404 });
   }
 
   let categories : ExtendedCategory[] = []
@@ -45,11 +49,9 @@ const SingleService = () => {
 
   const {services} = useOutletContext<{services: ServiceType[]}>();
 
-  console.log(services,params)
-
   return (
-    <BackdropContainer to="/pricing" heading={params.service!}>
-      <Service service={services.find(s => s.name === params.service)} />
+    <BackdropContainer to="/pricing" heading={services.find(s => s.id === parseInt(params.service!))?.name || "Pricing"}>
+      <Service service={services.find(s => s.id === parseInt(params.service!))} />
     </BackdropContainer>
   );
 };

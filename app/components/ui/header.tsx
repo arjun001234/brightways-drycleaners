@@ -47,28 +47,30 @@ const Header: React.FC<headerPropType> = () => {
 
   return (
     <header
+      data-testid="header"
       className={`${
-        visible ? "-translate-y-full" : "translate-y-0"
+        visible && !open ? "-translate-y-full" : "translate-y-0"
       } bg-white dark:bg-gray-900 fixed top-0 left-0 right-0 h-[100px] grid grid-cols-4 z-40 overflow-visible transition-transform duration-300 lg:overflow-hidden px-[20px] lg:px-[50px]`}
     >
-      <section className="col-start-1 col-span-1 flex justify-start items-center">
+      <section data-testid="header-logo-container" className="col-start-1 col-span-3 lg:col-span-1 flex justify-start items-center">
         <Link to="/">
           <Logo />
         </Link>
         {/* <img className="h-10 w-auto bg-cover" src={logo.imageUrl} alt={logo.alt}  /> */}
       </section>
-      <section className="col-start-2 col-span-3  flex flex-row justify-between items-center">
-        <ul
-          className={`${
+      <section data-testid="header-navbar-container" className={`${
             open
               ? "scale-100 opacity-100 "
               : " scale-0 opacity-0 lg:scale-100 lg:opacity-100"
-          } fixed top-0 left-0 right-0 h-[100vh] flex flex-col items-center justify-center transition-all duration-500 lg:static lg:flex-row lg:w-auto lg:h-auto lg:overflow-hidden lg:gap-3 lg:px-5 dark:bg-gray-900 bg-white z-30 lg:bg-inherit lg:dark:bg-inherit`}
-        >
-          <AiOutlineClose
+          }  lg:col-start-2 lg:col-span-3 fixed top-0 left-0 right-0 h-[100vh] flex flex-col items-center justify-center transition-all duration-500 lg:static lg:flex-row lg:w-auto lg:h-auto lg:overflow-hidden lg:gap-3 lg:px-5 dark:bg-gray-900 bg-white z-30 lg:bg-inherit lg:dark:bg-inherit`}>
+        <AiOutlineClose
             className="lg:hidden dark:fill-white fill-black absolute right-[20px] top-[20px] h-[40px] w-[40px]"
             onClick={() => setOpen(false)}
-          />
+        />
+        <ul
+          className={`flex flex-col lg:flex-row items-center justify-center lg:gap-5`}
+          data-testid="header-navbar"
+        >
           {header.nav.map((link) => {
             return (
               <li
@@ -87,7 +89,7 @@ const Header: React.FC<headerPropType> = () => {
             );
           })}
         </ul>
-        <section className="gap-4 overflow-visible z-20 flex-1 flex justify-end items-center">
+        <section data-testid="header-action-buttons-container" className="gap-4 overflow-visible z-20 lg:flex-1 flex justify-end items-center">
           <div 
             className={`relative h-[40px] w-[40px] rounded-[50px] border-gray-400  border-2  font-text font-medium flex justify-center items-center`}
           >
@@ -111,14 +113,14 @@ const Header: React.FC<headerPropType> = () => {
           <ScheduleButton mobileVisibity={false} />
         </section>
       </section>
-      <section className="flex justify-center items-center lg:hidden ml-3 z-20">
+      <section data-testid="header-navlist-icon-container" className="col-start-4 col-span-1 row-start-1 flex justify-end items-center lg:hidden ml-3 z-20 align-end">
           <BsList
             style={{ height: "40px", width: "40px" }}
             className="dark:fill-white fill-black"
             onClick={() => setOpen(true)}
           />
       </section>
-    </header>
+    </header> 
   );
 };
 

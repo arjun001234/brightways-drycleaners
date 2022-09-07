@@ -1,6 +1,6 @@
 // import React from "react";
 
-import markerIcon from '../../../public/icons/logo.png'
+import markerIcon from "../../../public/icons/logo.png";
 
 // function MapComponent({
 //     center,
@@ -13,8 +13,7 @@ import markerIcon from '../../../public/icons/logo.png'
 //   }) {
 //     const ref = React.useRef<HTMLDivElement>(null);
 //     const [map, setMap] = React.useState<google.maps.Map>();
-  
-  
+
 //     React.useEffect(() => {
 //       if (ref.current && !map) {
 //         setMap(new window.google.maps.Map(ref.current, {center,zoom}));
@@ -60,8 +59,12 @@ import {
   GoogleMap,
   useJsApiLoader,
   Marker,
-  InfoWindow
+  InfoWindow,
 } from "@react-google-maps/api";
+import {LoadScriptProps} from '@react-google-maps/api'
+import { useLoaderData } from "@remix-run/react";
+import { StorePageData } from "~/types/types";
+
 
 type OfficeNode = {
   id: string;
@@ -82,31 +85,34 @@ export default function Map() {
       field_address: {
         locality: "NIT 1",
         postal_code: "121001",
-        address_line1: "1J, 16, Aryasamaj Rd, Block J, New Industrial Twp 1, New Industrial Twp, Faridabad, Haryana",
+        address_line1:
+          "1J, 16, Aryasamaj Rd, Block J, New Industrial Twp 1, New Industrial Twp, Faridabad, Haryana",
         address_line2: "",
         latitude: 28.387108274505763,
-        longitude: 77.30340686719823
-      }
+        longitude: 77.30340686719823,
+      },
     },
     {
       id: "2",
       field_address: {
         locality: "Sector 21",
         postal_code: "121001",
-        address_line1: "Shop no. 47,Sec 21A Market, Sector 21A, Faridabad, Haryana",
+        address_line1:
+          "Shop no. 47,Sec 21A Market, Sector 21A, Faridabad, Haryana",
         address_line2: "",
         latitude: 28.422634416423737,
-        longitude: 77.29688708219304
-      }
-    }
+        longitude: 77.29688708219304,
+      },
+    },
   ];
   const mapRef = React.useRef<any>(null);
+  const {mapApiKey} = useLoaderData<StorePageData>();
   const [selectedOffice, setSelectedOffice] = React.useState<
     OfficeNode | undefined | null
   >(null);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: window.env.GOOGLE_MAP_API_KEY
+    googleMapsApiKey: mapApiKey || "",
   });
   const onLoad = React.useCallback(
     (mapInstance) => {
@@ -127,9 +133,10 @@ export default function Map() {
   const onClickMarker = (officeId: string) => {
     setSelectedOffice(offices.find((office) => office.id === officeId));
   };
+
   return (
     <div className="h-[400px] w-full">
-      {isLoaded && (
+      {isLoaded  && (
         <>
           <GoogleMap
             mapContainerClassName="h-full w-full rounded-lg border-primary"
@@ -142,7 +149,7 @@ export default function Map() {
                 icon={markerIcon}
                 position={{
                   lat: office.field_address.latitude,
-                  lng: office.field_address.longitude
+                  lng: office.field_address.longitude,
                 }}
               />
             ))}
@@ -150,7 +157,7 @@ export default function Map() {
               <InfoWindow
                 position={{
                   lat: selectedOffice.field_address.latitude,
-                  lng: selectedOffice.field_address.longitude
+                  lng: selectedOffice.field_address.longitude,
                 }}
                 onCloseClick={() => setSelectedOffice(null)}
               >
@@ -168,4 +175,3 @@ export default function Map() {
     </div>
   );
 }
-

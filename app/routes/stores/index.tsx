@@ -16,12 +16,16 @@ export const loader : LoaderFunction = async () : Promise<StorePageData> => {
     }
 
     return {
-        stores: stores
+        stores: stores,
+        mapApiKey: process.env.GOOGLE_MAP_API_KEY
     }
 }
 
 export const meta: MetaFunction = () => {
-  return { title: "Stores" };
+  return {
+     title: "Stores",
+     description: "Brightways Dry cleaners is present at multiple locations in Faridabad. Every store is known for providing the best dry clean service in Faridabad. For any store related query, you can call us or WhatsApp us on"
+};
 };
 
 const Index : React.FC = () => {

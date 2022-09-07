@@ -1,9 +1,10 @@
 import React from 'react'
-import { itemOperation, Item as itemType } from '~/types/types'
+import { Item  as ItemType} from '~/sanity/types'
+import { itemOperation } from '~/types/types'
 import { CartContext, CartContextType } from '../context/cartContext'
 
 type itemProps = {
-    item: itemType
+    item: ItemType
     operation: itemOperation
     classes?: string
 }

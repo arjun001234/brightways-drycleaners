@@ -22,7 +22,7 @@ const LandingPage: React.FC = () => {
           <div className="flex flex-col lg:flex-row gap-5 my-4 overflow-visible w-full lg:w-auto">
             <ScheduleButton classes={`${largeBasicButton} text-white border-primary bg-primary`} />
             <button
-              className={`${largeBasicButton} animate-bounce-in-right delay-200  border-white text-primary bg-white`}
+              className={`${largeBasicButton} animate-bounce-in-right delay-200  border-white text-primary bg-white dark:text-black`}
             >
               <a target="_blank" href={`tel:+919810136709`} className="">
           Call Us

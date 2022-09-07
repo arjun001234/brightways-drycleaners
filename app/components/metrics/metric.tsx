@@ -1,7 +1,7 @@
 import React from 'react'
 import { useCountUp } from 'react-countup';
 import useInView from '~/hooks/useInView';
-import { Metric } from '~/types/types';
+import { Metric } from '~/sanity/types';
 
 type metricProps = {
     data: Metric

@@ -30,7 +30,7 @@ module.exports = {
         "hover-black": "#28231D",
         "error-red": "#FF9494",
         "success-green": "#4BB543",
-        primary: "#EA702B",
+        primary: "#DF4C18",
       },
       transitionDelay: {
         50: "50ms",

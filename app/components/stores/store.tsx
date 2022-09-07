@@ -12,7 +12,7 @@ type storeProps = {
 
 const Store : React.FC<storeProps> = ({store}) => {
   return (
-    <div className={`relative flex flex-col h-auto dark:bg-gray-800 bg-gray-50 border-[3px] p-5 gap-2 rounded-lg hover:shadow-lg transition-all duration-500 hover:-translate-y-2 overflow-visible odd:animate-bounce-in-left even:animate-bounce-in-right`}>
+    <div className={`relative flex flex-col h-auto bg-inherit border-[3px] border-gray-400 p-5 gap-2 rounded-lg hover:shadow-lg transition-all duration-500 hover:-translate-y-2 overflow-visible odd:animate-bounce-in-left even:animate-bounce-in-right`}>
         {/* <section className='absolute top-0 left-0 right-0 bottom-0 z-[-1]'>
            <span className='h-full w-full bg-primary opacity-70 absolute z-20'></span>
            <img src={storePic} className="h-full w-full z-0" />
