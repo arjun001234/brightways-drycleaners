@@ -1,11 +1,13 @@
 import React from "react";
 import { useInView } from "react-intersection-observer";
+import { AppContext } from "~/components/context/appContext";
 import BatchTracker from "~/components/ui/batchTracker";
 import SectionWrapper, { SectionWrapperProps } from "~/components/wrappers/sectionWrapper";
 
 export type withListContainerProps<U> = {
    list: U[],
    batchSize: number,
+   mobileBatchSize: number,
    listSize: number,
    containerId: string,
    sectionHeading: string
@@ -20,39 +22,46 @@ export function withListContainer<U,T extends withListContainerProps<U>>(Wrapped
         const {inView,ref} = useInView({threshold: 0});
         const [intervalId, setIntervalId] = React.useState<any>(0);
         const [userIntervention,setUserIntervention] = React.useState<boolean>(false);
+        const {isMobile} = React.useContext(AppContext);
+        const [batchSize,setBatchSize] = React.useState(isMobile ? props.mobileBatchSize : props.batchSize)
 
-        const noOfBatches = React.useMemo(() => {
-            return Math.ceil(props.listSize/props.batchSize)
-        },[])
-        
-
-        const filterList = React.useCallback(() => {
-            if(currBatch > noOfBatches){
-                return;
-            }
-            const start = (currBatch-1)*props.batchSize;
-            const end = start+props.batchSize
-            setNewList(props.list.slice(start,end))
-        },[currBatch,newList])
+        const noOfBatches = () => {
+            return Math.ceil(props.listSize/batchSize)
+        }
 
         React.useEffect(() => {
-            filterList();
-        },[currBatch])
+            setBatchSize(isMobile ? props.mobileBatchSize : props.batchSize)
+            setCurrBatch(1)
+        },[isMobile])
 
-        console.log(currBatch,noOfBatches)
+        React.useEffect(() => {
+            if(currBatch > noOfBatches()){
+                return;
+            }
+            const start = (currBatch-1)*batchSize;
+            const end = start+batchSize
+            setNewList(props.list.slice(start,end))
+        },[currBatch,batchSize])
 
         React.useEffect(() => {
             let interval : NodeJS.Timer;
-            if(inView ){
+            if(inView && !userIntervention){
               interval = setInterval(() => {
                 setCurrBatch(prev => {
-                    if(prev === noOfBatches){
+                    if(prev === noOfBatches()){
                         return 1
                     }
                     return prev+1
                 })
-              },3000)
+              },5000)
               setIntervalId(interval)
+            }
+            if(intervalId && !inView){
+                clearInterval(intervalId)
+                setIntervalId(0)
+            }
+            if(!inView && userIntervention){
+                setUserIntervention(false)
             }
             return () => {
                 clearInterval(intervalId)
@@ -60,25 +69,18 @@ export function withListContainer<U,T extends withListContainerProps<U>>(Wrapped
             }
         },[inView])
 
-        React.useEffect(() => {
-            if(intervalId && !inView){
-                clearInterval(intervalId)
-                setIntervalId(0)
-            }
-        },[inView])
-
-        React.useEffect(() => {
-            if(userIntervention){
-                clearInterval(intervalId)
-                setIntervalId(0)
-            }
-        },[userIntervention])
+        const handleBatchChange = (id: number) => {
+            setCurrBatch(id)
+            setUserIntervention(true)
+            clearInterval(intervalId)
+            setIntervalId(0)
+        }
 
         return (
             <SectionWrapper id={props.containerId} heading={props.sectionHeading} actionButton={props.actionButton}>
             <section ref={ref} className="relative flex flex-col items-center gap-5 col-start-1 col-span-full">
                 <WrappedComponent {...props} list={newList} />
-                <BatchTracker currBatchNo={currBatch} setCurrBatchNo={setCurrBatch} noOfBatches={noOfBatches} setUserIntervention={setUserIntervention} /> 
+                <BatchTracker currBatchNo={currBatch} noOfBatches={noOfBatches()} handleBatchChange={handleBatchChange} /> 
             </section>
             </SectionWrapper>
         )

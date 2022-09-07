@@ -8,7 +8,7 @@ const DetailedServices = () => {
   const {services} = useLoaderData() as ServicesPageData
 
   return (
-    <div className={`grid grid-cols-1 w-full h-auto gap-10 lg:gap-40 overflow-visible col-start-1 col-span-full`}>
+    <div className={`grid grid-cols-1 w-full h-auto gap-10 lg:gap-[50px] overflow-visible col-start-1 col-span-full`}>
        {services.map((service) => {
         return <DeatailedService key={service.id} service={service} />
        })}

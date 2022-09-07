@@ -1,4 +1,5 @@
 import { ActionFunction, json} from "@remix-run/node";
+import { provider } from "~/aws/ses/emails/emailProvider";
 import bookingModel, { BookingValidationError } from "~/models/booking.model";
 import { definitions } from "~/supabase";
 import { FormResponse } from "~/types/types";
@@ -13,15 +14,13 @@ export const action : ActionFunction = async ({request}) => {
             })
       }
 
-      const response = await fetch("https://www.google.com/recaptcha/api/siteverify",{
-            method: "POST",
-            body: JSON.stringify({
-                secret: process.env.RECAPTCHA_SECRET_KEY,
-                response: input?.gRecaptchaResponse
-            })
+      const response = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${input?.gRecaptchaResponse}`,{
+            method: "POST"
       })
 
-      if(response.status != 200){
+      const data = await response.json()
+
+      if(!data.success){
             return json<FormResponse<definitions['bookings'],BookingValidationError>>({
                   validationErrors: {
                         gRecaptchaResponse: "Verification Failed"
@@ -32,13 +31,15 @@ export const action : ActionFunction = async ({request}) => {
       if(input){
             try {
                await bookingModel.saveToDB(input);
+               await provider.sendBookingConfirmationEmailToCustomer(input);
+               await provider.sendBookingConfirmationEmailToOwner(input);
                return json<FormResponse<definitions['bookings'],BookingValidationError>>({
                   success: "Booking Successful"
                })
             } catch (error) {
-                  return json<FormResponse<definitions['bookings'],BookingValidationError>>({
+               return json<FormResponse<definitions['bookings'],BookingValidationError>>({
                         error: "Failed to book"
-                  }) 
+               }) 
             }
       }
 

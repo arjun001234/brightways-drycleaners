@@ -87,7 +87,7 @@ export type Item = {
 }
 
 export type Service = {
-    id: string
+    id: number
     name: string
     shortDesc: string
     image: Image

@@ -20,7 +20,10 @@ declare global {
         SANITY_DATASET: string;
         RECAPTCHA_SITE_KEY: string;
         RECAPTCHA_SECRET_KEY: string;
-        GOOGLE_MAP_API_KEY: string
+        GOOGLE_MAP_API_KEY: string;
+        AWS_USER_ACCESS_KEY_ID: string;
+        AWS_USER_SECRET_ACCESS_KEY: string;
+        AWS_EMAIL_SERVICE_REGION: string;
       }
     }
 }

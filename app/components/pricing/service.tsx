@@ -1,7 +1,7 @@
 import { useLoaderData } from '@remix-run/react'
 import React from 'react'
 import { ExtendedCategory } from '~/routes/pricing/$service'
-import { Service as serviceType } from '~/types/types'
+import { Service as serviceType } from '~/sanity/types'
 import Category from './category'
 
 type ServiceProps = {
@@ -25,16 +25,19 @@ const Service : React.FC<ServiceProps> = ({service}) => {
   }
 
   return (
-    <div ref={containerRef} className='flex flex-col w-full lg:w-[500px] justify-center lg:justify-start min-h-[calc(100vh - 50px)]  lg:min-h-[auto] lg:h-auto gap-2 bg-white dark:bg-slate-900 p-10 mx-auto'>
+    <div ref={containerRef} className='flex flex-col w-full justify-center lg:justify-start h-auto gap-2 bg-white dark:bg-slate-900 lg:p-10 mx-auto p-0'>
         {categories.length === 0 ? <p className='font-text font-[24px] w-full text-center text-black dark:text-white'>Price currently unavailable</p> :
         <section className='flex flex-col gap-8 mt-5'>
             {categories.map((category) => {
                 return <Category key={category._id} category={category} />
             })}
         </section>}
-        <section className='flex flex-col gap-2 mt-5'>
+        <section className='flex flex-col gap-2 mt-5 px-5 lg:p-0'>
           <p className='font-heading text-[18px] dark:text-white text-black'>Note</p>
-          <p className='font-heading text-[16px] text-gray-400'>Final price of the article will be decided at the time of billing</p>
+          <ol className=' list-decimal flex flex-col gap-1'>
+          <li className='font-heading text-base dark:text-gray-400 text-gray-700 leading-6'>Actual dry cleaning prices may vary depending on the actual garment(depending on fabric, texture, embellishments, level of embroidery or similar work, etc..)</li>
+          <li className='font-heading text-base dark:text-gray-400 text-gray-700 leading-6'>Minimum order value of 350 for free pickupand delivery.</li>
+          </ol>
         </section>
     </div>
   )

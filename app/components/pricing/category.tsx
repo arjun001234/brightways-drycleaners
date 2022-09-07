@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoMdArrowDropdown, IoMdArrowDropup } from 'react-icons/io'
 import { ExtendedCategory } from '~/routes/pricing/$service'
-import { Category, itemOperation } from '~/types/types'
+import { itemOperation } from '~/types/types'
 import Item from './item'
 
 type categoryProps = {

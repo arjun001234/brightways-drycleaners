@@ -52,7 +52,7 @@ const SideBar: React.FC = () => {
         className={`bg-slate-100 dark:bg-gray-800 h-16 w-16 flex justify-center items-center rounded-[50%] transition-all duration-500 delay-100`}
       >
         <a target="_blank" href={`tel:+919810136709`} className="">
-          <BsFillTelephoneFill className="h-8 w-8 text-blue" />
+          <BsFillTelephoneFill className="h-8 w-8 text-primary" />
         </a>
       </section>
       {/* <section

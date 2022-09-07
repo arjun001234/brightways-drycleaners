@@ -20,11 +20,11 @@ const Container = () => {
   const fetcher =
     useFetcher<FormResponse<BookingDto,BookingValidationError>>();
   const { openBookingModal } = React.useContext(AppContext);
-  const {theme} = React.useContext(ThemeContext);
   const [error, setError] = React.useState<string | null>(null);
   const [formErrors, setFormErrors] = React.useState<BookingValidationError>(
     {}
   );
+  const [success,setSuccess] = React.useState(false);
 
   const captchaRef = React.useRef<any>();
 
@@ -37,17 +37,17 @@ const Container = () => {
         setFormErrors(fetcher.data.validationErrors);
       }
       if (fetcher.data.success && typeof fetcher.data.success === "string") {
-        openBookingModal(false);
-        toast("Pickup scheduled successfully",{
-          type: "success",
-          position: "bottom-center",
-          theme: theme === themeType.DARK ? "dark" : "light"
-        })
-        toast("We will contact you shortly",{
-          type: "info",
-          position: "bottom-center",
-          theme: theme === themeType.DARK ? "dark" : "light"
-        })
+        setSuccess(true);
+        // toast("Pickup scheduled successfully",{
+        //   type: "success",
+        //   position: "bottom-center",
+        //   theme: theme === themeType.DARK ? "dark" : "light"
+        // })
+        // toast("We will contact you shortly",{
+        //   type: "info",
+        //   position: "bottom-center",
+        //   theme: theme === themeType.DARK ? "dark" : "light"
+        // })
       }
     }
   }, [fetcher]);
@@ -135,6 +135,13 @@ const Container = () => {
 
   return (
     <BackdropContainer heading="Schedule PickUp" handleClose={() => openBookingModal(false)}>
+      {success ? <>
+       <section className="flex flex-col gap-5 w-full">
+        <h1 className="text-xl font-heading font-bold text-primary text-center">PICK-UP CONFIRMED!</h1>
+        <p className="text-base font-text text-gray-700 leading-6 w-full text-center">Thank you for contacting Brightways Drycleaners.</p>
+        <p className="text-base font-text text-gray-700 leading-6 w-full  text-center">Our Executive will contact you shortly.</p>
+       </section>
+      </> :
       <>
         <Notification type="ERROR" message={error ? error : undefined} />
         <fetcher.Form
@@ -206,7 +213,7 @@ const Container = () => {
             {fetcher.state === "submitting" ? "Booking..." : "Confirm Booking"}
           </button>
         </fetcher.Form>
-      </>
+      </>}
     </BackdropContainer>
   );
 };

@@ -1,10 +1,11 @@
 
 import {
-    SendEmailCommand,
-    SendEmailCommandInput,
     VerifyDomainDkimCommandInput,
     VerifyDomainIdentityCommand,
+    SendTemplatedEmailCommand,
   }  from "@aws-sdk/client-ses";
+import logger from "~/logging/logger";
+import { BookingDto } from "~/models/booking.model";
 import { sesClient } from "../ses";
 
 class EmailProvider {
@@ -13,8 +14,7 @@ class EmailProvider {
        Domain: "brightwaysdrycleaners.com"
     }
     constructor() {
-        // this.run().then(res => console.log(res)).catch(err => console.log(err))
-        // this.sendEmail("arjunkanojia001@gmail.com").then(res => console.log(res)).catch(err => console.log(err))
+        this.run()
     }
     public static getInstance() : EmailProvider {
         if(this.instance){
@@ -26,44 +26,55 @@ class EmailProvider {
     private async run() {
         try {
             const data = await sesClient.send(new VerifyDomainIdentityCommand(this.params));
-            console.log("Success", data);
-            return data; // For unit tests.
+            logger.info("Connection successfully established with amazon SES",data)
+            return data;
           } catch (err: any) {
-            console.log("Error", err.stack);
+            logger.error("Failed to established connection with amazon SES",err)
         }
     }
-    public async sendEmail(to: string){
-         try {
-            const data = await sesClient.send(new SendEmailCommand(this.generateParams(to)));
-            console.log("Success", data);
-            return data;
-         } catch (err) {
-            console.log("Error", err);
-         }
-    }
-    private generateParams(to: string) : SendEmailCommandInput {
-          return {
-            Destination: {
-                ToAddresses:[to]
-            },
-            Message: {
-                Subject: {
-                    Data: "Test Email by Brightways"
+    public async sendBookingConfirmationEmailToCustomer(params: BookingDto){
+        try {
+            const data = await sesClient.send(new SendTemplatedEmailCommand({
+                Destination: {
+                    ToAddresses: [params.email]
                 },
-                Body: {
-                    Html: {
-                        Charset: "UTF-8",  
-                        Data: "HTML_FORMAT_BODY",
-                      },
-                      Text: {
-                        Charset: "UTF-8",
-                        Data: "TEXT_FORMAT_BODY",
-                      }
-                }
-            },
-            Source: "arjun@brightwaysdrycleaners.com",
-            ReplyToAddresses: []
-          }
+                Template: "booking_confirmation_for_client",
+                TemplateData: JSON.stringify({
+                    name: params.name,
+                    pickUpDate: params.pickUpDate,
+                    pickUpTime: params.timeSlot,
+                    address: params.address
+                }),
+                Source: "info@brightwaysdrycleaners.com"
+            }));
+            logger.info("Email successfully sent to client",data)
+            return data;
+        } catch (err) {
+            logger.error("Failed to send email to client",err);
+        }
+    }
+    public async sendBookingConfirmationEmailToOwner(params: BookingDto){
+        try {
+            const data = await sesClient.send(new SendTemplatedEmailCommand({
+                Destination: {
+                    ToAddresses: ["karan@brightwaysdrycleaners.com"]
+                },
+                Template: "booking_confirmation_to_owner",
+                TemplateData: JSON.stringify({
+                    name: params.name,
+                    pickUpDate: params.pickUpDate,
+                    pickUpTime: params.timeSlot,
+                    address: params.address,
+                    email: params.email,
+                    contactNumber: params.contactNumber
+                }),
+                Source: "arjun@brightwaysdrycleaners.com"
+            }));
+            logger.info("Email successfully sent to owner",data)
+            return data;
+        } catch (err) {
+            logger.error("Failed to send email to owner",err)
+        }
     }
 }
 

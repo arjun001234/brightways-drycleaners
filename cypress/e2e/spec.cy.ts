@@ -1,5 +1,8 @@
+
+
 describe('empty spec', () => {
-  it('passes', () => {
+  it('Site visited successfully', () => {
     cy.visit('http://localhost:3000')
+    cy.get('[data-testid="header-navlist-icon-container"]');
   })
 })
