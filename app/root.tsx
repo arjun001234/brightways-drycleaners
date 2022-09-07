@@ -121,7 +121,7 @@ const Document: React.FC<DocumentProps> = ({ children, env, nonce}) => {
         <meta name="keywords" content="dry cleaner near me,brightways dry cleaners faridabad,brightways dry cleaners,best dry cleaners in faridabad,dry cleaners in nit faridabad,dryclean shop near me,drycleaner in sector 21c faridabad,drycleaner in sector 21c faridabad,curtain dry cleaning near me,dryclean shop near me,sofa dry cleaning,drycleaners,drycleaning,dry cleaning services near me" />
         <Meta />
         <Links />
-      </head>
+      </head> 
       <body className="bg-white dark:bg-gray-900">
         <ThemeContextProvider>{children}</ThemeContextProvider>
         {nonce && <ScrollRestoration nonce={nonce} />}
