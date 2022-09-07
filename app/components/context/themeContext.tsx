@@ -16,7 +16,7 @@ export const ThemeContext = React.createContext({
 });
 
 const ThemeContextProvider: React.FC = ({ children }) => {
-  const [theme, settheme] = React.useState<themeType>(themeType.DARK);
+  const [theme, settheme] = React.useState<themeType>(themeType.LIGHT);
 
   const setAppTheme = (theme: themeType): void => {
     console.log(theme);
