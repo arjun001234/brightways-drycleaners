@@ -116,7 +116,7 @@ const Document: React.FC<DocumentProps> = ({ children, env, nonce}) => {
         script-src 'self' 'nonce-${nonce}' www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ maps.googleapis.com static.cloudflareinsights.com https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com;
         font-src 'self' https://fonts.gstatic.com;
         frame-src *.google.com;
-        connect-src 'self' https://*.googleapis.com *.google.com https://*.gstatic.com  data: blob:;`} />
+        connect-src 'self' cloudflareinsights.com https://*.googleapis.com *.google.com https://*.gstatic.com  data: blob:;`} />
         <meta name="keywords" content="dry cleaner near me,brightways dry cleaners faridabad,brightways dry cleaners,best dry cleaners in faridabad,dry cleaners in nit faridabad,dryclean shop near me,drycleaner in sector 21c faridabad,drycleaner in sector 21c faridabad,curtain dry cleaning near me,dryclean shop near me,sofa dry cleaning,drycleaners,drycleaning,dry cleaning services near me" />
         <Meta />
         <Links />
