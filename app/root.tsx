@@ -98,13 +98,6 @@ export const links: LinksFunction = () => {
   ];
 };
 
-export const meta: MetaFunction = () => {
-  return {
-    title: "Brightways Drycleaners",
-    description: `Since 1964, Brightways Dry cleaners has been providing the best dry cleaner services in Faridabad. We are experts in Clothes Dry Cleaning, Shoes Dry Clean, Curtain Dry Cleaning, Sofa Dry Cleaning, Carpet Dry Cleaning. Call us or WhatsApp us on 8010801020.`
-  };
-};
-
 type DocumentProps = {
   env?: typeof window.env
   nonce?: string
@@ -117,7 +110,13 @@ const Document: React.FC<DocumentProps> = ({ children, env, nonce}) => {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <meta httpEquiv="Content-Security-Policy" content={`default-src 'self' brightwaysdrycleaners.com api.sanity.io; style-src 'self' 'unsafe-hashes' fonts.googleapis.com 'sha256-lhyBwc40leacQ9n74ktreS/EGE1VNvHUKqW16hIOKvk=' 'sha256-b+83wK2HeZ9RpHdSrLD3Q7Czye/tctcoV2OrhN9EjgE='; img-src *; script-src 'self' 'nonce-${nonce}' www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ maps.googleapis.com; font-src 'self' fonts.gstatic.com; frame-src www.google.com/recaptcha/;`} />
+        <meta httpEquiv="Content-Security-Policy" content={`default-src 'self'  api.sanity.io;
+        style-src 'self' 'unsafe-hashes' fonts.googleapis.com 'sha256-lhyBwc40leacQ9n74ktreS/EGE1VNvHUKqW16hIOKvk=' 'sha256-b+83wK2HeZ9RpHdSrLD3Q7Czye/tctcoV2OrhN9EjgE=' https://fonts.googleapis.com 'sha256-mmA4m52ZWPKWAzDvKQbF7Qhx9VHCZ2pcEdC0f9Xn/Po=' 'sha256-59z2Ykt7odDkwf2/Ef0ZgCSGegjdzB0AWB4812PzQnA=' 'sha256-/VVOq+Ws/EiUxf2CU6tsqsHdOWqBgHSgwBPqCTjYD3U=' 'sha256-lqO9GtizDrXbeRXIR3ynpmU+gCyvU40G2GmqvrAGxBk=' 'sha256-k8VVyuObKUPygF5AIY0Saj1vg5MaPPa/250lyF74yPQ=' 'sha256-jPTo51UfMyQY49ExaRBNooDCP2NMF8PgeSYuKJSVZpA=' 'sha256-NsEzkM762veirpWZeMiqlWTPdCYrm1uJHLzzwfYnDLM='  'sha256-PNsPul0zQFUiYu9XLVKzTdD5Cz5ghp1MT4H5/zAeI3Q=';
+        img-src * 'self' https://*.googleapis.com https://*.gstatic.com *.google.com  *.googleusercontent.com data:;
+        script-src 'self' 'nonce-${nonce}' www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ maps.googleapis.com static.cloudflareinsights.com https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com;
+        font-src 'self' https://fonts.gstatic.com;
+        frame-src *.google.com;
+        connect-src 'self' https://*.googleapis.com *.google.com https://*.gstatic.com  data: blob:;`} />
         <meta name="keywords" content="dry cleaner near me,brightways dry cleaners faridabad,brightways dry cleaners,best dry cleaners in faridabad,dry cleaners in nit faridabad,dryclean shop near me,drycleaner in sector 21c faridabad,drycleaner in sector 21c faridabad,curtain dry cleaning near me,dryclean shop near me,sofa dry cleaning,drycleaners,drycleaning,dry cleaning services near me" />
         <Meta />
         <Links />

@@ -14,6 +14,16 @@ export class IsValidFormValueConstraint implements ValidatorConstraintInterface 
 }
 
 @ValidatorConstraint()
+export class IsValidContactNumberConstraint implements ValidatorConstraintInterface {
+    validate(value: string | undefined | null, validationArguments?: ValidationArguments | undefined): boolean | Promise<boolean> {
+        if (!value || !/^\d{10}$/g.test(value)) {
+            return false;
+        }
+        return true;
+    }
+}
+
+@ValidatorConstraint()
 export class IsValidPickUpDateConstraint implements ValidatorConstraintInterface {
     validate(pickUpDate: string, args: ValidationArguments) {
         const selectedDate = new Date(pickUpDate);
@@ -49,6 +59,18 @@ export function IsValidFormValue(validationOptions?: ValidationOptions) {
     }
 }
 
+export function IsValidContactNumber(validationOptions?: ValidationOptions) {
+    return function (object: Object, propertyName: string) {
+        registerDecorator({
+            target: object.constructor,
+            propertyName: propertyName,
+            options: validationOptions,
+            constraints: [],
+            validator: IsValidContactNumberConstraint
+        })
+    }
+}
+
 export class BookingDto {
     @Length(3, 20)
     @IsDefined()
@@ -61,8 +83,8 @@ export class BookingDto {
     email: string = "";
 
     @IsDefined()
-    @IsMobilePhone()
     @IsValidFormValue({ message: "Contact Number Required" })
+    @IsValidContactNumber({message: "Invalid contact number"})
     contactNumber: string = "";
 
     @Length(10)
