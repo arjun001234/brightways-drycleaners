@@ -10,7 +10,6 @@ import {
 import BackdropContainer from "../containers/backdropContainer";
 import Notification from "../containers/notificationContainer";
 import { AppContext } from "../context/appContext";
-import { ThemeContext, themeType } from "../context/themeContext";
 import Input from "../ui/input";
 import SelectInput from "../ui/selectInput";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -85,7 +84,7 @@ const Container = () => {
         ...prev,
         contactNumber: "contact number required",
       }));
-    } else if (!/\+?\d[\d -]{8,12}\d/.test(contactNumber)) {
+    } else if (!/^\d{10}$/g.test(contactNumber)) {
       setFormErrors((prev) => ({
         ...prev,
         contactNumber: "invalid contact number",
@@ -113,10 +112,10 @@ const Container = () => {
 
     if (!date) {
       setFormErrors((prev) => ({ ...prev, pickUpDate: "date required" }));
-    } else if (selectedDate < now) {
+    } else if (selectedDate.getDay() === now.getDay() || selectedDate < now) {
       setFormErrors((prev) => ({
         ...prev,
-        pickUpDate: "past date cannot be selected",
+        pickUpDate: "past and today's date cannot be selected",
       }));
     } else {
       setFormErrors((prev) => ({ ...prev, pickUpDate: undefined }));
@@ -153,7 +152,7 @@ const Container = () => {
             type="text"
             label="Full Name"
             name="name"
-            placeholder="e.g. Arjun Kanojia"
+            placeholder="e.g. xyz"
             error={formErrors.name}
             handleChange={handleNameChange}
             style={lessRoundedBasicInputWithBorder}
@@ -162,7 +161,7 @@ const Container = () => {
             type="text"
             label="Email"
             name="email"
-            placeholder="e.g. arjunkanojia@gmail.com"
+            placeholder="e.g. xyz@gmail.com"
             error={formErrors.email}
             handleChange={handleEmailChange}
             style={lessRoundedBasicInputWithBorder}
@@ -171,7 +170,7 @@ const Container = () => {
             type="text"
             label="Contact Number"
             name="contactNumber"
-            placeholder="e.g. 9810136709"
+            placeholder="e.g. 8010801020"
             error={formErrors.contactNumber}
             handleChange={handleContactNumberChange}
             style={lessRoundedBasicInputWithBorder}
@@ -189,7 +188,7 @@ const Container = () => {
             type="date"
             label="PickUp Date"
             name="pickUpDate"
-            placeholder=""
+            placeholder="Select date"
             error={formErrors.pickUpDate}
             handleChange={handlePickUpDateChange}
             style={lessRoundedBasicInputWithBorder}
