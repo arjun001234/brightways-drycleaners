@@ -15,7 +15,7 @@ const Layout : React.FC = ({children}) => {
   const {openBooking} = React.useContext(AppContext);
 
   return (
-    <div className={`flex flex-col min-h-[calc(100vh - 64px)] h-auto min-w-screen scroll-smooth max-w-screen`}>
+    <div className={`flex flex-col min-h-[calc(100vh - 64px)] h-auto min-w-screen scroll-smooth max-w-[100vw]`}>
         <Header pathname={location.pathname} />
         <AnimatePresence exitBeforeEnter>
         <motion.main>
