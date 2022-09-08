@@ -56,7 +56,7 @@ export async function loader(): Promise<IndexPageData> {
 
 export const meta: MetaFunction = () => {
   return {
-    title: "Brightways Drycleaners",
+    title: "Brightways Dry Cleaners",
     description: `Since 1964, Brightways Dry cleaners has been providing the best dry cleaner services in Faridabad.
     We are experts in Clothes Dry Cleaning, Shoes Dry Clean, Curtain Dry Cleaning, Sofa Dry
     Cleaning, Carpet Dry Cleaning.

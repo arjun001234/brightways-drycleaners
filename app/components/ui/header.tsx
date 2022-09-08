@@ -50,7 +50,7 @@ const Header: React.FC<headerPropType> = () => {
       data-testid="header"
       className={`${
         visible && !open ? "-translate-y-full" : "translate-y-0"
-      } bg-white dark:bg-gray-900 fixed top-0 left-0 right-0 h-[100px] grid grid-cols-4 z-40 overflow-visible transition-transform duration-300 lg:overflow-hidden px-[20px] lg:px-[50px]`}
+      } max-w-[100vw] bg-white dark:bg-gray-900 fixed top-0 left-0 right-0 h-[100px] grid grid-cols-4 z-40 overflow-visible transition-transform duration-300 lg:overflow-hidden px-[20px] lg:px-[50px]`}
     >
       <section data-testid="header-logo-container" className="col-start-1 col-span-3 lg:col-span-1 flex justify-start items-center">
         <Link to="/">
