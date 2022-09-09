@@ -28,20 +28,20 @@ export const action : ActionFunction = async ({request}) => {
             })
       }
 
-      // if(input){
-      //       try {
-      //          await bookingModel.saveToDB(input);
-      //          await provider.sendBookingConfirmationEmailToCustomer(input);
-      //          await provider.sendBookingConfirmationEmailToOwner(input);
-      //          return json<FormResponse<definitions['bookings'],BookingValidationError>>({
-      //             success: "Booking Successful"
-      //          })
-      //       } catch (error) {
-      //          return json<FormResponse<definitions['bookings'],BookingValidationError>>({
-      //                   error: "Failed to book"
-      //          }) 
-      //       }
-      // }
+      if(input){
+            try {
+               await bookingModel.saveToDB(input);
+               await provider.sendBookingConfirmationEmailToCustomer(input);
+               await provider.sendBookingConfirmationEmailToOwner(input);
+               return json<FormResponse<definitions['bookings'],BookingValidationError>>({
+                  success: "Booking Successful"
+               })
+            } catch (error) {
+               return json<FormResponse<definitions['bookings'],BookingValidationError>>({
+                        error: "Failed to book"
+               }) 
+            }
+      }
 
       return json<FormResponse<definitions['bookings'],BookingValidationError>>({
             error: "Something went wrong"

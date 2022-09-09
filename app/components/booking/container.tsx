@@ -137,8 +137,8 @@ const Container = () => {
       {success ? <>
        <section className="flex flex-col gap-5 w-full">
         <h1 className="text-xl font-heading font-bold text-primary text-center">PICK-UP CONFIRMED!</h1>
-        <p className="text-base font-text text-gray-700 leading-6 w-full text-center">Thank you for contacting Brightways Drycleaners.</p>
-        <p className="text-base font-text text-gray-700 leading-6 w-full  text-center">Our Executive will contact you shortly.</p>
+        <p className="text-base font-text text-gray-700 dark:text-gray-400 leading-6 w-full text-center">Thank you for contacting Brightways Drycleaners.</p>
+        <p className="text-base font-text text-gray-700  dark:text-gray-400 leading-6 w-full  text-center">Our Executive will contact you shortly.</p>
        </section>
       </> :
       <>
