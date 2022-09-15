@@ -9,6 +9,8 @@ export type AppContextType = {
     isMobile: boolean
     openBooking: boolean
     openBookingModal: (value: boolean) => void
+    openOffers: boolean
+    setOpenOffers: (value: boolean) => void
 }
 
 export enum themeType {
@@ -20,7 +22,9 @@ export const AppContext = React.createContext<AppContextType>({
     isAuthenticated: false,
     isMobile: false,
     openBooking: false,
-    openBookingModal: (value: boolean) => {}
+    openBookingModal: (value: boolean) => {},
+    openOffers: false,
+    setOpenOffers: (value: boolean) => {}
 })
 
 const AppContextProvider : React.FC = ({children}) => {
@@ -28,6 +32,7 @@ const AppContextProvider : React.FC = ({children}) => {
     const {isAuthenticated,user} = useLoaderData<LayoutPageData>()
     const [isMobile,setIsMobile] = React.useState(false)
     const [bookingModal,setBookingModal] = React.useState(false);
+    const [openOffers,setOpenOffers] = React.useState(false);
 
     const setOpenBooking = (value: boolean) => {
         setBookingModal(value)
@@ -53,8 +58,15 @@ const AppContextProvider : React.FC = ({children}) => {
         return () => window.removeEventListener("resize",handleMobile)
     },[])
 
+    React.useEffect(() => {
+       const timeout = setTimeout(() => {
+        setOpenOffers(true)
+       },3000)
+       return () => clearTimeout(timeout);
+    },[])
+
     return (
-        <AppContext.Provider value={{isAuthenticated,isMobile,openBooking: bookingModal,openBookingModal: setOpenBooking}}>
+        <AppContext.Provider value={{isAuthenticated,isMobile,openBooking: bookingModal,openBookingModal: setOpenBooking,openOffers,setOpenOffers: (value: boolean) => {setOpenOffers(value)}}}>
          {children}
         </AppContext.Provider>
     )

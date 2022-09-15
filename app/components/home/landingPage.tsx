@@ -1,24 +1,21 @@
 import React from "react";
 import { IndexPageData } from "~/types/types";
 import { largeBasicButton } from "~/utils/styles";
-import { Link, useLoaderData } from "@remix-run/react";
-import Container from "../containers/container";
-import Grid from "../containers/grid";
+import { useLoaderData } from "@remix-run/react";
 import ScheduleButton from "../buttons/schedule.button";
-import dummy from '../../../public/images/dummy.png';
 
 const LandingPage: React.FC = () => {
   const { business } = useLoaderData<IndexPageData>();
 
   return (
         <div className="min-h-[100vh] h-auto pt-[120px] lg:pt-0 lg:h-[100vh] w-full relative flex justify-start items-center px-[10vw]">
-        <section className="flex flex-col z-20 w-full lg:w-[50%]">
+        <section className="flex flex-col z-30 w-full lg:w-[50%]">
           <p className="text-[42px] text-white font-semibold font-heading mx-auto overflow-hidden">
             {business.tagline}
           </p>
-          {/* <p className="text-xl text-gray-400 font-text mt-3 mb-5 lg:my-0">
+          <p className="text-xl text-white font-text mt-3 mb-5 lg:my-0">
             {business.shortDesc}
-          </p> */}
+          </p>
           <div className="flex flex-col lg:flex-row gap-5 my-4 overflow-visible w-full lg:w-auto">
             <ScheduleButton classes={`${largeBasicButton} text-white border-primary bg-primary`} />
             <button
@@ -36,6 +33,7 @@ const LandingPage: React.FC = () => {
             src={business.coverImage.imageUrl}
             className="w-full h-full"
           />
+          <span className="absolute top-0 left-0 right-0 bottom-0 z-20 lg:hidden bg-[rgba(0,0,0,0.3)]" />
         </section> 
         </div>
   );

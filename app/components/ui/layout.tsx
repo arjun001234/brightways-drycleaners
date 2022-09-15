@@ -7,12 +7,13 @@ import { useLocation } from '@remix-run/react';
 import PageLoader from './pageLoader';
 import Container from '../booking/container';
 import { AppContext } from '../context/appContext';
+import OfferBanner from '../offers/banner';
 
 const Layout : React.FC = ({children}) => {
 
   const location = useLocation();
 
-  const {openBooking} = React.useContext(AppContext);
+  const {openBooking,openOffers} = React.useContext(AppContext);
 
   return (
     <div className={`flex flex-col min-h-[calc(100vh - 64px)] h-auto min-w-screen scroll-smooth max-w-[100vw]`}>
@@ -24,6 +25,7 @@ const Layout : React.FC = ({children}) => {
         </AnimatePresence>
         {openBooking && <Container />}
         <PageLoader />
+        {openOffers && <OfferBanner />}
         <Footer/>
         <ToastContainer />
     </div>
