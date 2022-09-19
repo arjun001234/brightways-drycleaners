@@ -21,6 +21,7 @@ const ScheduleButton: React.FC<ScheduleButtonProps> = ({content = "Schedule a Pi
 
   return (
     <div
+      id="booking-button"
       onClick={() => openBookingModal(true)}
       className={`${classes} ${mobileVisibity ? "" : "lg:flex hidden"} `}
     >

@@ -112,12 +112,12 @@ const Document: React.FC<DocumentProps> = ({ children, env, nonce}) => {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <meta httpEquiv="Content-Security-Policy" content={`default-src 'self'  api.sanity.io;
-        style-src 'self' 'unsafe-hashes' fonts.googleapis.com 'sha256-lhyBwc40leacQ9n74ktreS/EGE1VNvHUKqW16hIOKvk=' 'sha256-b+83wK2HeZ9RpHdSrLD3Q7Czye/tctcoV2OrhN9EjgE=' https://fonts.googleapis.com 'sha256-mmA4m52ZWPKWAzDvKQbF7Qhx9VHCZ2pcEdC0f9Xn/Po=' 'sha256-59z2Ykt7odDkwf2/Ef0ZgCSGegjdzB0AWB4812PzQnA=' 'sha256-/VVOq+Ws/EiUxf2CU6tsqsHdOWqBgHSgwBPqCTjYD3U=' 'sha256-lqO9GtizDrXbeRXIR3ynpmU+gCyvU40G2GmqvrAGxBk=' 'sha256-k8VVyuObKUPygF5AIY0Saj1vg5MaPPa/250lyF74yPQ=' 'sha256-jPTo51UfMyQY49ExaRBNooDCP2NMF8PgeSYuKJSVZpA=' 'sha256-NsEzkM762veirpWZeMiqlWTPdCYrm1uJHLzzwfYnDLM='  'sha256-PNsPul0zQFUiYu9XLVKzTdD5Cz5ghp1MT4H5/zAeI3Q=' 'sha256-rHT1U9WJOVLE9rUndCJf6Am3teyvP74RMgE2Gh/yykk=';
-        img-src * 'self' www.googletagmanager.com https://*.googleapis.com https://*.gstatic.com *.google.com  *.googleusercontent.com data:;
-        script-src 'self' 'nonce-${nonce}' https://www.googletagmanager.com www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ maps.googleapis.com static.cloudflareinsights.com https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com;
+        style-src 'self' 'unsafe-hashes' fonts.googleapis.com 'sha256-lhyBwc40leacQ9n74ktreS/EGE1VNvHUKqW16hIOKvk=' 'sha256-b+83wK2HeZ9RpHdSrLD3Q7Czye/tctcoV2OrhN9EjgE=' https://fonts.googleapis.com 'sha256-mmA4m52ZWPKWAzDvKQbF7Qhx9VHCZ2pcEdC0f9Xn/Po=' 'sha256-59z2Ykt7odDkwf2/Ef0ZgCSGegjdzB0AWB4812PzQnA=' 'sha256-/VVOq+Ws/EiUxf2CU6tsqsHdOWqBgHSgwBPqCTjYD3U=' 'sha256-lqO9GtizDrXbeRXIR3ynpmU+gCyvU40G2GmqvrAGxBk=' 'sha256-k8VVyuObKUPygF5AIY0Saj1vg5MaPPa/250lyF74yPQ=' 'sha256-jPTo51UfMyQY49ExaRBNooDCP2NMF8PgeSYuKJSVZpA=' 'sha256-NsEzkM762veirpWZeMiqlWTPdCYrm1uJHLzzwfYnDLM='  'sha256-PNsPul0zQFUiYu9XLVKzTdD5Cz5ghp1MT4H5/zAeI3Q=' 'sha256-rHT1U9WJOVLE9rUndCJf6Am3teyvP74RMgE2Gh/yykk=' 'sha256-t6oewASd7J1vBg5mQtX4hl8bg8FeegYFM3scKLIhYUc=' 'sha256-t6oewASd7J1vBg5mQtX4hl8bg8FeegYFM3scKLIhYUc=';
+        img-src * 'self' www.googletagmanager.com https://www.google-analytics.com www.google-analytics.com https://stats.g.doubleclick.net https://*.googleapis.com https://*.gstatic.com *.google.com  *.googleusercontent.com data:;
+        script-src 'self' 'nonce-${nonce}' https://www.googletagmanager.com www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ maps.googleapis.com static.cloudflareinsights.com https://*.googleapis.com https://*.gstatic.com *.google.com https://*.ggpht.com *.googleusercontent.com https://www.google-analytics.com;
         font-src 'self' https://fonts.gstatic.com;
         frame-src *.google.com;
-        connect-src 'self' cloudflareinsights.com https://*.googleapis.com *.google.com https://*.gstatic.com  data: blob:;`} />
+        connect-src 'self' https://www.google-analytics.com www.google-analytics.com https://stats.g.doubleclick.net cloudflareinsights.com https://*.googleapis.com *.google.com https://*.gstatic.com  data: blob:;`} />
         <meta name="keywords" content="dry cleaner near me,brightways dry cleaners faridabad,brightways dry cleaners,best dry cleaners in faridabad,dry cleaners in nit faridabad,dryclean shop near me,drycleaner in sector 21c faridabad,drycleaner in sector 21c faridabad,curtain dry cleaning near me,dryclean shop near me,sofa dry cleaning,drycleaners,drycleaning,dry cleaning services near me" />
         {env && <script
         nonce={nonce}
@@ -152,8 +152,8 @@ const Document: React.FC<DocumentProps> = ({ children, env, nonce}) => {
         )}
         {nonce && <Scripts nonce={nonce} />}
         {nonce && <LiveReload nonce={nonce} />}
-        <noscript><iframe className=" hidden invisible" src="https://www.googletagmanager.com/ns.html?id=GTM-5LMVCRT"
-        height="0" width="0"></iframe></noscript>
+        {env && <noscript><iframe className=" hidden invisible" src={`https://www.googletagmanager.com/ns.html?id=${env.GOOGLE_TRACKING_ID}`}
+        height="0" width="0"></iframe></noscript>}
       </body>
     </html>
   );

@@ -21,7 +21,7 @@ const Service : React.FC<ServiceProps> = ({service}) => {
   },[containerRef])
 
   if(!service) {
-    return <div>Not Found</div>
+    return <div className='font-text text-xl text-gray-700 dark:text-gray-400 text-center py-5'>Not Found</div>
   }
 
   return (
