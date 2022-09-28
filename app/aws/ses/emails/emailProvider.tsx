@@ -57,7 +57,7 @@ class EmailProvider {
         try {
             const data = await sesClient.send(new SendTemplatedEmailCommand({
                 Destination: {
-                    ToAddresses: ["karan@brightwaysdrycleaners.com"]
+                    ToAddresses: ["info@brightwaysdrycleaners.com","support@brightwaysdrycleaners.com"]
                 },
                 Template: "booking_confirmation_to_owner",
                 TemplateData: JSON.stringify({
