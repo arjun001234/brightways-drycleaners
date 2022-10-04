@@ -1,20 +1,17 @@
-import { Store } from "~/types/types"
+
 import { sanityPostQueryUrl, sanityQueryClient, sanityQueryResponseType } from "../sanity.server"
+import { Store } from "../types"
 
 export const getStoresQuery = () => {
     return `*[_type == 'store']{
-        _id,
-        _rev,
-        _type,
-        _createdAt,
-        _updatedAt,
         address,
         contactNumber,
         direction,
         name,
         openOn,
-        timings
-      }`
+        timings,
+        id,
+      }[] | order(id asc)`
 }
 
 export const getStores = async () : Promise<Store[] | undefined> => {

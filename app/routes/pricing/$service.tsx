@@ -20,8 +20,6 @@ export const loader: LoaderFunction = async ({ params }) => {
 
   const items = await getItems(id)
 
-  console.log(items)
-
   if (!items){
     throw new Response("Service not found", { status: 404 });
   }

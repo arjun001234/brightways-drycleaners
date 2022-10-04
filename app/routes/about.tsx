@@ -32,12 +32,12 @@ const AbouPage = () => {
               <p className='text-lg font-text dark:text-gray-400 text-gray-700 leading-8 text-left w-full'>{business.detailedDesc}</p>
             </div>
             <div className='col-start-1 row-start-1 col-span-full lg:col-start-8 lg:col-span-5'>
-              <img loading='lazy' src={banner} className='w-full h-[400px]' />
+              <img loading='lazy' src={banner} alt="Brightways Drycleaners" className='w-full h-[400px]' />
             </div>
         </SectionWrapper>
         <SectionWrapper id="founder" heading="Founder's Note">
               <section className='h-auto w-full gap-y-1 col-start-1 col-span-full lg:col-span-4 row-start-1 self-center'>
-                <img loading='lazy' className='h-[200px] w-full rounded-[5px] object-contain' src={business.founder.image.imageUrl} alt={business.founder.image.alt} />
+                <img loading='lazy' className='h-[200px] w-full rounded-[5px] object-contain' src={business.founder.image.imageUrl} alt={business.founder.image.alt || business.founder.image.caption} />
                 <p className='h-[30px] w-full text-center font-text font-bold text-base mt-[2px] text-black dark:text-white'>1935 - 2016</p>
               </section>
               <section className='flex flex-col gap-5 items-center lg:items-start w-full row-start-2 lg:row-start-1 col-start-1 col-span-full lg:col-start-6 lg:col-span-7  mt-[20px] lg:mt-0'>

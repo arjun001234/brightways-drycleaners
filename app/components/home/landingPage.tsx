@@ -29,7 +29,7 @@ const LandingPage: React.FC = () => {
         </section>
         <section className="absolute top-0 left-0 right-0 bottom-0 z-10">
           <img
-            alt="brightways-landing-page-pic"
+            alt={business.coverImage.alt || business.coverImage.caption}
             src={business.coverImage.imageUrl}
             className="w-full h-full"
           />

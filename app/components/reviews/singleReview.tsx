@@ -26,7 +26,7 @@ const SingleReview : React.FC<SingleReviewsProps> = ({review}) => {
            {/* <p className={`${!isHomePage(location.pathname) ? "min-h-auto h-auto" : "min-h-[100px] h-[100px] mb-3"} text-[14px] dark:text-white text-black font-text font-semibold`}>"sss"</p> */}
            <section className="flex flex-row  items-center justify-between w-full">
             <div className="h-10 w-10 rounded-[50%]">
-              <img loading="lazy" className="w-full h-full rounded-[50%]" src={review.image.imageUrl} alt={review.image.alt} />
+              <img loading="lazy" className="w-full h-full rounded-[50%]" src={review.image.imageUrl} alt={review.image.alt || review.image.caption} />
             </div>
             <div className="flex flex-col justify-center items-left">
               <p className="font-heading font-bold text-md text-black dark:text-white">{review.name}</p>

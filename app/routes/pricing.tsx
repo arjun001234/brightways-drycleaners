@@ -23,7 +23,7 @@ export const loader: LoaderFunction = async (): Promise<PricingPageData> => {
 export const meta: MetaFunction = () => {
   return {
     title: "Pricing",
-    description: `At Brightways Dry cleaners, you will get best dry cleaning services at affordable prices. For best pricing, please contact us on 8010801020.`
+    description: `At Brightways Drycleaners, you will get best dry cleaning services at affordable prices. For best pricing, please contact us on 8010801020.`
   };
 };
 

@@ -21,7 +21,7 @@ const DeatailedService : React.FC<DetailedServiceProps> = ({service}) => {
             </div>
         </section>
         <section className='flex-1 flex flex-row h-auto w-full lg:min-w-[256px] lg:w-[256px] lg:max-w-[256px] h-[256px]'>
-          <img className='h-full w-full z-10 rounded-lg' src={service.image.imageUrl} alt={service.image.alt} />
+          <img className='h-full w-full z-10 rounded-lg' src={service.image.imageUrl} alt={service.image.alt || service.image.caption} />
         </section>
     </div>
   )

@@ -16,7 +16,7 @@ type ScheduleButtonProps = {
   classes?: string
 }
 
-const ScheduleButton: React.FC<ScheduleButtonProps> = ({content = "Schedule a Pickup",mobileVisibity = true,classes = basicButton}) => {
+const ScheduleButton: React.FC<ScheduleButtonProps> = ({content = "Schedule a PickUp",mobileVisibity = true,classes = basicButton}) => {
   const { openBookingModal } = React.useContext(AppContext);
 
   return (
