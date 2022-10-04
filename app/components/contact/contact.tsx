@@ -65,7 +65,7 @@ const Contact: React.FC = () => {
   return (
     <div className="w-full flex flex-col lg:flex-row justify-center align-middle overflow-visible col-start-1 col-span-full gap-5 lg:gap-10">
       <section className="flex justify-center items-center lg:flex-1 animate-bounce-in-left">
-        <img className="h-full w-full rounded-xl" src={image.imageUrl} alt={image.caption} />
+        <img className="h-full w-full rounded-xl" src={image.imageUrl} alt={image.alt || image.caption} />
       </section>
       <Form
         method="post"

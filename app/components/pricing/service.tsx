@@ -36,7 +36,7 @@ const Service : React.FC<ServiceProps> = ({service}) => {
           <p className='font-heading text-[18px] dark:text-white text-black'>Note</p>
           <ol className=' list-decimal flex flex-col gap-1'>
           <li className='font-heading text-base dark:text-gray-400 text-gray-700 leading-6'>Actual dry cleaning prices may vary depending on the actual garment(depending on fabric, texture, embellishments, level of embroidery or similar work, etc..)</li>
-          <li className='font-heading text-base dark:text-gray-400 text-gray-700 leading-6'>Minimum order value of 350 for free pickupand delivery.</li>
+          <li className='font-heading text-base dark:text-gray-400 text-gray-700 leading-6'>Minimum order value of 350 for free pickup and delivery.</li>
           </ol>
         </section>
     </div>

@@ -21,7 +21,7 @@ export interface LinkList {
 }
 
 export interface Image {
-    alt: string,
+    alt?: string,
     imageUrl: string,
     caption: string
 }
@@ -61,7 +61,7 @@ export type Metric = {
 }
 
 export type Store = {
-    _id: string
+    id: string
     address: string,
     contactNumber: string,
     direction: string,
